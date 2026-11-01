@@ -1,9 +1,134 @@
-@import 'tailwindcss';
+@import '@fontsource/plus-jakarta-sans/400.css';
+@import '@fontsource/plus-jakarta-sans/500.css';
+@import '@fontsource/plus-jakarta-sans/600.css';
+@import '@fontsource/plus-jakarta-sans/700.css';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+@import '@fontsource/space-grotesk/500.css';
+@import '@fontsource/space-grotesk/600.css';
+@import '@fontsource/space-grotesk/700.css';
+
+@import 'tailwindcss' source(none);
+
+@source '../views';
+@source '../js';
+@source '../../app';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-surface: #fdf8ff;
+    --color-surface-dim: #ddd7ed;
+    --color-surface-bright: #fdf8ff;
+    --color-surface-container-lowest: #ffffff;
+    --color-surface-container-low: #f7f1ff;
+    --color-surface-container: #f2ebff;
+    --color-surface-container-high: #ece5fc;
+    --color-surface-container-highest: #e6dff6;
+    --color-on-surface: #1c1929;
+    --color-on-surface-variant: #484555;
+    --color-inverse-surface: #322e3f;
+    --color-inverse-on-surface: #f4eeff;
+    --color-outline: #797586;
+    --color-outline-variant: #cac4d7;
+    --color-surface-tint: #613ede;
+    --color-surface-variant: #e6dff6;
+    --color-background: #fdf8ff;
+    --color-on-background: #1c1929;
+
+    --color-primary: #613dde;
+    --color-on-primary: #ffffff;
+    --color-primary-container: #7a5af8;
+    --color-on-primary-container: #ffffff;
+    --color-inverse-primary: #cabeff;
+    --color-primary-fixed: #e6deff;
+    --color-primary-fixed-dim: #cabeff;
+    --color-on-primary-fixed: #1d0061;
+    --color-on-primary-fixed-variant: #491ac6;
+
+    --color-secondary: #006b5c;
+    --color-on-secondary: #ffffff;
+    --color-secondary-container: #61f7db;
+    --color-on-secondary-container: #007060;
+    --color-secondary-fixed: #65fade;
+    --color-secondary-fixed-dim: #40ddc2;
+    --color-on-secondary-fixed: #00201b;
+    --color-on-secondary-fixed-variant: #005045;
+
+    --color-tertiary: #9d3b60;
+    --color-on-tertiary: #ffffff;
+    --color-tertiary-container: #bc5379;
+    --color-on-tertiary-container: #ffffff;
+    --color-tertiary-fixed: #ffd9e2;
+    --color-tertiary-fixed-dim: #ffb1c7;
+    --color-on-tertiary-fixed: #3e001d;
+    --color-on-tertiary-fixed-variant: #802349;
+
+    --color-error: #ba1a1a;
+    --color-on-error: #ffffff;
+    --color-error-container: #ffdad6;
+    --color-on-error-container: #93000a;
+
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-headline: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-metric: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+    --radius-card: 24px;
+    --radius-field: 16px;
+    --radius-sheet: 32px;
+    --radius-pill: 9999px;
+
+    --spacing-gutter: 1.25rem;
+    --spacing-gutter-desktop: 2rem;
+    --spacing-margin: 1rem;
+    --spacing-margin-tablet: 2rem;
+    --spacing-margin-desktop: 3rem;
+    --spacing-space-xs: 0.25rem;
+    --spacing-space-sm: 0.5rem;
+    --spacing-space-md: 1rem;
+    --spacing-space-lg: 1.5rem;
+    --spacing-space-xl: 2.25rem;
+}
+
+@layer components {
+    .glass-1 {
+        background-color: rgb(255 255 255 / 0.55);
+        backdrop-filter: blur(24px) saturate(160%);
+        -webkit-backdrop-filter: blur(24px) saturate(160%);
+        border: 1px solid rgb(255 255 255 / 0.7);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 12px 32px -4px rgb(31 25 54 / 0.08);
+    }
+
+    .glass-2 {
+        background-color: rgb(255 255 255 / 0.72);
+        backdrop-filter: blur(28px) saturate(180%);
+        -webkit-backdrop-filter: blur(28px) saturate(180%);
+        border: 1px solid rgb(255 255 255 / 0.7);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 12px 32px -4px rgb(31 25 54 / 0.08);
+    }
+
+    .glass-3 {
+        background-color: rgb(255 255 255 / 0.90);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgb(255 255 255 / 0.7);
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 12px 32px -4px rgb(31 25 54 / 0.08);
+    }
+
+    @supports not (backdrop-filter: blur(1px)) {
+        .glass-1, .glass-2, .glass-3 {
+            background-color: var(--color-surface-container-lowest);
+        }
+    }
+
+    .app-bg {
+        background-color: var(--color-surface);
+        background-image: 
+            radial-gradient(circle at 90% 10%, rgba(230, 222, 255, 0.45) 0%, transparent 40%),
+            radial-gradient(circle at 10% 40%, rgba(97, 247, 219, 0.25) 0%, transparent 45%),
+            radial-gradient(circle at 50% 90%, rgba(255, 217, 226, 0.3) 0%, transparent 50%);
+        background-attachment: fixed;
+    }
+
+    .tabular-nums {
+        font-variant-numeric: tabular-nums;
+    }
 }
