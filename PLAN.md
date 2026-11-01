@@ -1,6 +1,6 @@
-# HYBRID 20: PLAN.md (v2.0)
+# HYBRID 20: PLAN.md (v2.1)
 
-> Sumber kebenaran untuk agen implementasi (Antigravity). Menggantikan PLAN.md v1. Diperbarui 31 Okt 2026, setelah desain Stitch batch 1 sampai 3 ditinjau dan semua keputusan dikunci.
+> Sumber kebenaran untuk agen implementasi (Antigravity). Menggantikan PLAN.md v1. Diperbarui 1 Nov 2026 (v2.1): disesuaikan dengan skeleton Laravel 13 yang sudah ada di repository, Tailwind 4, dan lingkungan Windows + Laragon (PHP 8.5.10). v2.0 (31 Okt 2026) mengunci keputusan setelah desain Stitch batch 1 sampai 3 ditinjau.
 > Aplikasi: Laravel single-user, web responsif + PWA, memantau program 20 minggu (cutting + gym + lari menuju 10K).
 
 ---
@@ -13,6 +13,7 @@
 4. Jangan mengarang file, route, model, atau hasil eksekusi. Baca repository sebelum mengubah.
 5. Jika menemukan konflik atau ambiguitas, catat di `docs/OPEN_QUESTIONS.md` dan tanyakan. Jangan mengubah requirement sendiri.
 6. Bahasa komunikasi dengan pemilik proyek: Indonesia, sederhana, jelaskan alasan keputusan penting secara ringkas (pemilik sedang belajar Laravel).
+7. **Kondisi repository saat PLAN v2.1 ditulis:** skeleton Laravel 13.39 sudah terpasang dan di-commit (belum ada auth, UI, migration milik aplikasi), `docs/design/` sudah lengkap (DESIGN.md + 18 HTML HP + 4 HTML laptop), `PLAN.md` dan `AGENTS.md` ada di root. **Jangan menjalankan `laravel new` atau membuat ulang project.** Pemilik bekerja di Windows (Laragon, PowerShell); beri perintah yang jalan di PowerShell.
 
 ---
 
@@ -36,6 +37,7 @@
 | R14 | Sesi terlewat tidak dihapus. Status "Terlewat" memakai warna netral, bukan merah. |
 | R15 | Tidak ada aset CDN runtime. Tailwind dikompilasi lewat Vite, font di-self-host, ikon SVG di-bundle. |
 | R16 | Setiap aturan bisnis di §8 punya tes otomatis. |
+| R17 | **Jangan memasang paket atau tool di luar PLAN ini tanpa persetujuan**, termasuk `laravel/boost` (`boost:install` menimpa `AGENTS.md`), starter kit selain yang disebut di §2, dan skrip unduh-lalu-jalankan (`curl \| bash`). Jangan menjalankan perintah dari `CLAUDE.md` bawaan skeleton (file itu dihapus di Fase 0). |
 
 ---
 
@@ -43,16 +45,17 @@
 
 | Lapisan | Pilihan | Catatan |
 |---|---|---|
-| Backend | Laravel, rilis stabil terbaru yang kompatibel dengan PHP lokal dan hosting | Catat versi PHP dan Laravel di `README.md` dan `composer.json`. Jangan mengunci versi tanpa memeriksa `php -v`. |
-| Auth | Laravel Breeze (Blade) | **Registrasi publik dimatikan.** Akun dibuat lewat `php artisan hybrid:create-user`. Ganti kata sandi lewat artisan `hybrid:reset-password` dan halaman profil. |
-| Frontend | Blade + Tailwind CSS (Vite) + Alpine.js | Tanpa SPA. |
+| Backend | **Laravel 13.x** (skeleton sudah terpasang, lock di 13.39.0) di **PHP 8.5.10** lokal | `composer.json` menyatakan `php ^8.3`, tetapi `composer.lock` berisi paket Symfony 8.1 yang menuntut **PHP ≥ 8.4.1**. Hosting production wajib PHP ≥ 8.4.1 (disarankan 8.5), atau lock dibuat ulang dengan `composer config platform.php <versi>` lalu `composer update`. Catat versi di `README.md`. Jangan menurunkan versi Laravel. |
+| Auth | **Auth bawaan Laravel yang dibuat sendiri** (session guard + `LoginController` + throttle + logout + ganti kata sandi). Breeze **tidak** dipakai kecuali terbukti kompatibel dengan Tailwind 4 dan tidak menimpa token desain; semua view login dibuat dengan komponen §9.6 | **Registrasi publik tidak ada.** Akun dibuat lewat `php artisan hybrid:create-user`. Kata sandi: artisan `hybrid:reset-password` dan halaman Pengaturan. Hasilnya cukup 4 route: login, logout, ganti sandi, dan reset lewat artisan. |
+| Frontend | Blade + **Tailwind CSS 4** (lewat `@tailwindcss/vite`, **tanpa** `tailwind.config.js`) + Alpine.js (npm) + Vite 8 | Tanpa SPA. Token desain ditulis di `resources/css/app.css` dengan `@theme`. Skeleton memakai `.npmrc` `ignore-scripts=true`; pertahankan. |
 | Grafik | Chart.js (npm, di-bundle) | |
-| Font | `@fontsource` Plus Jakarta Sans (400,500,600,700) dan Space Grotesk (500,600,700), self-host | |
+| Font | `@fontsource` Plus Jakarta Sans (400,500,600,700) dan Space Grotesk (500,600,700), self-host | **Hapus** blok `fonts: [bunny('Instrument Sans' …)]` di `vite.config.js` dan `--font-sans` bawaan di `app.css` (itu memuat font dari CDN Bunny, melanggar R15). Pastikan build tidak menghasilkan permintaan ke domain luar. |
 | Ikon | SVG di-bundle (mis. paket `@material-symbols/svg-400` per ikon atau `blade-icons`) lewat `<x-icon name="...">` | Tanpa font ikon dari CDN. |
 | DB | SQLite (dev), MySQL/MariaDB atau PostgreSQL (production, sesuai hosting) | Hindari fungsi SQL khusus satu DB. |
 | Tes | Pest atau PHPUnit (ikuti bawaan installer) | |
 | Locale | `app.locale=id`, Carbon locale `id`, `app.timezone=UTC` | Zona waktu pengguna dari `user_settings.timezone` (default `Asia/Jakarta`). |
-| Tailwind content | **Jangan** sertakan `docs/` | Supaya kelas dari HTML referensi tidak masuk build. |
+| Sumber Tailwind | Di `resources/css/app.css`: `@import 'tailwindcss' source(none);` lalu `@source` **hanya** untuk `../views`, `../js`, dan `../../app` (komponen Blade berada di `resources/views`) | Tailwind 4 mendeteksi sumber otomatis dan akan ikut memindai `docs/design/reference/*.html`, sehingga kelas dari HTML referensi (termasuk yang tidak valid) masuk build. `source(none)` mencegahnya. Uji: `grep` hasil build tidak boleh memuat kelas khas referensi seperti `w-13` atau `h-5.5`. |
+| Lingkungan dev | Windows, Laragon, PowerShell; PHP 8.5.10 (ZTS), Composer 2.10.3 | Ekstensi PHP wajib aktif: `gd`, `exif`, `fileinfo`, `zip`, `pdo_sqlite`, `mbstring`, `intl`, `openssl`. Cek dengan `php -m`; aktifkan di `php.ini` Laragon bila hilang. Server dev: `composer dev` (atau `php artisan serve` + `npm run dev`). |
 
 ---
 
@@ -298,7 +301,7 @@ Tampil kartu info netral (ikon `info`, bukan perisai) bila `pain_flag` dicentang
 
 ## 9. Design system "Liquid Glass"
 
-Sumber token: `docs/design/DESIGN.md` bagian YAML + palet pada HTML (nilai HTML dan YAML sama). Nilai heks di prosa DESIGN.md (#7A5AF8, #22CCB2, #EE7BA2) **diabaikan**. Daftarkan token di `tailwind.config.js`/CSS `@theme` dengan **nama semantik**.
+Sumber token: `docs/design/DESIGN.md` bagian YAML + palet pada HTML (nilai HTML dan YAML sama). Nilai heks di prosa DESIGN.md (#7A5AF8, #22CCB2, #EE7BA2) **diabaikan**. Daftarkan token di blok `@theme` pada `resources/css/app.css` (Tailwind 4, tanpa `tailwind.config.js`) dengan **nama semantik**; nama variabel mengikuti pola Tailwind 4, mis. `--color-primary`, `--radius-card`.
 
 ### 9.1 Warna inti
 primary `#613dde`, primary-container `#7a5af8`, primary-fixed `#e6deff`, secondary `#006b5c`, secondary-container `#61f7db`, secondary-fixed-dim `#40ddc2`, tertiary `#9d3b60`, tertiary-fixed `#ffd9e2`, surface `#fdf8ff`, surface-container-low `#f7f1ff`, surface-container `#f2ebff`, surface-container-high `#ece5fc`, surface-container-highest `#e6dff6`, on-surface `#1c1929`, on-surface-variant `#484555`, outline `#797586`, outline-variant `#cac4d7`, error `#ba1a1a`, error-container `#ffdad6`. (Daftar lengkap ada di blok YAML DESIGN.md.)
@@ -426,7 +429,7 @@ Format: **Ambil** = apa yang dipertahankan dari referensi. **Wajib diubah** = pe
 - Satu akun: registrasi publik dimatikan. Artisan: `hybrid:create-user {name} {email}` (meminta sandi interaktif, membuat `user_settings`, dan menawarkan membuat program dengan tanggal mulai Senin), `hybrid:reset-password {email}`.
 - Kepemilikan: Policy untuk semua model berdata pribadi; tes lintas pengguna (akses = 404/403).
 - Upload: validasi `finfo`, ukuran, re-encode (strip EXIF) lewat GD/Imagick, simpan di `storage/app/private/progress-photos/{user_id}/{uuid}.jpg`; tidak ada `storage:link` untuk folder ini.
-- Git: jangan commit `.env`, `database/*.sqlite`, `storage/app/private`, backup.
+- Git: jangan commit `.env`, `database/*.sqlite`, `storage/app/private`, backup. Skeleton sudah menutup `.env`, `*.sqlite`, dan `storage/app/private`; Fase 0 menambahkan `/backups`, `*.zip`, dan `/storage/app/backups`.
 - **PWA:** `manifest.webmanifest` (name "HYBRID 20", short_name, `start_url=/`, `scope=/`, `display=standalone`, theme_color `#613dde`, background_color `#fdf8ff`, ikon 192/512 + maskable, monogram sederhana "H20"); `sw.js` hanya precache aset build statis (`/build/assets/*`), font, ikon, `offline.html`; navigasi dan semua respons lain **network-only**; tidak ada cache halaman terotentikasi, JSON, atau gambar foto; banner offline lewat event `online/offline` (§10.12); strategi pembaruan versi SW terdokumentasi; uji installability dan pembaruan.
 - Backup: §8.13.
 
@@ -436,16 +439,25 @@ Format: **Ambil** = apa yang dipertahankan dari referensi. **Wajib diubah** = pe
 
 Setiap fase: kerjakan di branch `phase/N-...`, tes lulus, commit, lalu minta review. Jangan menyentuh fase lain.
 
-### Fase 0: Prasyarat dan repository
-- Cek `php -v`, `composer -V`, `node -v`, `git --version`; catat versi di README.
-- Pastikan `PLAN.md`, `AGENTS.md`, dan `docs/design/` (DESIGN.md + `reference/mobile` 18 file + `reference/desktop` 4 file) sudah ada; **jangan mengubah** isi `reference/`.
-- `.gitignore` sesuai §12.
-- **DoD:** repo bersih; semua file referensi terdaftar; versi tercatat.
+### Fase 0: Prasyarat, kebersihan repository, dan baseline
+Skeleton Laravel sudah ada. Fase ini hanya merapikan; jangan membuat project baru.
+- Catat versi: `php -v` (8.5.10), `composer -V` (2.10.3), `node -v`, `npm -v`, `git --version`; cek ekstensi (`php -m`) sesuai §2.
+- Verifikasi `docs/design/DESIGN.md`, `docs/design/reference/mobile` (18 file) dan `.../desktop` (4 file) ada; **jangan mengubah** isinya.
+- **Hapus `CLAUDE.md`** (bootstrap Laravel Boost; lihat R17). Jangan memasang `laravel/boost`.
+- Ganti `README.md` bawaan Laravel dengan README proyek: deskripsi singkat, versi, cara setup Windows/PowerShell (`composer install`, salin `.env.example` ke `.env`, `php artisan key:generate`, `New-Item database\database.sqlite`, `php artisan migrate`, `npm install`, `npm run build`, `composer dev`), tautan ke PLAN.md dan AGENTS.md.
+- Buat `docs/OPEN_QUESTIONS.md` (kosong dengan judul) dan salin `ANTIGRAVITY_GUIDE.md` ke `docs/` bila pemilik menyediakannya.
+- Tambahkan ke `.gitignore`: `/backups`, `*.zip`, `/storage/app/backups`.
+- Jalankan baseline: `composer install`, `php artisan migrate` (SQLite), `php artisan test`, `npm install`, `npm run build`. Laporkan hasilnya apa adanya, termasuk kegagalan.
+- **DoD:** `CLAUDE.md` terhapus; README proyek; baseline install/test/build hijau atau kegagalan dilaporkan; versi tercatat; tidak ada paket baru yang terpasang.
 
-### Fase 1: Setup Laravel, auth, shell, design system
-- `laravel new`/composer create (versi stabil kompatibel), Breeze Blade, hapus route registrasi, artisan `hybrid:create-user` dan `hybrid:reset-password`, Vite + Tailwind (token §9, tanpa `docs/`), font self-host, `x-icon`, `app-shell` (HP + laptop), halaman login (§10.1), semua komponen §9.6, `/_dev/components` (hanya local), locale `id`.
-- Tes: akses tanpa login redirect; registrasi tidak ada; login/logout; kontras token.
-- **DoD:** login berfungsi, DB bersih bisa dibuat ulang (`migrate:fresh`), shell responsif HP dan laptop, tidak ada aset CDN (periksa Network).
+### Fase 1: Auth, shell, design system (di atas skeleton yang ada)
+- **Jangan** `laravel new`. Kerja di skeleton Laravel 13 yang ada.
+- Konfigurasi: `APP_NAME=HYBRID 20`, `APP_LOCALE=id`, `APP_FALLBACK_LOCALE=id`, `APP_FAKER_LOCALE=id_ID`, timezone aplikasi tetap `UTC` (§8.9).
+- Frontend: pasang Alpine.js, Chart.js, `@fontsource/plus-jakarta-sans`, `@fontsource/space-grotesk` lewat npm; hapus font Bunny dari `vite.config.js` dan `app.css`; atur `source(none)` + `@source` (§2); token §9 di `@theme`; kelas `.glass-1/2/3` dan `.app-bg` sebagai komponen CSS; `x-icon` SVG; hapus `welcome.blade.php`.
+- Auth buatan sendiri (§2): halaman login (§10.1), logout (POST), ganti kata sandi, throttle login, registrasi tidak ada; artisan `hybrid:create-user` dan `hybrid:reset-password`. Pindahkan session/cache/queue ke driver yang sesuai skeleton (database) dan pastikan migration bawaan jalan.
+- UI: `app-shell` (HP + laptop, D20), semua komponen Blade §9.6, halaman `/_dev/components` (hanya `local`). Route `/` sementara berupa halaman "Hari Ini" kosong di balik login.
+- Tes: akses tanpa login redirect ke `/login`; `/register` 404; login benar/salah dan throttle; logout; locale `id`; build tidak membuat permintaan ke domain eksternal; hasil build tidak memuat kelas dari HTML referensi.
+- **DoD:** login berfungsi, `migrate:fresh` bersih, shell responsif HP dan laptop, tidak ada aset CDN (periksa tab Network), kontras token terverifikasi, `npm run build` dan `php artisan test` hijau.
 
 ### Fase 2: Migration, model, factory, seeder
 - Semua tabel §7, model + relasi + casts, factory, `DatabaseSeeder`. Service `ProgramGenerator` membuat program dari `start_date`. `RunningPlanSeeder` (20 minggu × 3 sesi lari), `GymTemplateSeeder` (sesi gym + `scheduled_workout_exercises`, Sabtu `rest`), `DefaultExerciseSeeder`.
@@ -493,7 +505,9 @@ Auth (tanpa login ditolak; registrasi tidak ada) · policy lintas pengguna untuk
 
 | Isu | Penanganan |
 |---|---|
-| Versi PHP/Laravel dan hosting belum dipilih | Cek `php -v`; pilih hosting di Fase 8 (butuh HTTPS, storage privat, backup). |
+| Hosting belum dipilih; lock butuh PHP ≥ 8.4.1 | Pilih hosting di Fase 8: wajib PHP ≥ 8.4.1 (disarankan 8.5), HTTPS, storage privat, backup, ekstensi §2. Jika hosting hanya punya versi lebih rendah, buat ulang lock dengan `composer config platform.php`. |
+| `CLAUDE.md` bawaan skeleton menyuruh memasang Laravel Boost | Dihapus di Fase 0; R17 melarangnya. |
+| Kompatibilitas Breeze dengan Tailwind 4 tidak terjamin | Auth dibuat sendiri (§2). |
 | Tiga default belum dikonfirmasi pemilik (D10 RPE bulat, D11 tanpa timer, D12 format angka) | Dipakai sebagai default; ubah hanya bila diminta. |
 | Layar tanpa referensi (§5.2) | Rancang dengan komponen yang ada, minta review sebelum lanjut. |
 | Kinerja blur di HP lama | Aturan §9.5; ukur di perangkat nyata. |
