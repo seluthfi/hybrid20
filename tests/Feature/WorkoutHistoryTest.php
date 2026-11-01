@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Program;
+use App\Models\ProgramWeek;
+use App\Models\ScheduledWorkout;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -62,5 +65,39 @@ class WorkoutHistoryTest extends TestCase
         $response->assertOk();
         $response->assertDontSee('Rahasia Pengguna Lain');
         $response->assertSee('Belum Ada Catatan Latihan');
+    }
+
+    public function test_user_with_active_program_can_view_workout_history_with_stats(): void
+    {
+        $user = User::factory()->create();
+
+        $program = Program::factory()->create([
+            'user_id' => $user->id,
+            'status' => 'active',
+            'start_date' => now()->startOfWeek()->toDateString(),
+            'duration_weeks' => 20,
+        ]);
+
+        $week = ProgramWeek::factory()->create([
+            'program_id' => $program->id,
+            'week_number' => 1,
+            'calendar_position' => 1,
+        ]);
+
+        ScheduledWorkout::factory()->create([
+            'program_week_id' => $week->id,
+            'workout_type' => 'gym',
+            'status' => 'completed',
+        ]);
+
+        ScheduledWorkout::factory()->create([
+            'program_week_id' => $week->id,
+            'workout_type' => 'run',
+            'status' => 'planned',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('workouts.index'));
+        $response->assertOk();
+        $response->assertSee('Minggu 1');
     }
 }

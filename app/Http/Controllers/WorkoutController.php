@@ -67,9 +67,9 @@ class WorkoutController extends Controller
             $week = $program->weeks()->where('calendar_position', $currentPos)->first();
             if ($week) {
                 $weekLabel = "Minggu {$week->week_number}";
-                $totalScheduled = $week->workouts()->whereIn('workout_type', ['gym', 'run'])->count() ?: 8;
-                $completedSessions = $week->workouts()->where('status', 'completed')->count();
-                $partialCount = $week->workouts()->where('status', 'partial')->count();
+                $totalScheduled = $week->scheduledWorkouts()->whereIn('workout_type', ['gym', 'run'])->count() ?: 8;
+                $completedSessions = $week->scheduledWorkouts()->where('status', 'completed')->count();
+                $partialCount = $week->scheduledWorkouts()->where('status', 'partial')->count();
 
                 $weekStart = $this->dateService->weekStartDate($program->start_date, $currentPos)->toDateString();
                 $weekEnd = $this->dateService->weekStartDate($program->start_date, $currentPos)->addDays(6)->toDateString();
