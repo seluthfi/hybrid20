@@ -18,6 +18,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('today');
     })->name('today');
+
+    // Rencana (Plan) Routes
+    Route::get('/plan/{calendar_position?}', [\App\Http\Controllers\PlanController::class, 'show'])->name('plan.show');
+    Route::patch('/program-weeks/{id}', [\App\Http\Controllers\PlanController::class, 'updateNotes'])->name('program-weeks.update-notes');
+    Route::post('/program-weeks/{id}/repeat', [\App\Http\Controllers\PlanController::class, 'repeatWeek'])->name('program-weeks.repeat');
+    Route::delete('/program-weeks/{id}/repeat', [\App\Http\Controllers\PlanController::class, 'cancelRepeat'])->name('program-weeks.cancel-repeat');
+
+    // Scheduled Workouts Routes
+    Route::patch('/scheduled-workouts/{id}', [\App\Http\Controllers\ScheduledWorkoutController::class, 'update'])->name('scheduled-workouts.update');
+    Route::post('/scheduled-workouts/{id}/skip', [\App\Http\Controllers\ScheduledWorkoutController::class, 'skip'])->name('scheduled-workouts.skip');
+
+    // Pengaturan (Settings) Routes
+    Route::get('/settings', [\App\Http\Controllers\SettingsController::class, 'edit'])->name('settings.edit');
+    Route::match(['put', 'patch'], '/settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
+    Route::put('/settings/program', [\App\Http\Controllers\SettingsController::class, 'updateProgram'])->name('settings.update-program');
 });
 
 // Development Design System Preview (Local Environment Only)

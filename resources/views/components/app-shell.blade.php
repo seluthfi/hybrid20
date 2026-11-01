@@ -64,14 +64,16 @@
                         <span>Tubuh</span>
                     </a>
 
-                    <a href="#" 
-                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none text-on-surface hover:bg-surface-container-high/60">
+                    <a href="{{ route('plan.show') }}" 
+                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none {{ str_starts_with($currentRoute, 'plan.') ? 'bg-primary text-on-primary shadow-md shadow-primary/20' : 'text-on-surface hover:bg-surface-container-high/60' }}"
+                       @if(str_starts_with($currentRoute, 'plan.')) aria-current="page" @endif>
                         <x-icon name="schedule" class="w-5 h-5" />
                         <span>Rencana</span>
                     </a>
 
-                    <a href="#" 
-                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none text-on-surface hover:bg-surface-container-high/60">
+                    <a href="{{ route('settings.edit') }}" 
+                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none {{ str_starts_with($currentRoute, 'settings.') ? 'bg-primary text-on-primary shadow-md shadow-primary/20' : 'text-on-surface hover:bg-surface-container-high/60' }}"
+                       @if(str_starts_with($currentRoute, 'settings.')) aria-current="page" @endif>
                         <x-icon name="settings" class="w-5 h-5" />
                         <span>Pengaturan</span>
                     </a>
@@ -114,9 +116,6 @@
             <header class="h-20 px-12 glass-2 border-b border-outline-variant/30 flex items-center justify-between sticky top-0 z-20">
                 <div class="flex items-center gap-4">
                     <h1 class="font-headline text-xl font-bold tracking-tight text-on-surface">{{ $title }}</h1>
-                    <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-pill bg-surface-container-high/80 font-headline text-xs font-semibold text-on-surface-variant border border-outline-variant/30">
-                        Minggu 1 dari 20
-                    </span>
                 </div>
 
                 <div class="flex items-center gap-3">
@@ -144,12 +143,12 @@
             </div>
 
             <div class="flex items-center gap-1">
-                <button type="button" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface" aria-label="Rencana">
+                <a href="{{ route('plan.show') }}" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center {{ str_starts_with($currentRoute, 'plan.') ? 'text-primary' : 'text-on-surface-variant hover:text-on-surface' }}" aria-label="Rencana">
                     <x-icon name="schedule" class="w-5 h-5" />
-                </button>
-                <button type="button" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface" aria-label="Pengaturan">
+                </a>
+                <a href="{{ route('settings.edit') }}" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center {{ str_starts_with($currentRoute, 'settings.') ? 'text-primary' : 'text-on-surface-variant hover:text-on-surface' }}" aria-label="Pengaturan">
                     <x-icon name="settings" class="w-5 h-5" />
-                </button>
+                </a>
             </div>
         </header>
 
