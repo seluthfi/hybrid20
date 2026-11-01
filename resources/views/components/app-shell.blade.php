@@ -5,6 +5,15 @@
 @php
     $userName = auth()->user()->name ?? 'Pengguna';
     $currentRoute = request()->route() ? request()->route()->getName() : '';
+    $tz = auth()->user()->settings?->timezone ?? 'Asia/Jakarta';
+    $shellToday = \Carbon\Carbon::now($tz)->toDateString();
+    $shellLatestWeight = \App\Models\BodyMeasurement::where('user_id', auth()->id())
+        ->whereNotNull('weight_kg')
+        ->orderByDesc('measured_at')
+        ->first()?->weight_kg;
+    $shellTodaySteps = \App\Models\DailyActivity::where('user_id', auth()->id())
+        ->where('activity_date', $shellToday)
+        ->first()?->steps;
 @endphp
 
 <!DOCTYPE html>
@@ -19,7 +28,13 @@
     <!-- Scripts & Styles via Vite (Self-hosted fonts, Zero CDN) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="app-bg font-sans text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed" x-data="{ quickActionOpen: false }">
+<body class="app-bg font-sans text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed" 
+      x-data="{ 
+          quickActionOpen: false, 
+          weightModalOpen: false, 
+          stepsModalOpen: false, 
+          freeWorkoutModalOpen: false 
+      }">
 
     <!-- DESKTOP LAYOUT (Hidden on mobile < 1024px) -->
     <div class="hidden lg:flex min-h-screen">
@@ -46,8 +61,9 @@
                         <span>Hari Ini</span>
                     </a>
 
-                    <a href="#" 
-                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none text-on-surface hover:bg-surface-container-high/60">
+                    <a href="{{ route('workouts.index') }}" 
+                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none {{ str_starts_with($currentRoute, 'workouts.') ? 'bg-primary text-on-primary shadow-md shadow-primary/20' : 'text-on-surface hover:bg-surface-container-high/60' }}"
+                       @if(str_starts_with($currentRoute, 'workouts.')) aria-current="page" @endif>
                         <x-icon name="fitness_center" class="w-5 h-5" />
                         <span>Latihan</span>
                     </a>
@@ -169,8 +185,9 @@
                 </a>
 
                 <!-- 2. Latihan -->
-                <a href="#" 
-                   class="flex-1 flex flex-col items-center justify-center gap-0.5 py-1 rounded-pill transition-all select-none min-h-[48px] text-on-surface-variant hover:text-on-surface font-medium">
+                <a href="{{ route('workouts.index') }}" 
+                   class="flex-1 flex flex-col items-center justify-center gap-0.5 py-1 rounded-pill transition-all select-none min-h-[48px] {{ str_starts_with($currentRoute, 'workouts.') ? 'text-primary font-semibold' : 'text-on-surface-variant hover:text-on-surface font-medium' }}"
+                   @if(str_starts_with($currentRoute, 'workouts.')) aria-current="page" @endif>
                     <x-icon name="fitness_center" class="w-5 h-5" />
                     <span class="font-headline text-[12px] leading-none">Latihan</span>
                 </a>
@@ -263,7 +280,7 @@
 
                 <div class="flex flex-col gap-2.5 pt-1">
                     <!-- 1. Catat Makanan -->
-                    <a href="#" class="flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs">
+                    <button type="button" @click="quickActionOpen = false; alert('Pencatatan makanan tersedia di Fase 5.')" class="w-full flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs text-left">
                         <div class="flex items-center gap-3.5">
                             <div class="w-11 h-11 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0">
                                 <x-icon name="restaurant" class="w-5 h-5" />
@@ -274,10 +291,10 @@
                             </div>
                         </div>
                         <x-icon name="chevron_right" class="w-4 h-4 text-on-surface-variant" />
-                    </a>
+                    </button>
 
                     <!-- 2. Catat Berat -->
-                    <a href="#" class="flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs">
+                    <button type="button" @click="quickActionOpen = false; weightModalOpen = true" class="w-full flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs text-left">
                         <div class="flex items-center gap-3.5">
                             <div class="w-11 h-11 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0">
                                 <x-icon name="straighten" class="w-5 h-5" />
@@ -288,10 +305,10 @@
                             </div>
                         </div>
                         <x-icon name="chevron_right" class="w-4 h-4 text-on-surface-variant" />
-                    </a>
+                    </button>
 
                     <!-- 3. Catat Langkah -->
-                    <a href="#" class="flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs">
+                    <button type="button" @click="quickActionOpen = false; stepsModalOpen = true" class="w-full flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs text-left">
                         <div class="flex items-center gap-3.5">
                             <div class="w-11 h-11 rounded-full bg-primary-fixed text-primary flex items-center justify-center shrink-0">
                                 <x-icon name="directions_run" class="w-5 h-5" />
@@ -302,10 +319,10 @@
                             </div>
                         </div>
                         <x-icon name="chevron_right" class="w-4 h-4 text-on-surface-variant" />
-                    </a>
+                    </button>
 
                     <!-- 4. Latihan Lepas -->
-                    <a href="#" class="flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs">
+                    <button type="button" @click="quickActionOpen = false; freeWorkoutModalOpen = true" class="w-full flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs text-left">
                         <div class="flex items-center gap-3.5">
                             <div class="w-11 h-11 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center shrink-0">
                                 <x-icon name="fitness_center" class="w-5 h-5" />
@@ -316,10 +333,136 @@
                             </div>
                         </div>
                         <x-icon name="chevron_right" class="w-4 h-4 text-on-surface-variant" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CATAT BERAT BADAN -->
+    <div x-show="weightModalOpen" x-cloak @keydown.escape.window="weightModalOpen = false" class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="weight-modal-title">
+        <div class="fixed inset-0 bg-on-background/25 backdrop-blur-md" @click="weightModalOpen = false"></div>
+        <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
+            <div class="w-full lg:max-w-md glass-3 rounded-t-sheet lg:rounded-card p-6 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4">
+                <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">
+                    <div>
+                        <h3 id="weight-modal-title" class="font-headline text-lg font-bold text-on-surface">Catat Berat Badan</h3>
+                        <p class="font-sans text-xs text-on-surface-variant">Masukkan hasil timbangan badan</p>
+                    </div>
+                    <button type="button" @click="weightModalOpen = false" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface" aria-label="Tutup">
+                        <x-icon name="close" class="w-5 h-5" />
+                    </button>
+                </div>
+
+                <form x-data="{ weightDate: '{{ $shellToday }}' }" :action="'/body/' + weightDate" method="POST" class="flex flex-col gap-4">
+                    @csrf
+                    @method('PUT')
+
+                    <x-field label="Tanggal Timbangan" name="measured_at">
+                        <input type="date" x-model="weightDate" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
+                    </x-field>
+
+                    <x-field label="Berat Badan (kg)" name="weight_kg" hint="{{ $shellLatestWeight ? 'Terakhir: ' . \App\Support\Num::format($shellLatestWeight, 1) . ' kg' : 'Belum ada data' }}">
+                        <input type="text" name="weight_kg" inputmode="decimal" placeholder="Contoh: 74,5" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus />
+                    </x-field>
+
+                    <div class="flex items-center justify-end gap-2 pt-2">
+                        <x-button type="button" variant="ghost" @click="weightModalOpen = false">Batal</x-button>
+                        <x-button type="submit" variant="primary">Simpan Berat</x-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CATAT TOTAL LANGKAH -->
+    <div x-show="stepsModalOpen" x-cloak @keydown.escape.window="stepsModalOpen = false" class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="steps-modal-title">
+        <div class="fixed inset-0 bg-on-background/25 backdrop-blur-md" @click="stepsModalOpen = false"></div>
+        <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
+            <div class="w-full lg:max-w-md glass-3 rounded-t-sheet lg:rounded-card p-6 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4">
+                <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">
+                    <div>
+                        <h3 id="steps-modal-title" class="font-headline text-lg font-bold text-on-surface">Catat Total Langkah</h3>
+                        <p class="font-sans text-xs text-on-surface-variant">Isi total langkah harian</p>
+                    </div>
+                    <button type="button" @click="stepsModalOpen = false" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface" aria-label="Tutup">
+                        <x-icon name="close" class="w-5 h-5" />
+                    </button>
+                </div>
+
+                <form x-data="{ stepsDate: '{{ $shellToday }}' }" :action="'/daily-activities/' + stepsDate" method="POST" class="flex flex-col gap-4">
+                    @csrf
+                    @method('PUT')
+
+                    <x-field label="Tanggal Aktivitas" name="activity_date">
+                        <input type="date" x-model="stepsDate" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
+                    </x-field>
+
+                    <x-field label="Total Langkah" name="steps" hint="Total termasuk langkah saat lari">
+                        <input type="text" name="steps" inputmode="numeric" placeholder="Contoh: 10.000" value="{{ $shellTodaySteps ?? '' }}" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus />
+                    </x-field>
+
+                    <div class="flex items-center justify-end gap-2 pt-2">
+                        <x-button type="button" variant="ghost" @click="stepsModalOpen = false">Batal</x-button>
+                        <x-button type="submit" variant="primary">Simpan Langkah</x-button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL LATIHAN LEPAS -->
+    <div x-show="freeWorkoutModalOpen" x-cloak @keydown.escape.window="freeWorkoutModalOpen = false" class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="free-workout-modal-title">
+        <div class="fixed inset-0 bg-on-background/25 backdrop-blur-md" @click="freeWorkoutModalOpen = false"></div>
+        <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
+            <div class="w-full lg:max-w-md glass-3 rounded-t-sheet lg:rounded-card p-6 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4">
+                <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">
+                    <div>
+                        <h3 id="free-workout-modal-title" class="font-headline text-lg font-bold text-on-surface">Pilih Latihan Lepas</h3>
+                        <p class="font-sans text-xs text-on-surface-variant">Latihan di luar jadwal 20 minggu</p>
+                    </div>
+                    <button type="button" @click="freeWorkoutModalOpen = false" class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface" aria-label="Tutup">
+                        <x-icon name="close" class="w-5 h-5" />
+                    </button>
+                </div>
+
+                <div class="flex flex-col gap-3 py-2">
+                    <a href="{{ route('workouts.create', ['type' => 'gym']) }}" class="flex items-center gap-4 p-4 rounded-field glass-2 hover:bg-surface-container border border-outline-variant/30 transition-all">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                            <x-icon name="fitness_center" class="w-6 h-6" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-headline text-base font-bold text-on-surface">Latihan Gym Lepas</span>
+                            <span class="font-sans text-xs text-on-surface-variant">Catat repetisi, beban, dan set mandiri</span>
+                        </div>
+                    </a>
+
+                    <a href="{{ route('workouts.create', ['type' => 'run']) }}" class="flex items-center gap-4 p-4 rounded-field glass-2 hover:bg-surface-container border border-outline-variant/30 transition-all">
+                        <div class="w-12 h-12 rounded-full bg-secondary/10 text-secondary flex items-center justify-center shrink-0">
+                            <x-icon name="directions_run" class="w-6 h-6" />
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-headline text-base font-bold text-on-surface">Sesi Lari Lepas</span>
+                            <span class="font-sans text-xs text-on-surface-variant">Catat jarak km, durasi, dan pace mandiri</span>
+                        </div>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+
+    @if(session('toast'))
+        <x-toast 
+            :message="is_array(session('toast')) ? session('toast')['message'] : session('toast')" 
+            :icon="is_array(session('toast')) && (session('toast')['type'] ?? '') === 'error' ? 'error' : 'check'"
+        />
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                window.dispatchEvent(new CustomEvent('show-toast', {
+                    detail: { message: @json(is_array(session('toast')) ? session('toast')['message'] : session('toast')) }
+                }));
+            });
+        </script>
+    @endif
 </body>
 </html>

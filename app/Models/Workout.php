@@ -58,4 +58,13 @@ class Workout extends Model
     {
         return $this->hasMany(WorkoutExercise::class);
     }
+
+    public function calculateVolume(): float
+    {
+        $total = 0.0;
+        foreach ($this->exercises as $exercise) {
+            $total += $exercise->calculateVolume();
+        }
+        return $total;
+    }
 }

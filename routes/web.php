@@ -15,9 +15,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::put('/password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::get('/', function () {
-        return view('today');
-    })->name('today');
+    Route::get('/', [\App\Http\Controllers\TodayController::class, 'index'])->name('today');
+
+    // Workout Routes
+    Route::resource('workouts', \App\Http\Controllers\WorkoutController::class);
+
+    // Daily Activities & Body Measurements
+    Route::put('/daily-activities/{date}', [\App\Http\Controllers\DailyActivityController::class, 'upsert'])->name('daily-activities.upsert');
+    Route::put('/body/{date}', [\App\Http\Controllers\BodyMeasurementController::class, 'upsert'])->name('measurements.upsert');
 
     // Rencana (Plan) Routes
     Route::get('/plan/{calendar_position?}', [\App\Http\Controllers\PlanController::class, 'show'])->name('plan.show');

@@ -40,4 +40,12 @@ class WorkoutExercise extends Model
     {
         return $this->hasMany(ExerciseSet::class);
     }
+
+    public function calculateVolume(): float
+    {
+        return (float) $this->sets
+            ->where('is_warmup', false)
+            ->filter(fn ($s) => (float)$s->weight_kg > 0 && (int)$s->reps > 0)
+            ->sum(fn ($s) => (float)$s->weight_kg * (int)$s->reps);
+    }
 }
