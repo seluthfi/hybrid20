@@ -95,7 +95,7 @@
                         <div class="w-5 h-5 rounded-md border border-outline/50 flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary text-transparent peer-checked:text-white transition-all shadow-xs">
                             <x-icon name="check" class="w-3.5 h-3.5" />
                         </div>
-                        <span class="font-sans text-xs text-on-surface-variant font-medium">Ingat sesi di peramban ini</span>
+                        <span class="font-sans text-xs text-on-surface-variant font-medium">Ingat sesi</span>
                     </label>
                 </div>
 
