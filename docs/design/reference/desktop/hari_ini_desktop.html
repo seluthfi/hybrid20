@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary": "#9d3b60", "outline-variant": "#cac4d7", "on-secondary-container": "#007060", "on-primary-fixed": "#1d0061", "on-surface-variant": "#484555", "on-primary-fixed-variant": "#491ac6", "secondary-container": "#61f7db", "surface-bright": "#fdf8ff", "tertiary-fixed-dim": "#ffb1c7", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#802349", "surface-container-highest": "#e6dff6", "on-error-container": "#93000a", "on-primary": "#ffffff", "primary-fixed-dim": "#cabeff", "on-secondary-fixed": "#00201b", "primary-fixed": "#e6deff", "on-background": "#1c1929", "inverse-primary": "#cabeff", "on-primary-container": "#ffffff", "surface-variant": "#e6dff6", "secondary-fixed-dim": "#40ddc2", "surface-container-high": "#ece5fc", "background": "#fdf8ff", "on-tertiary": "#ffffff", "outline": "#797586", "on-secondary-fixed-variant": "#005045", "surface-dim": "#ddd7ed", "secondary-fixed": "#65fade", "on-error": "#ffffff", "on-secondary": "#ffffff", "surface-container-low": "#f7f1ff", "tertiary-fixed": "#ffd9e2", "error": "#ba1a1a", "surface-container": "#f2ebff", "surface": "#fdf8ff", "on-tertiary-fixed": "#3e001d", "tertiary-container": "#bc5379", "secondary": "#006b5c", "inverse-on-surface": "#f4eeff", "on-tertiary-container": "#ffffff", "primary-container": "#7a5af8", "surface-tint": "#613ede", "error-container": "#ffdad6", "inverse-surface": "#322e3f", "primary": "#613dde", "on-surface": "#1c1929" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "gutter": "1.25rem", "space-md": "1rem", "margin": "1rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter-desktop": "2rem", "margin-desktop": "3rem", "space-xl": "2.25rem", "margin-tablet": "2rem" }, "fontFamily": { "headline-sm": [ "Space Grotesk" ], "label-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Plus Jakarta Sans" ], "display": [ "Space Grotesk" ], "metric-tabular": [ "Space Grotesk" ], "headline-lg-mobile": [ "Space Grotesk" ], "body-sm": [ "Plus Jakarta Sans" ], "headline-lg": [ "Space Grotesk" ], "body-md": [ "Plus Jakarta Sans" ], "label-lg": [ "Plus Jakarta Sans" ], "display-mobile": [ "Space Grotesk" ], "headline-md": [ "Space Grotesk" ] }, "fontSize": { "headline-sm": [ "20px", { "lineHeight": "28px", "fontWeight": "600" } ], "label-md": [ "12px", { "lineHeight": "16px", "fontWeight": "600" } ], "body-lg": [ "18px", { "lineHeight": "28px", "fontWeight": "400" } ], "display": [ "48px", { "lineHeight": "56px", "fontWeight": "700" } ], "metric-tabular": [ "28px", { "lineHeight": "32px", "fontWeight": "700" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "34px", "fontWeight": "600" } ], "body-sm": [ "13px", { "lineHeight": "20px", "fontWeight": "400" } ], "headline-lg": [ "32px", { "lineHeight": "40px", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "fontWeight": "400" } ], "label-lg": [ "14px", { "lineHeight": "20px", "fontWeight": "600" } ], "display-mobile": [ "36px", { "lineHeight": "44px", "fontWeight": "700" } ], "headline-md": [ "24px", { "lineHeight": "32px", "fontWeight": "600" } ] } } } }</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><div class="fixed inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-primary-fixed/30 blur-[120px]"></div><div class="absolute top-1/3 -right-20 w-[500px] h-[500px] rounded-full bg-secondary-container/20 blur-[140px]"></div><div class="absolute -bottom-32 left-1/4 w-[700px] h-[700px] rounded-full bg-surface-container-high/60 blur-[130px]"></div></div><aside class="fixed left-0 top-0 h-full w-72 z-50 flex flex-col justify-between p-space-md bg-surface-container-lowest/65 backdrop-blur-[32px] shadow-[0_20px_40px_-8px_rgba(31,25,54,0.12),0_8px_16px_-4px_rgba(31,25,54,0.06)]"><div class="flex flex-col gap-space-lg"><div class="flex items-center gap-space-sm px-space-sm pt-space-xs"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-container to-primary flex items-center justify-center shadow-[0_8px_20px_rgba(104,66,237,0.30)]"><span class="material-symbols-outlined text-on-primary text-[20px]">vital_signs</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">HYBRID 20</span><span class="font-label-md text-label-md text-on-surface-variant">Athletic Performance</span></div></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary text-on-primary font-label-lg shadow-[0_8px_20px_rgba(104,66,237,0.28)] rounded-full"><a aria-current="page" class="group flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary text-on-primary font-label-lg shadow-[0_8px_20px_rgba(104,66,237,0.28)] rounded-full" data-path="hari-ini" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">today</span><span>Hari Ini</span></a><a class="group flex items-center gap-space-sm px-space-md py-space-sm rounded-full text-on-surface-variant font-label-lg hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="latihan" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">fitness_center</span><span>Latihan</span></a><a class="group flex items-center gap-space-sm px-space-md py-space-sm rounded-full text-on-surface-variant font-label-lg hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="makan" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">restaurant</span><span>Makan</span></a><a class="group flex items-center gap-space-sm px-space-md py-space-sm rounded-full text-on-surface-variant font-label-lg hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="tubuh" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">monitor_weight</span><span>Tubuh</span></a><a class="group flex items-center gap-space-sm px-space-md py-space-sm rounded-full text-on-surface-variant font-label-lg hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="rencana" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">event_note</span><span>Rencana</span></a><a class="group flex items-center gap-space-sm px-space-md py-space-sm rounded-full text-on-surface-variant font-label-lg hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="pengaturan" href="#"><span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110">settings</span><span>Pengaturan</span></a></nav></div><div class="p-space-sm rounded-lg bg-surface-container-lowest/70 backdrop-blur-[24px] shadow-[0_12px_32px_-4px_rgba(31,25,54,0.08)] flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-[0_4px_12px_rgba(97,61,222,0.25)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col min-w-0"><span class="font-label-lg text-label-lg text-on-surface truncate">Bima Satria</span><span class="font-label-md text-label-md text-on-surface-variant truncate">68.4 kg · 14.8% BF</span></div></div><div class="w-2 h-2 rounded-full bg-secondary-fixed-dim shrink-0 shadow-[0_0_8px_rgba(64,221,194,0.8)]"></div></div></aside><div class="pl-72 relative z-10"><header class="fixed top-0 left-72 right-0 h-20 z-40 bg-surface-container-lowest/40 backdrop-blur-[24px] shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-gutter-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant"><span class="hover:text-on-surface transition-colors cursor-pointer">Program Hybrid</span><span class="material-symbols-outlined text-[16px]">chevron_right</span><span class="text-on-surface font-semibold">Fase 1</span></div><div class="hidden md:flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-lowest/80 shadow-[0_4px_12px_-2px_rgba(31,25,54,0.04)]"><span class="w-2 h-2 rounded-full bg-tertiary-container"></span><span class="font-label-md text-label-md text-on-surface">Minggu 1 dari 20 · Cutting &amp; 10K Base</span></div></div><div class="flex items-center gap-space-sm"><div class="hidden lg:flex items-center gap-space-sm px-space-md py-space-xs rounded-full bg-surface-container-lowest/80 text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">flag</span><span class="font-label-md text-label-md">Target 10K: Sub-50m</span></div><button class="w-10 h-10 rounded-full bg-surface-container-lowest/80 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all shadow-[0_4px_12px_-2px_rgba(31,25,54,0.04)]" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 shadow-[0_4px_12px_rgba(97,61,222,0.25)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="relative pt-20 w-full min-h-screen px-gutter-desktop py-space-xl bg-transparent"><div class="flex flex-col w-full max-w-[1360px] mx-auto gap-space-lg">
+<!-- Top Hero Status Bar (Liquid Glass Pill) -->
+<div class="w-full rounded-lg p-space-md bg-surface-container-lowest/60 backdrop-blur-[28px] shadow-[0_12px_32px_-4px_rgba(31,25,54,0.06)] flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-12 h-12 rounded-full bg-gradient-to-tr from-primary to-primary-container flex items-center justify-center text-on-primary shadow-[0_8px_18px_rgba(97,61,222,0.3)] shrink-0">
+<span class="material-symbols-outlined text-[24px]">flare</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md uppercase tracking-wider text-primary">Hari 2 · Selasa</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">Fase 1: Akumulasi Fondasi</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface tracking-tight truncate">Selasa, 14 Mei 2024</h1>
+</div>
+</div>
+<!-- Motivational Micro-badge & Quick State -->
+<div class="flex items-center gap-space-md">
+<div class="hidden xl:flex flex-col items-end">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Kondisi Kebugaran</span>
+<span class="font-label-lg text-label-lg text-secondary font-semibold">Siap Latihan (RPE Ref: 7.5)</span>
+</div>
+<div class="px-space-md py-space-xs rounded-full bg-surface-container-high/80 text-on-surface font-label-md text-label-md flex items-center gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">offline_bolt</span>
+<span>Defisit Terkendali (-350 kcal)</span>
+</div>
+</div>
+</div>
+<!-- Dual Column Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT COLUMN (Span 7) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<!-- Kartu Sesi Hari Ini -->
+<div class="rounded-lg p-space-lg bg-surface-container-lowest/70 backdrop-blur-[32px] shadow-[0_16px_36px_-6px_rgba(31,25,54,0.08)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">calendar_today</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Sesi Latihan Hari Ini</h2>
+</div>
+<span class="px-space-sm py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-md text-label-md">2 Target Aktif</span>
+</div>
+<!-- Sub-card 1: Gym Strength Routine -->
+<div class="p-space-md rounded-DEFAULT bg-surface-container-low/80 backdrop-blur-[20px] shadow-sm flex flex-col gap-space-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-md text-label-md font-semibold">Direncanakan</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Est. 45 Menit</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Back / Biceps / Traps</h3>
+</div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">6 Latihan</span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs pt-space-xs">
+<div class="p-space-xs px-space-sm rounded-DEFAULT bg-surface-container-lowest/90 flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Lat Pulldown</span>
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">4 × 10 (60kg)</span>
+</div>
+<div class="p-space-xs px-space-sm rounded-DEFAULT bg-surface-container-lowest/90 flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Barbell Row</span>
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">3 × 8 (70kg)</span>
+</div>
+<div class="p-space-xs px-space-sm rounded-DEFAULT bg-surface-container-lowest/90 flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Incline Curl</span>
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">3 × 12 (14kg)</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Fokus RPE 7-8 · Tempo kontrol 2-0-1</span>
+<button class="px-space-md py-2 rounded-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-label-lg text-label-lg shadow-[0_8px_18px_rgba(97,61,222,0.3)] hover:opacity-95 transition-transform active:scale-95 flex items-center gap-space-xs" type="button">
+<span>Mulai Sesi</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Sub-card 2: Running Session -->
+<div class="p-space-md rounded-DEFAULT bg-surface-container-low/80 backdrop-blur-[20px] shadow-sm flex flex-col gap-space-sm hover:shadow-md transition-shadow">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">directions_run</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-full bg-secondary/10 text-secondary font-label-md text-label-md font-semibold">Aerobic Base</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Zona 2</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mt-0.5">Easy Run · Target 2,0 km</h3>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-md text-label-md text-on-surface-variant block">Est. Waktu</span>
+<span class="font-label-lg text-label-lg font-semibold text-on-surface">13:30 m</span>
+</div>
+</div>
+<div class="p-space-xs px-space-sm rounded-DEFAULT bg-surface-container-lowest/90 flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[18px]">volume_up</span>
+<span class="font-body-sm text-body-sm font-medium">Petunjuk: “Pace santai, masih bisa bicara santai tanpa terengah-engah.”</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-secondary">Target Pace 6:30 - 6:45 /km</span>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-2 rounded-full bg-surface-container-highest text-on-surface-variant font-label-lg text-label-lg hover:bg-surface-container hover:text-on-surface transition-all" type="button">
+              Lewati
+            </button>
+<button class="px-space-md py-2 rounded-full bg-secondary text-on-secondary font-label-lg text-label-lg shadow-[0_8px_18px_rgba(0,107,92,0.25)] hover:opacity-95 transition-transform active:scale-95 flex items-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px]">play_circle</span>
+<span>Catat Lari</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Status Sesi Pekan Ini (Horizontal 7-day Strip) -->
+<div class="rounded-lg p-space-lg bg-surface-container-lowest/70 backdrop-blur-[32px] shadow-[0_16px_36px_-6px_rgba(31,25,54,0.08)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">view_week</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Status Sesi Pekan Ini</h2>
+</div>
+<span class="font-label-lg text-label-lg font-semibold text-primary">1 dari 5 sesi selesai</span>
+</div>
+<div class="grid grid-cols-7 gap-space-xs sm:gap-space-sm text-center">
+<!-- SENIN (Selesai) -->
+<div class="flex flex-col items-center gap-space-xs p-space-sm rounded-DEFAULT bg-surface-container-low/70">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Sen</span>
+<div class="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-secondary">Selesai</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Chest/Tri</span>
+</div>
+<!-- SELASA (Aktif / Hari Ini) -->
+<div class="flex flex-col items-center gap-space-xs p-space-sm rounded-DEFAULT bg-primary/10 shadow-[0_4px_16px_rgba(97,61,222,0.15)] relative">
+<span class="font-label-md text-label-md text-primary font-bold">Sel</span>
+<div class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_4px_12px_rgba(97,61,222,0.35)] animate-pulse">
+<span class="material-symbols-outlined text-[18px]">adjust</span>
+</div>
+<span class="font-label-md text-label-md font-bold text-primary">Aktif</span>
+<span class="font-body-sm text-body-sm text-primary font-medium">Back/2k</span>
+</div>
+<!-- RABU (Istirahat Aktif) -->
+<div class="flex flex-col items-center gap-space-xs p-space-sm rounded-DEFAULT bg-surface-container-low/70">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Rab</span>
+<div class="w-9 h-9 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">self_improvement</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Recovery</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mobility</span>
+</div>
+<!-- KAMIS (Direncanakan) -->
+<div class="flex flex-col items-center gap-space-xs p-space-sm rounded-DEFAULT bg-surface-container-low/70">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Kam</span>
+<div class="w-9 h-9 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Rencana</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Legs</span>
+</div>
+<!-- JUMAT (Direncanakan) -->
+<div class="flex flex-col items-center gap-space-xs p-space-sm rounded-DEFAULT bg-surface-container-low/70">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Jum</span>
+<div class="w-9 h-9 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Rencana</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Shoulder</span>
+</div>
+<!-- SABTU (Istirahat Penuh) -->
+<div class="flex flex-col items-center gap-space-xs p-space-sm rounded-DEFAULT bg-surface-container-low/70">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Sab</span>
+<div class="w-9 h-9 rounded-full bg-surface-container text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">hotel</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Off</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Rest Full</span>
+</div>
+<!-- MINGGU (Direncanakan - Long Run) -->
+<div class="flex flex-col items-center gap-space-xs p-space-sm rounded-DEFAULT bg-surface-container-low/70">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Min</span>
+<div class="w-9 h-9 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Rencana</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Run 3k</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN (Span 5) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Kartu Progres Harian (Kalori, Protein, Langkah) -->
+<div class="rounded-lg p-space-lg bg-surface-container-lowest/70 backdrop-blur-[32px] shadow-[0_16px_36px_-6px_rgba(31,25,54,0.08)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">nutrition</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Progres Nutrisi &amp; Gerak</h2>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">Per Hari Ini</span>
+</div>
+<div class="flex flex-col gap-space-md">
+<!-- Bar 1: Kalori -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-tertiary">local_fire_department</span>
+<span class="font-label-lg text-label-lg font-medium text-on-surface">Asupan Kalori</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">1.240</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ 2.200 kcal</span>
+</div>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full rounded-full bg-gradient-to-r from-tertiary-container to-tertiary transition-all duration-500 shadow-sm" style="width: 56%;"></div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-md text-label-md">Sisa 960 kcal</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary/10 text-tertiary font-label-md text-label-md font-semibold">Defisit -350 kcal</span>
+</div>
+</div>
+<!-- Bar 2: Target Protein -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">egg_alt</span>
+<span class="font-label-lg text-label-lg font-medium text-on-surface">Target Protein</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">82</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ 140 g</span>
+</div>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full rounded-full bg-gradient-to-r from-primary-container to-primary transition-all duration-500 shadow-sm" style="width: 58.5%;"></div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-md text-label-md">Sisa 58 g</span>
+<span class="font-label-md text-label-md font-semibold text-primary">Target: 2.0g/kg LBM</span>
+</div>
+</div>
+<!-- Bar 3: Langkah Harian -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex justify-between items-baseline">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-secondary">footprint</span>
+<span class="font-label-lg text-label-lg font-medium text-on-surface">Langkah Harian</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">4.300</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">/ 10.000</span>
+</div>
+</div>
+<div class="w-full h-3 rounded-full bg-surface-container-highest overflow-hidden">
+<div class="h-full rounded-full bg-gradient-to-r from-secondary-container to-secondary transition-all duration-500 shadow-sm" style="width: 43%;"></div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-md text-label-md">5.700 langkah tersisa</span>
+<span class="font-label-md text-label-md font-semibold text-secondary">43% Tercapai</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Kartu Berat Badan & Tren 7 Hari -->
+<div class="rounded-lg p-space-lg bg-surface-container-lowest/70 backdrop-blur-[32px] shadow-[0_16px_36px_-6px_rgba(31,25,54,0.08)] flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">monitor_weight</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Berat Badan &amp; Tren 7 Hari</h2>
+</div>
+<span class="px-space-sm py-1 rounded-full bg-secondary/10 text-secondary font-label-md text-label-md font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[16px]">trending_down</span>
+<span>-0,35 kg</span>
+</span>
+</div>
+<div class="flex items-baseline gap-space-sm">
+<span class="font-display text-display text-on-surface tracking-tight">73,8</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant">kg</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-auto">Rerata pekan lalu: 74,15 kg</span>
+</div>
+<!-- Inline SVG 7-Day Trend Chart -->
+<div class="w-full relative pt-2">
+<svg class="w-full h-32 overflow-visible" viewbox="0 0 400 130">
+<defs>
+<lineargradient id="weightGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#613dde" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#613dde" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Guideline Lines -->
+<line opacity="0.35" stroke="#cac4d7" stroke-dasharray="3,3" x1="10" x2="390" y1="20" y2="20"></line>
+<line opacity="0.35" stroke="#cac4d7" stroke-dasharray="3,3" x1="10" x2="390" y1="60" y2="60"></line>
+<line opacity="0.35" stroke="#cac4d7" stroke-dasharray="3,3" x1="10" x2="390" y1="100" y2="100"></line>
+<!-- Area Fill -->
+<polygon fill="url(#weightGrad)" points="20,40 80,48 140,55 200,62 260,70 320,78 380,88 380,120 20,120"></polygon>
+<!-- Smooth Trend Line -->
+<polyline fill="none" points="20,40 80,48 140,55 200,62 260,70 320,78 380,88" stroke="#613dde" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline>
+<!-- Data Points -->
+<circle cx="20" cy="40" fill="#ffffff" r="4" stroke="#613dde" stroke-width="2"></circle>
+<circle cx="80" cy="48" fill="#ffffff" r="4" stroke="#613dde" stroke-width="2"></circle>
+<circle cx="140" cy="55" fill="#ffffff" r="4" stroke="#613dde" stroke-width="2"></circle>
+<circle cx="200" cy="62" fill="#ffffff" r="4" stroke="#613dde" stroke-width="2"></circle>
+<circle cx="260" cy="70" fill="#ffffff" r="4" stroke="#613dde" stroke-width="2"></circle>
+<circle cx="320" cy="78" fill="#ffffff" r="4" stroke="#613dde" stroke-width="2"></circle>
+<circle cx="380" cy="88" fill="#613dde" r="5" stroke="#ffffff" stroke-width="2.5"></circle>
+<!-- Value Labels on Current -->
+<text fill="#1c1929" font-family="Space Grotesk" font-size="11" font-weight="700" text-anchor="middle" x="380" y="75">73.8</text>
+</svg>
+<!-- Day Labels -->
+<div class="flex justify-between px-2 pt-1 font-label-md text-label-md text-on-surface-variant">
+<span>Rab</span>
+<span>Kam</span>
+<span>Jum</span>
+<span>Sab</span>
+<span>Min</span>
+<span>Sen</span>
+<span class="text-primary font-bold">Hari Ini</span>
+</div>
+</div>
+<div class="p-space-xs px-space-sm rounded-DEFAULT bg-surface-container-high/60 flex items-center gap-space-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-secondary">info</span>
+<span class="font-body-sm text-body-sm">Tren 7 hari: penurunan teratur dalam batas target defisit kalori (0,4 - 0,6 kg/minggu).</span>
+</div>
+</div>
+</div>
+</div>
+<!-- FULL-WIDTH SECTION: Grouped Bar Chart Pekan 1-20 -->
+<div class="w-full rounded-lg p-space-lg bg-surface-container-lowest/75 backdrop-blur-[36px] shadow-[0_20px_40px_-8px_rgba(31,25,54,0.08)] flex flex-col gap-space-lg">
+<!-- Header of Chart Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">bar_chart</span>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Jarak Lari per Minggu (Target vs Aktual)</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Rencana periodisasi 20 pekan menuju target 10K Sub-50m dengan 3 blok beban &amp; deload terjadwal.</p>
+</div>
+<!-- Legend & Current Status Pill -->
+<div class="flex items-center flex-wrap gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-3.5 h-3.5 rounded-sm bg-primary-container"></span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Target Jarak (km)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3.5 h-3.5 rounded-sm bg-secondary"></span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Aktual Selesai (km)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3.5 h-3.5 rounded-sm bg-tertiary-container/40"></span>
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Deload Week</span>
+</div>
+</div>
+<div class="px-space-md py-space-xs rounded-full bg-primary/10 text-primary font-label-md text-label-md font-semibold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span>Pekan 1: 2,1 km / 5,0 km (Sedang Berjalan)</span>
+</div>
+</div>
+</div>
+<!-- Grouped Bar Chart Container -->
+<div class="w-full overflow-x-auto pb-space-sm">
+<div class="min-w-[980px] flex flex-col gap-space-sm">
+<!-- Y-Axis Reference Lines and Chart Bars Container -->
+<div class="h-64 relative flex items-end justify-between px-4 pt-6">
+<!-- Background Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none px-4">
+<div class="w-full flex items-center gap-2">
+<span class="font-label-md text-label-md text-outline-variant w-8">35 km</span>
+<div class="w-full h-px bg-outline-variant/20"></div>
+</div>
+<div class="w-full flex items-center gap-2">
+<span class="font-label-md text-label-md text-outline-variant w-8">25 km</span>
+<div class="w-full h-px bg-outline-variant/20"></div>
+</div>
+<div class="w-full flex items-center gap-2">
+<span class="font-label-md text-label-md text-outline-variant w-8">15 km</span>
+<div class="w-full h-px bg-outline-variant/20"></div>
+</div>
+<div class="w-full flex items-center gap-2">
+<span class="font-label-md text-label-md text-outline-variant w-8">5 km</span>
+<div class="w-full h-px bg-outline-variant/20"></div>
+</div>
+<div class="w-full flex items-center gap-2">
+<span class="font-label-md text-label-md text-outline-variant w-8">0 km</span>
+<div class="w-full h-px bg-outline-variant/40"></div>
+</div>
+</div>
+<!-- 20 Week Bars Grouped -->
+<div class="relative z-10 w-full pl-10 flex items-end justify-between gap-1 h-full pb-2">
+<!-- Pekan 1 (Aktif) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container shadow-sm group-hover:brightness-110 transition-all" style="height: 14%;" title="Target: 5.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary shadow-sm group-hover:brightness-110 transition-all relative" style="height: 6%;" title="Aktual: 2.1 km">
+<span class="absolute -top-6 -left-3 px-1.5 py-0.5 rounded bg-on-background text-surface text-[10px] font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">2.1k</span>
+</div>
+</div>
+<span class="font-label-md text-label-md font-bold text-primary">P1</span>
+</div>
+<!-- Pekan 2 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 18%;" title="Target: 6.5 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P2</span>
+</div>
+<!-- Pekan 3 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 24%;" title="Target: 8.5 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P3</span>
+</div>
+<!-- Pekan 4 (DELOAD 1) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group bg-tertiary-container/10 rounded-t-sm">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-tertiary-container shadow-sm" style="height: 15%;" title="Target Deload: 5.5 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md font-bold text-tertiary">P4</span>
+<span class="text-[9px] uppercase tracking-tighter text-tertiary font-semibold -mt-1">Deload</span>
+</div>
+</div>
+<!-- Pekan 5 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 28%;" title="Target: 10.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P5</span>
+</div>
+<!-- Pekan 6 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 34%;" title="Target: 12.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P6</span>
+</div>
+<!-- Pekan 7 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 40%;" title="Target: 14.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P7</span>
+</div>
+<!-- Pekan 8 (DELOAD 2) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group bg-tertiary-container/10 rounded-t-sm">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-tertiary-container shadow-sm" style="height: 26%;" title="Target Deload: 9.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md font-bold text-tertiary">P8</span>
+<span class="text-[9px] uppercase tracking-tighter text-tertiary font-semibold -mt-1">Deload</span>
+</div>
+</div>
+<!-- Pekan 9 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 46%;" title="Target: 16.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P9</span>
+</div>
+<!-- Pekan 10 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 52%;" title="Target: 18.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P10</span>
+</div>
+<!-- Pekan 11 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 58%;" title="Target: 20.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P11</span>
+</div>
+<!-- Pekan 12 (DELOAD 3) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group bg-tertiary-container/10 rounded-t-sm">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-tertiary-container shadow-sm" style="height: 38%;" title="Target Deload: 13.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md font-bold text-tertiary">P12</span>
+<span class="text-[9px] uppercase tracking-tighter text-tertiary font-semibold -mt-1">Deload</span>
+</div>
+</div>
+<!-- Pekan 13 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 64%;" title="Target: 22.5 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P13</span>
+</div>
+<!-- Pekan 14 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 70%;" title="Target: 24.5 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P14</span>
+</div>
+<!-- Pekan 15 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 76%;" title="Target: 26.5 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P15</span>
+</div>
+<!-- Pekan 16 (DELOAD 4) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group bg-tertiary-container/10 rounded-t-sm">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-tertiary-container shadow-sm" style="height: 48%;" title="Target Deload: 16.5 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md font-bold text-tertiary">P16</span>
+<span class="text-[9px] uppercase tracking-tighter text-tertiary font-semibold -mt-1">Deload</span>
+</div>
+</div>
+<!-- Pekan 17 (Peak Volume) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 85%;" title="Peak Target: 30.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P17</span>
+</div>
+<!-- Pekan 18 -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 72%;" title="Target: 25.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P18</span>
+</div>
+<!-- Pekan 19 (Taper) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-primary-container/80 shadow-sm" style="height: 48%;" title="Target Taper: 16.0 km"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant">P19</span>
+</div>
+<!-- Pekan 20 (RACE WEEK / 10K SUB-50) -->
+<div class="flex-1 flex flex-col items-center h-full justify-end group bg-secondary-container/20 rounded-t-sm">
+<div class="flex items-end justify-center gap-1 w-full h-full pb-1">
+<div class="w-2.5 rounded-t-sm bg-secondary shadow-md" style="height: 38%;" title="Target Race: 13.0 km (Termasuk Race 10K)"></div>
+<div class="w-2.5 rounded-t-sm bg-secondary/30" style="height: 0%;"></div>
+</div>
+<div class="flex flex-col items-center">
+<span class="font-label-md text-label-md font-bold text-secondary">P20</span>
+<span class="text-[9px] uppercase tracking-tighter text-secondary font-bold -mt-1">Race</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Insights Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-sm">
+<div class="p-space-sm rounded-DEFAULT bg-surface-container-high/40 flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">fitness_tracker</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Target Volume Mingguan Saat Ini</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">5,0 km (3 Sesi Run)</span>
+</div>
+</div>
+<div class="p-space-sm rounded-DEFAULT bg-surface-container-high/40 flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary text-[20px]">healing</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Jadwal Deload Terdekat</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Pekan 4 (Volume -30%)</span>
+</div>
+</div>
+<div class="p-space-sm rounded-DEFAULT bg-surface-container-high/40 flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[20px]">military_tech</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">Sasaran Akhir Program</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">10K Race Day &lt; 50:00 (Pace 4:59)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive active link matching for application shell
+  document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('aside nav a');
+    navLinks.forEach(link => {
+      if (link.getAttribute('data-path') === 'hari-ini') {
+        link.className = 'group flex items-center gap-space-sm px-space-md py-space-sm rounded-full bg-primary text-on-primary font-label-lg shadow-[0_8px_20px_rgba(104,66,237,0.28)] transition-all';
+      }
+    });
+  });
+</script></main></div></body></html>

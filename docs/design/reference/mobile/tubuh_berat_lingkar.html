@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;min-height:100vh;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.ambient-mesh{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 15% 15%, rgba(122,90,248,0.12) 0%, transparent 45%), radial-gradient(circle at 85% 25%, rgba(64,221,194,0.12) 0%, transparent 40%), radial-gradient(circle at 50% 80%, rgba(157,59,96,0.06) 0%, transparent 50%);}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-high": "#ece5fc", "on-secondary-fixed-variant": "#005045", "tertiary-fixed-dim": "#ffb1c7", "error-container": "#ffdad6", "surface": "#fdf8ff", "primary-container": "#7a5af8", "tertiary-fixed": "#ffd9e2", "secondary-fixed-dim": "#40ddc2", "background": "#fdf8ff", "surface-bright": "#fdf8ff", "on-primary": "#ffffff", "secondary": "#006b5c", "error": "#ba1a1a", "on-primary-container": "#ffffff", "primary-fixed": "#e6deff", "on-tertiary-container": "#ffffff", "on-tertiary": "#ffffff", "surface-dim": "#ddd7ed", "on-tertiary-fixed": "#3e001d", "surface-container-low": "#f7f1ff", "tertiary-container": "#bc5379", "inverse-on-surface": "#f4eeff", "surface-tint": "#613ede", "on-primary-fixed-variant": "#491ac6", "on-secondary": "#ffffff", "on-error-container": "#93000a", "surface-variant": "#e6dff6", "surface-container-highest": "#e6dff6", "on-surface-variant": "#484555", "secondary-container": "#61f7db", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#802349", "primary": "#613dde", "outline-variant": "#cac4d7", "inverse-primary": "#cabeff", "on-secondary-container": "#007060", "tertiary": "#9d3b60", "inverse-surface": "#322e3f", "surface-container": "#f2ebff", "on-error": "#ffffff", "secondary-fixed": "#65fade", "outline": "#797586", "on-background": "#1c1929", "primary-fixed-dim": "#cabeff", "on-primary-fixed": "#1d0061", "on-secondary-fixed": "#00201b", "on-surface": "#1c1929" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "gutter-desktop": "2rem", "margin-desktop": "3rem", "space-xs": "0.25rem", "margin-tablet": "2rem", "space-sm": "0.5rem", "gutter": "1.25rem", "space-lg": "1.5rem", "space-md": "1rem", "space-xl": "2.25rem", "margin": "1rem" }, fontFamily: { "headline-lg-mobile": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "metric-tabular": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "headline-md": ["Space Grotesk"], "display-mobile": ["Space Grotesk"], "label-lg": ["Plus Jakarta Sans"], "display": ["Space Grotesk"], "headline-sm": ["Space Grotesk"], "body-lg": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "600" }], "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "600" }], "metric-tabular": ["28px", { lineHeight: "32px", fontWeight: "700" }], "body-md": ["15px", { lineHeight: "24px", fontWeight: "400" }], "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }], "display-mobile": ["36px", { lineHeight: "44px", fontWeight: "700" }], "label-lg": ["14px", { lineHeight: "20px", fontWeight: "600" }], "display": ["48px", { lineHeight: "56px", fontWeight: "700" }], "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "body-sm": ["13px", { lineHeight: "20px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "600" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-on-surface antialiased relative min-h-screen"><div class="ambient-mesh"></div><header class="fixed top-0 w-full z-50 pt-safe bg-surface/75 backdrop-blur-[32px] shadow-[0_4px_24px_rgba(31,25,54,0.04)]"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-full bg-gradient-to-tr from-primary to-secondary-fixed flex items-center justify-center shadow-[0_4px_12px_rgba(97,61,222,0.25)]"><span class="material-symbols-outlined text-on-primary text-[20px]">bolt</span></div><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight uppercase">Tubuh</span></div><div class="flex items-center gap-space-xs"><button aria-label="Kalender Mingguan" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-highest/50 transition-all"><span class="material-symbols-outlined text-[22px]">calendar_today</span></button><button aria-label="Pengaturan Program" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-highest/50 transition-all"><span class="material-symbols-outlined text-[22px]">tune</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs shadow-[0_2px_8px_rgba(97,61,222,0.3)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-28 px-margin bg-transparent z-10"><div class="flex flex-col w-full gap-space-lg">
+<!-- Header Context Badge & Title -->
+<div class="flex flex-col gap-space-xs px-space-xs">
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-space-xs px-3 py-1 rounded-full bg-surface-container-high/70 backdrop-blur-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed shadow-[0_0_8px_rgba(64,221,194,0.8)]"></span>
+<span class="font-label-md text-label-md text-secondary font-bold tracking-wide uppercase">Fase Cutting 20 Minggu</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-lowest/60 px-2.5 py-1 rounded-full backdrop-blur-sm shadow-sm">
+        Minggu 8 / 20
+      </span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight font-bold">
+        Metrik Tubuh
+      </h1>
+<span class="font-body-sm text-body-sm text-on-surface-variant font-medium">Target: -0.4 kg/minggu</span>
+</div>
+</div>
+<!-- Segmented Navigation Bar (Pill Glass Selector) -->
+<div class="w-full p-1.5 rounded-full bg-surface-container/60 backdrop-blur-[24px] shadow-sm flex items-center gap-1 relative">
+<button class="flex-1 py-2 rounded-full bg-surface-container-lowest text-primary font-label-lg text-label-lg shadow-[0_4px_16px_rgba(97,61,222,0.14)] flex items-center justify-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">straighten</span>
+<span>Berat &amp; Lingkar</span>
+</button>
+<button class="flex-1 py-2 rounded-full text-on-surface-variant hover:text-on-surface font-label-lg text-label-lg flex items-center justify-center gap-1.5 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+<span>Foto Progres</span>
+</button>
+</div>
+<!-- Weight Progress Card & 7-Day Sparkline (Glass-1 / Glass-2) -->
+<div class="relative overflow-hidden rounded-lg bg-surface-container-lowest/70 backdrop-blur-[32px] p-space-lg shadow-[0_16px_36px_-6px_rgba(31,25,54,0.08)] flex flex-col gap-space-md">
+<!-- Ambient Refraction Highlight -->
+<div class="absolute -top-12 -right-12 w-44 h-44 rounded-full bg-gradient-to-br from-primary-container/20 to-secondary-fixed/20 blur-2xl pointer-events-none"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant font-bold">Berat Badan Saat Ini</span>
+<div class="flex items-baseline gap-1.5 mt-0.5">
+<span class="font-display-mobile text-display-mobile text-on-surface font-bold tracking-tight">73,5</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant font-medium">kg</span>
+</div>
+</div>
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-secondary-container/50 backdrop-blur-md shadow-sm">
+<span class="material-symbols-outlined text-secondary text-[16px] font-bold">trending_down</span>
+<span class="font-label-md text-label-md text-on-secondary-container font-bold">-0,35 kg</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant relative z-10 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed shadow-[0_0_6px_rgba(64,221,194,0.8)]"></span>
+      Tren 7 hari: penurunan stabil &amp; teratur dalam batas target defisit kalori.
+    </p>
+<!-- Inline Line Chart Area -->
+<div class="w-full flex flex-col gap-space-xs mt-1 pt-2 relative z-10">
+<div class="relative w-full h-36">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 320 120">
+<defs>
+<lineargradient id="violetArea" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#7a5af8" stop-opacity="0.32"></stop>
+<stop offset="100%" stop-color="#7a5af8" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="violetStroke" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#9d3b60"></stop>
+<stop offset="50%" stop-color="#7a5af8"></stop>
+<stop offset="100%" stop-color="#40ddc2"></stop>
+</lineargradient>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="4" flood-color="#7a5af8" flood-opacity="0.35" stddeviation="3"></fedropshadow>
+</filter>
+</defs>
+<!-- Baseline Target Grid -->
+<line stroke="#cac4d7" stroke-dasharray="3 4" stroke-opacity="0.6" stroke-width="1.5" x1="0" x2="320" y1="105" y2="105"></line>
+<!-- Area Fill -->
+<path d="M 10,25 Q 55,20 100,45 T 180,55 T 260,78 T 310,88 L 310,120 L 10,120 Z" fill="url(#violetArea)"></path>
+<!-- Main Smooth Spline -->
+<path d="M 10,25 Q 55,20 100,45 T 180,55 T 260,78 T 310,88" fill="none" filter="url(#glow)" stroke="url(#violetStroke)" stroke-linecap="round" stroke-width="3.5"></path>
+<!-- Data Points -->
+<circle cx="10" cy="25" fill="#fdf8ff" r="3.5" stroke="#9d3b60" stroke-width="2.5"></circle>
+<circle cx="60" cy="26" fill="#fdf8ff" r="3.5" stroke="#7a5af8" stroke-width="2.5"></circle>
+<circle cx="110" cy="48" fill="#fdf8ff" r="3.5" stroke="#7a5af8" stroke-width="2.5"></circle>
+<circle cx="160" cy="52" fill="#fdf8ff" r="3.5" stroke="#7a5af8" stroke-width="2.5"></circle>
+<circle cx="210" cy="62" fill="#fdf8ff" r="3.5" stroke="#7a5af8" stroke-width="2.5"></circle>
+<circle cx="260" cy="78" fill="#fdf8ff" r="3.5" stroke="#40ddc2" stroke-width="2.5"></circle>
+<circle class="shadow-md" cx="310" cy="88" fill="#40ddc2" r="5" stroke="#ffffff" stroke-width="2.5"></circle>
+</svg>
+<!-- Current point indicator badge -->
+<div class="absolute right-0 top-16 transform translate-x-1 -translate-y-6 flex items-center gap-1 bg-surface-container-lowest/90 px-2 py-0.5 rounded-full shadow-md backdrop-blur-md">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim"></span>
+<span class="font-label-md text-label-md text-on-surface font-bold">73,5</span>
+</div>
+</div>
+<!-- X-Axis Labels -->
+<div class="flex justify-between items-center px-1 font-label-md text-label-md text-on-surface-variant font-medium">
+<span>Min</span>
+<span>Sen</span>
+<span>Sel</span>
+<span>Rab</span>
+<span>Kam</span>
+<span>Jum</span>
+<span class="text-primary font-bold">Sab</span>
+</div>
+<!-- Horizontal baseline description -->
+<div class="mt-2 pt-2 flex items-center justify-between bg-surface-container-high/40 rounded-full px-3 py-1.5 backdrop-blur-sm">
+<div class="flex items-center gap-2">
+<span class="w-3 h-0.5 bg-outline-variant rounded-full"></span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Target Akhir Minggu 20</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">68,0 kg</span>
+</div>
+</div>
+</div>
+<!-- Quick-Input Card (Glass-1 with Interactive Steppers) -->
+<div class="flex flex-col gap-space-md p-space-lg rounded-lg bg-surface-container-lowest/80 backdrop-blur-[32px] shadow-[0_12px_32px_-4px_rgba(31,25,54,0.06)] relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Catat Ukuran Terkini</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Hari ini, Sabtu 3 Nov</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed/60 flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+</div>
+</div>
+<!-- Metrics Steppers Stack -->
+<div class="flex flex-col gap-space-sm" id="measurement-steppers">
+<!-- Berat Badan (Primary) -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container/50 backdrop-blur-[16px] shadow-sm">
+<div class="flex items-center gap-space-sm pl-space-xs">
+<div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">scale</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Berat Badan</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Satuan kilogram</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Kurangi Berat" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('weight-val', -0.1, 1)" type="button">−</button>
+<div class="w-18 text-center px-1 font-metric-tabular text-headline-sm text-on-surface font-bold">
+<span id="weight-val">73.5</span> <span class="text-label-md text-on-surface-variant font-normal">kg</span>
+</div>
+<button aria-label="Tambah Berat" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('weight-val', 0.1, 1)" type="button">+</button>
+</div>
+</div>
+<!-- Lingkar Pinggang -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container/50 backdrop-blur-[16px] shadow-sm">
+<div class="flex items-center gap-space-sm pl-space-xs">
+<div class="w-9 h-9 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Lingkar Pinggang</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Level pusar</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Kurangi Pinggang" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('waist-val', -0.5, 1)" type="button">−</button>
+<div class="w-18 text-center px-1 font-metric-tabular text-headline-sm text-on-surface font-bold">
+<span id="waist-val">82.0</span> <span class="text-label-md text-on-surface-variant font-normal">cm</span>
+</div>
+<button aria-label="Tambah Pinggang" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('waist-val', 0.5, 1)" type="button">+</button>
+</div>
+</div>
+<!-- Lingkar Dada -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container/50 backdrop-blur-[16px] shadow-sm">
+<div class="flex items-center gap-space-sm pl-space-xs">
+<div class="w-9 h-9 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Lingkar Dada</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Bagian terlebar dada</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Kurangi Dada" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('chest-val', -0.5, 1)" type="button">−</button>
+<div class="w-18 text-center px-1 font-metric-tabular text-headline-sm text-on-surface font-bold">
+<span id="chest-val">96.0</span> <span class="text-label-md text-on-surface-variant font-normal">cm</span>
+</div>
+<button aria-label="Tambah Dada" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('chest-val', 0.5, 1)" type="button">+</button>
+</div>
+</div>
+<!-- Lingkar Lengan -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container/50 backdrop-blur-[16px] shadow-sm">
+<div class="flex items-center gap-space-sm pl-space-xs">
+<div class="w-9 h-9 rounded-full bg-primary-container/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">sports_martial_arts</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Lingkar Lengan</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Biceps kanan relaks</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Kurangi Lengan" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('arm-val', -0.5, 1)" type="button">−</button>
+<div class="w-18 text-center px-1 font-metric-tabular text-headline-sm text-on-surface font-bold">
+<span id="arm-val">34.0</span> <span class="text-label-md text-on-surface-variant font-normal">cm</span>
+</div>
+<button aria-label="Tambah Lengan" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('arm-val', 0.5, 1)" type="button">+</button>
+</div>
+</div>
+<!-- Lingkar Paha -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container/50 backdrop-blur-[16px] shadow-sm">
+<div class="flex items-center gap-space-sm pl-space-xs">
+<div class="w-9 h-9 rounded-full bg-secondary-fixed/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">directions_run</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface font-semibold">Lingkar Paha</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Paha tengah kanan</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Kurangi Paha" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('thigh-val', -0.5, 1)" type="button">−</button>
+<div class="w-18 text-center px-1 font-metric-tabular text-headline-sm text-on-surface font-bold">
+<span id="thigh-val">55.0</span> <span class="text-label-md text-on-surface-variant font-normal">cm</span>
+</div>
+<button aria-label="Tambah Paha" class="w-9 h-9 rounded-full bg-surface-container-lowest text-on-surface flex items-center justify-center shadow-sm active:scale-90 transition-transform text-lg font-bold" onclick="updateVal('thigh-val', 0.5, 1)" type="button">+</button>
+</div>
+</div>
+</div>
+<!-- Action Pill Button -->
+<button class="w-full mt-1 py-3.5 px-6 rounded-full bg-gradient-to-r from-primary to-primary-container text-on-primary font-headline-sm text-label-lg font-bold shadow-[0_12px_28px_rgba(97,61,222,0.32)] active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="save-metrics-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span>Perbarui Ukuran Hari Ini</span>
+</button>
+</div>
+<!-- History List (Riwayat Catatan Tubuh) -->
+<div class="flex flex-col gap-space-sm mt-1">
+<div class="flex items-center justify-between px-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">history</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Riwayat Pengukuran</h3>
+</div>
+<button class="font-label-md text-label-md text-primary font-bold hover:underline" type="button">Lihat Semua</button>
+</div>
+<!-- Card Rows -->
+<div class="flex flex-col gap-space-xs">
+<!-- Row 1 (Hari Ini) -->
+<div class="p-space-md rounded-lg bg-surface-container-lowest/70 backdrop-blur-[24px] shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(97,61,222,0.6)]"></span>
+<span class="font-label-lg text-label-lg text-on-surface font-bold">Hari Ini, 3 Nov</span>
+</div>
+<span class="font-metric-tabular text-headline-sm text-primary font-bold">73,5 kg</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 pt-1 border-t-0">
+<span class="px-2.5 py-1 rounded-full bg-surface-container/60 font-body-sm text-[12px] text-on-surface-variant font-medium">
+            Pinggang: <strong class="text-on-surface font-bold">82 cm</strong>
+</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container/60 font-body-sm text-[12px] text-on-surface-variant font-medium">
+            Lengan: <strong class="text-on-surface font-bold">34 cm</strong>
+</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container/60 font-body-sm text-[12px] text-on-surface-variant font-medium">
+            Paha: <strong class="text-on-surface font-bold">55 cm</strong>
+</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="p-space-md rounded-lg bg-surface-container-lowest/50 backdrop-blur-[24px] shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+<span class="font-label-lg text-label-lg text-on-surface font-medium">Minggu, 1 Nov</span>
+</div>
+<span class="font-metric-tabular text-headline-sm text-on-surface font-bold">73,8 kg</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 pt-1 border-t-0">
+<span class="px-2.5 py-1 rounded-full bg-surface-container/50 font-body-sm text-[12px] text-on-surface-variant font-medium">
+            Pinggang: <strong class="text-on-surface font-bold">82,5 cm</strong>
+</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container/50 font-body-sm text-[12px] text-on-surface-variant font-medium">
+            Lengan: <strong class="text-on-surface font-bold">34 cm</strong>
+</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container/50 font-body-sm text-[12px] text-on-surface-variant font-medium">
+            Dada: <strong class="text-on-surface font-bold">96 cm</strong>
+</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="p-space-md rounded-lg bg-surface-container-lowest/50 backdrop-blur-[24px] shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+<span class="font-label-lg text-label-lg text-on-surface font-medium">Kamis, 29 Okt</span>
+</div>
+<span class="font-metric-tabular text-headline-sm text-on-surface font-bold">74,1 kg</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 pt-1 border-t-0">
+<span class="px-2.5 py-1 rounded-full bg-surface-container/50 font-body-sm text-[12px] text-on-surface-variant font-medium">
+            Pinggang: <strong class="text-on-surface font-bold">83 cm</strong>
+</span>
+<span class="px-2.5 py-1 rounded-full bg-surface-container/50 font-body-sm text-[12px] text-on-surface-variant font-medium">
+            Defisit: <strong class="text-secondary font-bold">-400 kcal</strong>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Helper to dynamically adjust metric steppers
+  function updateVal(id, delta, decimals) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    let curr = parseFloat(el.textContent);
+    if (isNaN(curr)) return;
+    curr = Math.max(0, curr + delta);
+    el.textContent = curr.toFixed(decimals);
+  }
+
+  // Active state visual indication on 'Tubuh' tab in shell navbar
+  document.addEventListener("DOMContentLoaded", () => {
+    const tubuhTab = document.querySelector('nav a[data-path="tubuh"]');
+    if (tubuhTab) {
+      tubuhTab.classList.remove('text-on-surface-variant');
+      tubuhTab.classList.add('text-primary', 'font-bold');
+      const icon = tubuhTab.querySelector('.material-symbols-outlined');
+      if (icon) {
+        icon.style.fontVariationSettings = "'FILL' 1";
+      }
+    }
+
+    // Interactive button toast simulation
+    const saveBtn = document.getElementById('save-metrics-btn');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        const originalText = saveBtn.innerHTML;
+        saveBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">done_all</span><span>Tersimpan di Cloud!</span>';
+        saveBtn.classList.replace('from-primary', 'from-secondary');
+        saveBtn.classList.replace('to-primary-container', 'to-secondary-fixed');
+        setTimeout(() => {
+          saveBtn.innerHTML = originalText;
+          saveBtn.classList.replace('from-secondary', 'from-primary');
+          saveBtn.classList.replace('to-secondary-fixed', 'to-primary-container');
+        }, 1800);
+      });
+    }
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe pointer-events-none" data-active-classes="text-primary font-bold"><div class="px-margin pb-space-sm"><div class="pointer-events-auto h-16 w-full rounded-full bg-surface-container-lowest/85 backdrop-blur-[36px] shadow-[0_12px_36px_-6px_rgba(31,25,54,0.12)] flex items-center justify-around px-space-xs"><a class="flex flex-col items-center justify-center min-w-[52px] h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="hari-ini" href="#"><span class="material-symbols-outlined text-[22px]">calendar_month</span><span class="font-label-md text-[11px] leading-tight mt-0.5 tracking-tight">Hari Ini</span></a><a class="flex flex-col items-center justify-center min-w-[52px] h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="latihan" href="#"><span class="material-symbols-outlined text-[22px]">fitness_center</span><span class="font-label-md text-[11px] leading-tight mt-0.5 tracking-tight">Latihan</span></a><div class="flex items-center justify-center"><a aria-label="Tambah Entri Baru" class="w-12 h-12 rounded-full bg-gradient-to-tr from-primary to-primary-container text-on-primary flex items-center justify-center shadow-[0_8px_20px_rgba(97,61,222,0.38)] active:scale-95 transition-transform hover:shadow-[0_10px_24px_rgba(97,61,222,0.48)]" data-path="catat-aktivitas" href="#"><span class="material-symbols-outlined text-[26px]">add</span></a></div><a class="flex flex-col items-center justify-center min-w-[52px] h-12 text-on-surface-variant transition-colors hover:text-on-surface" data-path="makan" href="#"><span class="material-symbols-outlined text-[22px]">restaurant</span><span class="font-label-md text-[11px] leading-tight mt-0.5 tracking-tight">Makan</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[52px] h-12 transition-colors text-primary font-bold" data-path="tubuh" href="#"><span class="material-symbols-outlined text-[22px]">accessibility_new</span><span class="font-label-md text-[11px] leading-tight mt-0.5 tracking-tight">Tubuh</span></a></div></div></nav></body></html>

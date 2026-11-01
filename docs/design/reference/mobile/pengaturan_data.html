@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fdf8ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary": "#9d3b60", "outline-variant": "#cac4d7", "on-secondary-container": "#007060", "on-primary-fixed": "#1d0061", "on-surface-variant": "#484555", "on-primary-fixed-variant": "#491ac6", "secondary-container": "#61f7db", "surface-bright": "#fdf8ff", "tertiary-fixed-dim": "#ffb1c7", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#802349", "surface-container-highest": "#e6dff6", "on-error-container": "#93000a", "on-primary": "#ffffff", "primary-fixed-dim": "#cabeff", "on-secondary-fixed": "#00201b", "primary-fixed": "#e6deff", "on-background": "#1c1929", "inverse-primary": "#cabeff", "on-primary-container": "#ffffff", "surface-variant": "#e6dff6", "secondary-fixed-dim": "#40ddc2", "surface-container-high": "#ece5fc", "background": "#fdf8ff", "on-tertiary": "#ffffff", "outline": "#797586", "on-secondary-fixed-variant": "#005045", "surface-dim": "#ddd7ed", "secondary-fixed": "#65fade", "on-error": "#ffffff", "on-secondary": "#ffffff", "surface-container-low": "#f7f1ff", "tertiary-fixed": "#ffd9e2", "error": "#ba1a1a", "surface-container": "#f2ebff", "surface": "#fdf8ff", "on-tertiary-fixed": "#3e001d", "tertiary-container": "#bc5379", "secondary": "#006b5c", "inverse-on-surface": "#f4eeff", "on-tertiary-container": "#ffffff", "primary-container": "#7a5af8", "surface-tint": "#613ede", "error-container": "#ffdad6", "inverse-surface": "#322e3f", "primary": "#613dde", "on-surface": "#1c1929" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "gutter": "1.25rem", "space-md": "1rem", "margin": "1rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter-desktop": "2rem", "margin-desktop": "3rem", "space-xl": "2.25rem", "margin-tablet": "2rem" }, "fontFamily": { "headline-sm": ["Space Grotesk"], "label-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "display": ["Space Grotesk"], "metric-tabular": ["Space Grotesk"], "headline-lg-mobile": ["Space Grotesk"], "body-sm": ["Plus Jakarta Sans"], "headline-lg": ["Space Grotesk"], "body-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"], "display-mobile": ["Space Grotesk"], "headline-md": ["Space Grotesk"] }, "fontSize": { "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}], "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}], "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}], "display": ["48px", {"lineHeight": "56px", "fontWeight": "700"}], "metric-tabular": ["28px", {"lineHeight": "32px", "fontWeight": "700"}], "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "600"}], "body-sm": ["13px", {"lineHeight": "20px", "fontWeight": "400"}], "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}], "body-md": ["15px", {"lineHeight": "24px", "fontWeight": "400"}], "label-lg": ["14px", {"lineHeight": "20px", "fontWeight": "600"}], "display-mobile": ["36px", {"lineHeight": "44px", "fontWeight": "700"}], "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface relative min-h-screen"><div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden"><div class="absolute -top-[100px] right-0 w-[320px] h-[320px] rounded-full bg-secondary-fixed blur-[90px] opacity-50"></div><div class="absolute top-[350px] -left-[100px] w-[300px] h-[300px] rounded-full bg-primary-fixed blur-[80px] opacity-60"></div></div><header class="fixed top-0 inset-x-0 z-50 bg-surface/75 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Kembali" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container-high/40 transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Pengaturan</h1></div><div class="flex items-center"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_8px_rgba(97,61,222,0.35)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-transparent px-margin min-h-screen"><div class="flex flex-col w-full pb-10 space-y-6">
+<!-- Motivational Subtitle Banner -->
+<div class="bg-surface-container-low/80 backdrop-blur-xl rounded-lg p-space-md shadow-sm flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">tune</span>
+</div>
+<div>
+<p class="font-headline-sm text-label-lg text-on-surface">Konfigurasi Mandiri</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Lokal, privat, presisi tanpa langganan cloud</p>
+</div>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-label-md font-label-md bg-secondary-fixed text-on-secondary-fixed">
+      Aktif
+    </span>
+</div>
+<!-- BAGIAN 1: TARGET FISIK & NUTRISI -->
+<section class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h2 class="font-headline-sm text-label-lg text-on-surface tracking-wide uppercase flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">straighten</span>
+        Target Fisik &amp; Nutrisi
+      </h2>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded-full">
+        Pekan 1 / 20
+      </span>
+</div>
+<!-- Glass Content Card -->
+<div class="bg-surface-container-lowest/85 backdrop-blur-2xl rounded-lg p-space-md shadow-md space-y-4">
+<!-- Metric Grid 1: Berat & Tinggi -->
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container-low/90 rounded p-3 flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant">Berat Awal</span>
+<div class="flex items-baseline space-x-1 mt-1">
+<span class="font-metric-tabular text-metric-tabular text-on-surface">74,0</span>
+<span class="font-label-md text-label-md text-on-surface-variant">kg</span>
+</div>
+</div>
+<div class="bg-surface-container-low/90 rounded p-3 flex flex-col justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant">Tinggi Badan</span>
+<div class="flex items-baseline space-x-1 mt-1">
+<span class="font-metric-tabular text-metric-tabular text-on-surface">163</span>
+<span class="font-label-md text-label-md text-on-surface-variant">cm</span>
+</div>
+</div>
+</div>
+<!-- Target Berat Akhir Highlight Banner -->
+<div class="bg-primary-fixed/40 rounded-lg p-3.5 space-y-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[14px]">flag</span>
+</div>
+<span class="font-label-lg text-label-lg text-on-surface">Target Berat Akhir (Mg 20)</span>
+</div>
+<div class="flex items-baseline space-x-1">
+<span class="font-metric-tabular text-metric-tabular text-primary">60,0</span>
+<span class="font-label-md text-label-md text-primary">kg</span>
+</div>
+</div>
+<div class="flex items-center space-x-1.5 pt-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[16px]">verified</span>
+<p class="font-body-sm text-body-sm leading-tight">
+            Defisit moderat yang aman: <strong class="text-on-surface">-0,7 kg/pekan</strong>
+</p>
+</div>
+</div>
+<!-- Metrik NEAT & Kalori -->
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container-low/90 rounded p-3 flex flex-col justify-between">
+<div class="flex items-center space-x-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-secondary">directions_walk</span>
+<span class="font-label-md text-label-md">NEAT Harian</span>
+</div>
+<div class="flex items-baseline space-x-1 mt-2">
+<span class="font-metric-tabular text-metric-tabular text-on-surface">10.000</span>
+<span class="font-label-md text-label-md text-on-surface-variant">langkah</span>
+</div>
+</div>
+<div class="bg-surface-container-low/90 rounded p-3 flex flex-col justify-between">
+<div class="flex items-center space-x-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary">local_fire_department</span>
+<span class="font-label-md text-label-md">Energi Harian</span>
+</div>
+<div class="flex items-baseline space-x-1 mt-2">
+<span class="font-metric-tabular text-metric-tabular text-on-surface">2.200</span>
+<span class="font-label-md text-label-md text-on-surface-variant">kcal</span>
+</div>
+</div>
+</div>
+<!-- Macro Breakdown Split Rows -->
+<div class="space-y-2 pt-1">
+<span class="font-label-md text-label-md text-on-surface-variant block px-0.5">Komposisi Makronutrien Target</span>
+<!-- Protein Row -->
+<div class="bg-surface-container-low/80 rounded px-3 py-2.5 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface leading-none">Protein</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-none mt-1">2,3 g / kg BB ideal</p>
+</div>
+</div>
+<div class="flex items-baseline space-x-1">
+<span class="font-metric-tabular text-headline-sm text-on-surface">140</span>
+<span class="font-label-md text-label-md text-on-surface-variant">g</span>
+</div>
+</div>
+<!-- Karbohidrat Row -->
+<div class="bg-surface-container-low/80 rounded px-3 py-2.5 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface leading-none">Karbohidrat</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-none mt-1">Bahan bakar lari 10K</p>
+</div>
+</div>
+<div class="flex items-baseline space-x-1">
+<span class="font-metric-tabular text-headline-sm text-on-surface">260</span>
+<span class="font-label-md text-label-md text-on-surface-variant">g</span>
+</div>
+</div>
+<!-- Lemak Row -->
+<div class="bg-surface-container-low/80 rounded px-3 py-2.5 flex items-center justify-between">
+<div class="flex items-center space-x-2.5">
+<div class="w-3 h-3 rounded-full bg-tertiary"></div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface leading-none">Lemak Sehat</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-none mt-1">Keseimbangan hormon</p>
+</div>
+</div>
+<div class="flex items-baseline space-x-1">
+<span class="font-metric-tabular text-headline-sm text-on-surface">65</span>
+<span class="font-label-md text-label-md text-on-surface-variant">g</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- BAGIAN 2: PROGRAM & JADWAL -->
+<section class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h2 class="font-headline-sm text-label-lg text-on-surface tracking-wide uppercase flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">calendar_today</span>
+        Program &amp; Jadwal
+      </h2>
+</div>
+<div class="bg-surface-container-lowest/85 backdrop-blur-2xl rounded-lg p-space-md shadow-md space-y-4">
+<!-- Date Input Field Simulated -->
+<div class="space-y-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant block">Tanggal Mulai Program</label>
+<div class="flex items-center justify-between bg-surface-container-high/60 rounded-full px-4 py-3">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-primary text-[20px]">event_repeat</span>
+<span class="font-headline-sm text-body-lg text-on-surface font-semibold" id="dateDisplay">Senin, 2 Nov 2025</span>
+</div>
+<button class="px-3 py-1 bg-surface-container-lowest text-primary rounded-full font-label-md text-label-md shadow-sm" id="toggleDateBtn">
+            Ubah
+          </button>
+</div>
+</div>
+<!-- Valid State Message Box (Active) -->
+<div class="bg-secondary-container/40 rounded p-3 flex items-start space-x-3" id="validStateAlert">
+<span class="material-symbols-outlined text-on-secondary-container text-[20px] mt-0.5">check_circle</span>
+<div>
+<p class="font-label-md text-label-md text-on-secondary-container">Sinkronisasi Valid</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-snug">
+            Tanggal mulai wajib hari Senin untuk sinkronisasi siklus 20 pekan.
+          </p>
+</div>
+</div>
+<!-- Invalid State Preview Box (Interactive Simulation) -->
+<div class="hidden bg-error-container/40 rounded p-3 flex items-start space-x-3" id="invalidStateAlert">
+<span class="material-symbols-outlined text-on-error-container text-[20px] mt-0.5">error</span>
+<div>
+<p class="font-label-md text-label-md text-on-error-container">Format Tidak Sesuai</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5 leading-snug">
+            Pilih hari Senin untuk memulai pekan 1 agar ritme pemulihan terukur akurat.
+          </p>
+</div>
+</div>
+<!-- Program Duration Metadata -->
+<div class="bg-surface-container-low/70 rounded p-3 space-y-1">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Durasi Program</span>
+<span class="font-headline-sm text-label-lg text-on-surface">20 Minggu</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Fase Cutting, Hipertrofi Terukur, &amp; 10K Base Progression.
+        </p>
+</div>
+</div>
+</section>
+<!-- BAGIAN 3: SATUAN UKURAN -->
+<section class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h2 class="font-headline-sm text-label-lg text-on-surface tracking-wide uppercase flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">square_foot</span>
+        Satuan Ukuran
+      </h2>
+</div>
+<div class="bg-surface-container-lowest/85 backdrop-blur-2xl rounded-lg p-space-md shadow-md space-y-3">
+<!-- Unit Item: Berat -->
+<div class="flex items-center justify-between py-1">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">Berat Beban &amp; Tubuh</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Standar penimbangan barbell</span>
+</div>
+<!-- Segmented Control -->
+<div class="bg-surface-container-high p-1 rounded-full flex items-center space-x-1">
+<button class="unit-btn active px-3.5 py-1 rounded-full font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm transition-all" data-group="weight" data-val="kg">
+            kg
+          </button>
+<button class="unit-btn px-3.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-group="weight" data-val="lbs">
+            lbs
+          </button>
+</div>
+</div>
+<div class="h-px bg-surface-container-high"></div>
+<!-- Unit Item: Jarak -->
+<div class="flex items-center justify-between py-1">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">Jarak Lari &amp; Interval</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Tracking rute dan cadence 10K</span>
+</div>
+<!-- Segmented Control -->
+<div class="bg-surface-container-high p-1 rounded-full flex items-center space-x-1">
+<button class="unit-btn active px-3.5 py-1 rounded-full font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm transition-all" data-group="distance" data-val="km">
+            km
+          </button>
+<button class="unit-btn px-3.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-group="distance" data-val="mil">
+            mil
+          </button>
+</div>
+</div>
+<div class="h-px bg-surface-container-high"></div>
+<!-- Unit Item: Energi -->
+<div class="flex items-center justify-between py-1">
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg text-on-surface">Satuan Energi Kalori</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Perhitungan basal metabolik</span>
+</div>
+<!-- Segmented Control -->
+<div class="bg-surface-container-high p-1 rounded-full flex items-center space-x-1">
+<button class="unit-btn active px-3.5 py-1 rounded-full font-label-md text-label-md bg-surface-container-lowest text-primary shadow-sm transition-all" data-group="energy" data-val="kcal">
+            kcal
+          </button>
+<button class="unit-btn px-3.5 py-1 rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all" data-group="energy" data-val="kJ">
+            kJ
+          </button>
+</div>
+</div>
+</div>
+</section>
+<!-- BAGIAN 4: DATA & PRIVASI (LOKAL) -->
+<section class="space-y-3">
+<div class="flex items-center justify-between px-1">
+<h2 class="font-headline-sm text-label-lg text-on-surface tracking-wide uppercase flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">lock_reset</span>
+        Data &amp; Privasi (Lokal)
+      </h2>
+<span class="font-label-md text-label-md text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+        100% On-Device
+      </span>
+</div>
+<!-- Tier-1 Base Glass Card -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl rounded-lg p-space-md shadow space-y-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+        Seluruh log latihan, nutrisi, dan metrik tubuh tersimpan sepenuhnya di memori peramban Anda. Tidak ada pelacakan pihak ketiga.
+      </p>
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Ekspor Cadangan Button -->
+<button class="flex flex-col items-center justify-center p-3 rounded-lg bg-surface-container-lowest/90 hover:bg-surface-container-lowest transition-all shadow-sm active:scale-95" id="exportBtn">
+<span class="material-symbols-outlined text-primary text-[24px] mb-1">download</span>
+<span class="font-label-lg text-label-md text-on-surface text-center">Ekspor JSON</span>
+<span class="font-body-sm text-label-md text-on-surface-variant">Cadangan Lengkap</span>
+</button>
+<!-- Impor Cadangan Button -->
+<button class="flex flex-col items-center justify-center p-3 rounded-lg bg-surface-container-lowest/90 hover:bg-surface-container-lowest transition-all shadow-sm active:scale-95" id="importBtn">
+<span class="material-symbols-outlined text-tertiary text-[24px] mb-1">upload_file</span>
+<span class="font-label-lg text-label-md text-on-surface text-center">Impor Cadangan</span>
+<span class="font-body-sm text-label-md text-on-surface-variant">Pulihkan File</span>
+</button>
+</div>
+<!-- Export Success Feedback Pill (Hidden default) -->
+<div class="hidden bg-secondary-container/60 rounded px-3 py-2 flex items-center space-x-2 text-on-secondary-container" id="exportSuccessMessage">
+<span class="material-symbols-outlined text-[18px]">cloud_done</span>
+<span class="font-body-sm text-body-sm">Berkas cadangan berhasil diunduh ke perangkat.</span>
+</div>
+</div>
+</section>
+<!-- DIALOG KONFIRMASI MINI (MODAL PRATINJAU IMPOR) -->
+<div class="hidden fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-on-surface/40 backdrop-blur-sm" id="importModal">
+<div class="w-full max-w-sm bg-surface-container-lowest/95 backdrop-blur-2xl rounded-xl p-space-lg shadow-2xl space-y-4">
+<div class="flex items-center space-x-3">
+<div class="w-10 h-10 rounded-full bg-error-container/60 flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined text-[22px]">history_toggle_off</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pratinjau Impor</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Verifikasi struktur berkas lokal</p>
+</div>
+</div>
+<!-- File Metadata Preview Card -->
+<div class="bg-surface-container-low rounded p-3 space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface-variant">Nama Berkas</span>
+<span class="font-label-lg text-label-md text-primary font-mono">backup_hybrid20_okt.json</span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="bg-surface-container-lowest/80 rounded p-2 text-center">
+<span class="font-headline-sm text-headline-sm text-on-surface block">42</span>
+<span class="font-body-sm text-label-md text-on-surface-variant">Sesi Latihan</span>
+</div>
+<div class="bg-surface-container-lowest/80 rounded p-2 text-center">
+<span class="font-headline-sm text-headline-sm text-on-surface block">84</span>
+<span class="font-body-sm text-label-md text-on-surface-variant">Log Makanan</span>
+</div>
+</div>
+<div class="pt-1 flex items-center justify-between text-on-surface-variant">
+<span class="font-body-sm text-body-sm">Terakhir disimpan:</span>
+<span class="font-label-md text-label-md text-on-surface">28 Okt 2025</span>
+</div>
+</div>
+<!-- Peringatan Tenang -->
+<div class="bg-error-container/20 rounded p-3 flex items-start space-x-2.5">
+<span class="material-symbols-outlined text-error text-[18px] mt-0.5">warning</span>
+<p class="font-body-sm text-body-sm text-on-surface leading-snug">
+          Data saat ini akan digantikan dengan isi berkas cadangan. Tindakan ini tidak dapat dibatalkan.
+        </p>
+</div>
+<!-- Action Buttons -->
+<div class="space-y-2 pt-1">
+<button class="w-full py-3 px-4 rounded-full bg-primary text-on-primary font-label-lg text-label-lg shadow-md hover:bg-primary-container transition-all active:scale-[0.98]" id="confirmRestoreBtn">
+          Timpa &amp; Pulihkan Data
+        </button>
+<button class="w-full py-2.5 px-4 rounded-full bg-surface-container-high text-on-surface font-label-lg text-label-lg hover:bg-surface-container-highest transition-all" id="cancelRestoreBtn">
+          Batal
+        </button>
+</div>
+</div>
+</div>
+<!-- Interactive Script for Micro-Interactions -->
+<script>
+    (function initSettingsInteractions() {
+      // 1. Unit Segmented Buttons
+      const unitBtns = document.querySelectorAll('.unit-btn');
+      unitBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const group = this.dataset.group;
+          const siblings = document.querySelectorAll(`[data-group="${group}"]`);
+          siblings.forEach(s => {
+            s.classList.remove('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+            s.classList.add('text-on-surface-variant');
+          });
+          this.classList.add('bg-surface-container-lowest', 'text-primary', 'shadow-sm');
+          this.classList.remove('text-on-surface-variant');
+        });
+      });
+
+      // 2. Interactive Date Validation Toggle Simulation
+      const toggleDateBtn = document.getElementById('toggleDateBtn');
+      const dateDisplay = document.getElementById('dateDisplay');
+      const validAlert = document.getElementById('validStateAlert');
+      const invalidAlert = document.getElementById('invalidStateAlert');
+      let isMonday = true;
+
+      toggleDateBtn.addEventListener('click', function() {
+        isMonday = !isMonday;
+        if (isMonday) {
+          dateDisplay.textContent = 'Senin, 2 Nov 2025';
+          validAlert.classList.remove('hidden');
+          invalidAlert.classList.add('hidden');
+        } else {
+          dateDisplay.textContent = 'Selasa, 3 Nov 2025';
+          validAlert.classList.add('hidden');
+          invalidAlert.classList.remove('hidden');
+        }
+      });
+
+      // 3. Export Simulation
+      const exportBtn = document.getElementById('exportBtn');
+      const exportSuccess = document.getElementById('exportSuccessMessage');
+      exportBtn.addEventListener('click', function() {
+        exportSuccess.classList.remove('hidden');
+        setTimeout(() => {
+          exportSuccess.classList.add('hidden');
+        }, 3200);
+      });
+
+      // 4. Modal Import Flow
+      const importBtn = document.getElementById('importBtn');
+      const importModal = document.getElementById('importModal');
+      const cancelBtn = document.getElementById('cancelRestoreBtn');
+      const confirmBtn = document.getElementById('confirmRestoreBtn');
+
+      importBtn.addEventListener('click', () => {
+        importModal.classList.remove('hidden');
+      });
+
+      cancelBtn.addEventListener('click', () => {
+        importModal.classList.add('hidden');
+      });
+
+      confirmBtn.addEventListener('click', () => {
+        importModal.classList.add('hidden');
+        alert('Data berhasil dipulihkan dari cadangan lokal.');
+      });
+    })();
+  </script>
+</div></main></body></html>
