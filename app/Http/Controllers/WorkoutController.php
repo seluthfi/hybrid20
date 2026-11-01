@@ -61,7 +61,9 @@ class WorkoutController extends Controller
         $partialCount = 0;
 
         if ($program) {
-            $currentPos = $this->dateService->calculateCurrentPosition($program, $todayLocal);
+            $totalWeeks = $program->weeks()->max('calendar_position') ?? ($program->duration_weeks ?? 20);
+            $statusInfo = $this->dateService->programStatus($program->start_date, $totalWeeks, $todayLocal);
+            $currentPos = $statusInfo['active_position'];
             $week = $program->weeks()->where('calendar_position', $currentPos)->first();
             if ($week) {
                 $weekLabel = "Minggu {$week->week_number}";
@@ -69,8 +71,8 @@ class WorkoutController extends Controller
                 $completedSessions = $week->workouts()->where('status', 'completed')->count();
                 $partialCount = $week->workouts()->where('status', 'partial')->count();
 
-                $weekStart = $this->dateService->calculateWeekStartDate($program, $currentPos)->toDateString();
-                $weekEnd = $this->dateService->calculateWeekStartDate($program, $currentPos)->addDays(6)->toDateString();
+                $weekStart = $this->dateService->weekStartDate($program->start_date, $currentPos)->toDateString();
+                $weekEnd = $this->dateService->weekStartDate($program->start_date, $currentPos)->addDays(6)->toDateString();
 
                 $weekWorkouts = Workout::where('user_id', $user->id)
                     ->whereBetween('performed_on', [$weekStart, $weekEnd])
