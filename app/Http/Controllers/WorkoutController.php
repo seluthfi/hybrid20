@@ -32,6 +32,8 @@ class WorkoutController extends Controller
     {
         $user = Auth::user();
         $type = $request->query('type', 'all');
+        $tz = $user->settings?->timezone ?? 'Asia/Jakarta';
+        $todayLocal = Carbon::now($tz);
 
         $query = Workout::where('user_id', $user->id)
             ->with(['exercises.sets', 'scheduledWorkout'])
@@ -46,10 +48,55 @@ class WorkoutController extends Controller
 
         $workouts = $query->paginate(15)->withQueryString();
 
-        // Calculate weekly summaries or aggregate statistics for display
-        $totalWorkoutsCount = Workout::where('user_id', $user->id)->count();
+        // Calculate weekly stats per §8.3 and §8.5
+        $program = Program::where('user_id', $user->id)
+            ->whereIn('status', ['planned', 'active', 'paused'])
+            ->first();
 
-        return view('workouts.index', compact('workouts', 'type', 'totalWorkoutsCount'));
+        $weekLabel = 'Minggu Ini';
+        $weeklyVolume = 0.0;
+        $weeklyDistance = 0.0;
+        $completedSessions = 0;
+        $totalScheduled = 8;
+        $partialCount = 0;
+
+        if ($program) {
+            $currentPos = $this->dateService->calculateCurrentPosition($program, $todayLocal);
+            $week = $program->weeks()->where('calendar_position', $currentPos)->first();
+            if ($week) {
+                $weekLabel = "Minggu {$week->week_number}";
+                $totalScheduled = $week->workouts()->whereIn('workout_type', ['gym', 'run'])->count() ?: 8;
+                $completedSessions = $week->workouts()->where('status', 'completed')->count();
+                $partialCount = $week->workouts()->where('status', 'partial')->count();
+
+                $weekStart = $this->dateService->calculateWeekStartDate($program, $currentPos)->toDateString();
+                $weekEnd = $this->dateService->calculateWeekStartDate($program, $currentPos)->addDays(6)->toDateString();
+
+                $weekWorkouts = Workout::where('user_id', $user->id)
+                    ->whereBetween('performed_on', [$weekStart, $weekEnd])
+                    ->with('exercises.sets')
+                    ->get();
+
+                foreach ($weekWorkouts as $w) {
+                    if ($w->workout_type === 'gym') {
+                        $weeklyVolume += $w->calculateVolume();
+                    } elseif ($w->workout_type === 'run') {
+                        $weeklyDistance += (float) ($w->distance_km ?? 0);
+                    }
+                }
+            }
+        }
+
+        return view('workouts.index', compact(
+            'workouts', 
+            'type', 
+            'weekLabel', 
+            'weeklyVolume', 
+            'weeklyDistance', 
+            'completedSessions', 
+            'totalScheduled',
+            'partialCount'
+        ));
     }
 
     /**
