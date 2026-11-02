@@ -85,7 +85,7 @@
                     <div class="w-full h-3 rounded-full bg-surface-container-high overflow-hidden">
                         <div class="h-full rounded-full bg-primary transition-[transform,colors] duration-150 ease-out duration-500" style="width: {{ $caloriePercent }}%"></div>
                     </div>
-                    <div class="flex justify-between text-[11px] font-sans text-on-surface-variant">
+                    <div class="flex justify-between text-xs font-sans text-on-surface-variant">
                         <span>Pencapaian: {{ $caloriePercent }}%</span>
                         <span>Target: {{ number_format($targetCalories, 0, ',', '.') }} kcal</span>
                     </div>
@@ -102,7 +102,7 @@
                         <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
                             <div class="h-full rounded-full bg-primary" style="width: {{ $proteinPercent }}%"></div>
                         </div>
-                        <div class="text-[11px] font-sans text-on-surface-variant tabular-nums">
+                        <div class="text-xs font-sans text-on-surface-variant tabular-nums">
                             <strong>{{ number_format($totalProtein, 1, ',', '.') }}g</strong> / {{ $targetProtein }}g
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                         <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
                             <div class="h-full rounded-full bg-secondary" style="width: {{ $carbsPercent }}%"></div>
                         </div>
-                        <div class="text-[11px] font-sans text-on-surface-variant tabular-nums">
+                        <div class="text-xs font-sans text-on-surface-variant tabular-nums">
                             <strong>{{ number_format($totalCarbs, 1, ',', '.') }}g</strong> / {{ $targetCarbs }}g
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
                             <div class="h-full rounded-full bg-tertiary" style="width: {{ $fatPercent }}%"></div>
                         </div>
-                        <div class="text-[11px] font-sans text-on-surface-variant tabular-nums">
+                        <div class="text-xs font-sans text-on-surface-variant tabular-nums">
                             <strong>{{ number_format($totalFat, 1, ',', '.') }}g</strong> / {{ $targetFat }}g
                         </div>
                     </div>
@@ -187,7 +187,7 @@
                                         <span class="block font-headline text-sm font-bold text-on-surface tabular-nums">
                                             {{ number_format($item->calories_kcal, 0, ',', '.') }} kcal
                                         </span>
-                                        <span class="block font-sans text-[11px] text-outline tabular-nums">
+                                        <span class="block font-sans text-xs text-outline tabular-nums">
                                             P:{{ number_format($item->protein_g, 0) }} K:{{ number_format($item->carbs_g, 0) }} L:{{ number_format($item->fat_g, 0) }}
                                         </span>
                                     </div>

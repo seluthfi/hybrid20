@@ -60,7 +60,7 @@
         <button 
             type="button" 
             @click="window.location.reload()" 
-            class="px-2.5 py-1 rounded-pill bg-tertiary text-on-tertiary text-[11px] font-bold hover:opacity-90 active:scale-95 transition-transform"
+            class="px-2.5 py-1 rounded-pill bg-tertiary text-on-tertiary text-xs font-bold hover:opacity-90 active:scale-95 transition-transform"
         >
             Coba lagi
         </button>
@@ -78,7 +78,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class="font-headline text-lg font-bold tracking-tight text-on-surface">HYBRID 20</span>
-                        <span class="font-sans text-[11px] font-medium text-on-surface-variant">Program Kebugaran 20 Minggu</span>
+                        <span class="font-sans text-xs font-medium text-on-surface-variant">Program Kebugaran 20 Minggu</span>
                     </div>
                 </div>
 
@@ -144,7 +144,7 @@
                     </div>
                     <div class="flex flex-col min-w-0">
                         <span class="font-headline text-sm font-bold text-on-surface truncate">{{ $userName }}</span>
-                        <span class="font-sans text-[11px] text-on-surface-variant truncate">{{ auth()->user()->email ?? '' }}</span>
+                        <span class="font-sans text-xs text-on-surface-variant truncate">{{ auth()->user()->email ?? '' }}</span>
                     </div>
                 </div>
 
@@ -186,7 +186,7 @@
         <!-- Top App Bar Mobile -->
         <header id="app-mobile-topbar" class="h-16 px-4 glass-2 border-b border-outline-variant/30 fixed top-0 inset-x-0 z-30 flex items-center justify-between pt-[env(safe-area-inset-top,0px)]">
             <div class="flex flex-col">
-                <span class="font-headline text-[11px] font-semibold tracking-wider text-primary uppercase">HYBRID 20</span>
+                <span class="font-headline text-xs font-semibold tracking-wider text-primary uppercase">HYBRID 20</span>
                 <h1 class="font-headline text-lg font-bold text-on-surface tracking-tight leading-tight">{{ $title }}</h1>
             </div>
 

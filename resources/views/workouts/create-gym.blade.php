@@ -168,13 +168,13 @@
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center gap-2">
                                                     <span class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider" x-text="'Set ' + (sIdx + 1)"></span>
-                                                    <button type="button" x-show="ex.sets.length > 1" x-cloak @click="removeSet(exIdx, sIdx)" class="text-[11px] font-sans text-error hover:underline" aria-label="Hapus set">Hapus</button>
+                                                    <button type="button" x-show="ex.sets.length > 1" x-cloak @click="removeSet(exIdx, sIdx)" class="text-xs font-sans text-error hover:underline" aria-label="Hapus set">Hapus</button>
                                                 </div>
 
                                                 <div class="flex items-center gap-2">
                                                     <!-- RPE Per Set (1-10) -->
                                                     <div class="flex items-center gap-1 bg-surface-container-high/60 px-2 py-1 rounded-pill">
-                                                        <span class="font-headline text-[11px] font-semibold text-on-surface-variant">RPE</span>
+                                                        <span class="font-headline text-xs font-semibold text-on-surface-variant">RPE</span>
                                                         <input 
                                                             type="text" 
                                                             inputmode="numeric" 
@@ -215,7 +215,7 @@
                                                             x-model="set.weight_kg"
                                                             class="w-12 text-center font-metric text-sm font-bold text-on-surface bg-transparent focus:outline-none tabular-nums"
                                                         />
-                                                        <span class="font-headline text-[10px] text-on-surface-variant font-semibold">KG</span>
+                                                        <span class="font-headline text-xs text-on-surface-variant font-semibold">KG</span>
                                                     </div>
                                                     <button 
                                                         type="button" 
@@ -245,7 +245,7 @@
                                                             x-model="ex.is_timed ? set.duration_seconds : set.reps"
                                                             class="w-12 text-center font-metric text-sm font-bold text-on-surface bg-transparent focus:outline-none tabular-nums"
                                                         />
-                                                        <span class="font-headline text-[10px] text-on-surface-variant font-semibold" x-text="ex.is_timed ? 'DTK' : 'REP'"></span>
+                                                        <span class="font-headline text-xs text-on-surface-variant font-semibold" x-text="ex.is_timed ? 'DTK' : 'REP'"></span>
                                                     </div>
                                                     <button 
                                                         type="button" 
@@ -400,7 +400,7 @@
                             <template x-for="item in filteredAvailableExercises()" :key="item.id">
                                 <button type="button" @click="addNewExercise(item.name, item.id)" class="flex items-center justify-between p-2.5 rounded-field hover:bg-surface-container-high text-left text-xs font-headline font-semibold text-on-surface transition-colors">
                                     <span x-text="item.name"></span>
-                                    <span class="text-[10px] text-on-surface-variant" x-text="item.muscle_group"></span>
+                                    <span class="text-xs text-on-surface-variant" x-text="item.muscle_group"></span>
                                 </button>
                             </template>
                         </div>

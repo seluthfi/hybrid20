@@ -175,7 +175,7 @@
                                     +
                                 </button>
                             </div>
-                            <span class="block text-[11px] font-sans text-outline mt-1 text-center" x-text="'Setara ' + previewWeight + ' gram'"></span>
+                            <span class="block text-xs font-sans text-outline mt-1 text-center" x-text="'Setara ' + previewWeight + ' gram'"></span>
                         </div>
 
                         <!-- Waktu Makan -->

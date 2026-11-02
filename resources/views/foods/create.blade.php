@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <span class="text-[11px] font-sans text-outline">
+                    <span class="text-xs font-sans text-outline">
                         Catatan: Nilai gizi adalah perkiraan per 1 satuan porsi yang kamu tentukan.
                     </span>
                 </div>

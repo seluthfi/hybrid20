@@ -52,6 +52,11 @@ Route::middleware('auth')->group(function () {
     Route::match(['put', 'patch'], '/settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
     Route::put('/settings/program', [\App\Http\Controllers\SettingsController::class, 'updateProgram'])->name('settings.update-program');
 
+    // Backup & Restore Routes (PLAN.md §8.13, §10.11, Fase 8)
+    Route::get('/settings/backup/export', [\App\Http\Controllers\BackupController::class, 'export'])->name('backup.export');
+    Route::post('/settings/backup/preview', [\App\Http\Controllers\BackupController::class, 'preview'])->name('backup.preview');
+    Route::post('/settings/backup/import', [\App\Http\Controllers\BackupController::class, 'import'])->name('backup.import');
+
     // Charts API Routes (PLAN.md §5.3, §9.8, §13 Fase 6)
     Route::get('/charts/weight', [\App\Http\Controllers\ChartController::class, 'weight'])->name('charts.weight');
     Route::get('/charts/run-weekly', [\App\Http\Controllers\ChartController::class, 'runWeekly'])->name('charts.run-weekly');

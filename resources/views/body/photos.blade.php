@@ -76,7 +76,7 @@
                             <h2 class="font-headline text-sm font-bold text-on-surface">
                                 {{ $group['date_formatted'] }}
                             </h2>
-                            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-headline text-[10px] font-bold">
+                            <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-headline text-xs font-bold">
                                 {{ $group['week_label'] }}
                             </span>
                         </div>
@@ -105,7 +105,7 @@
                                          alt="{{ $poseTitles[$p->pose_label] ?? 'Foto Progres' }} tanggal {{ $group['date_formatted'] }}" 
                                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                                     
-                                    <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-on-background/70 text-white font-headline text-[10px]">
+                                    <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-on-background/70 text-white font-headline text-xs">
                                         {{ $poseTitles[$p->pose_label] ?? ucfirst($p->pose_label) }}
                                     </span>
                                 </div>
@@ -154,7 +154,7 @@
                         <div>
                             <label for="photo-file" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Berkas Foto</label>
                             <input id="photo-file" type="file" name="photo" accept="image/jpeg,image/png,image/webp" required aria-describedby="photo-error photo-help" class="w-full text-xs font-sans rounded-field border @error('photo') border-error @else border-outline-variant/60 @enderror bg-surface-container-lowest p-2 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
-                            <span id="photo-help" class="block text-[11px] font-sans text-outline mt-1">Format: JPG, PNG, atau WebP (maks. 10 MB). Metadata EXIF otomatis dibersihkan.</span>
+                            <span id="photo-help" class="block text-xs font-sans text-outline mt-1">Format: JPG, PNG, atau WebP (maks. 10 MB). Metadata EXIF otomatis dibersihkan.</span>
                             @error('photo')
                                 <p id="photo-error" class="text-xs text-error mt-1">{{ $message }}</p>
                             @enderror

@@ -37,7 +37,7 @@
                                         {{ $food->name }}
                                     </span>
                                     @if($food->is_favorite)
-                                        <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-headline text-[10px] font-bold">
+                                        <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-headline text-xs font-bold">
                                             Favorit
                                         </span>
                                     @endif

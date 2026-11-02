@@ -107,7 +107,7 @@
                             <x-icon name="speed" class="w-5 h-5" />
                         </div>
                         <div class="flex flex-col">
-                            <span class="font-headline text-[11px] font-semibold text-on-surface-variant uppercase tracking-wider">Kecepatan Rata-rata</span>
+                            <span class="font-headline text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Kecepatan Rata-rata</span>
                             <span class="font-metric text-lg font-bold text-on-surface tabular-nums" x-text="computedPace"></span>
                         </div>
                     </div>

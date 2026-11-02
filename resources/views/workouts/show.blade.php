@@ -84,43 +84,43 @@
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-outline-variant/20">
                 @if($isGym)
                     <div class="p-3 rounded-field glass-3 border border-outline-variant/30 flex flex-col">
-                        <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Volume</span>
+                        <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Volume</span>
                         <span class="font-metric text-lg sm:text-xl font-bold text-on-surface mt-0.5 tabular-nums">
                             {{ \App\Support\Num::format($totalVolume) }} <span class="text-xs font-normal text-on-surface-variant">kg</span>
                         </span>
-                        <span class="font-sans text-[10px] text-on-surface-variant">beban × rep</span>
+                        <span class="font-sans text-xs text-on-surface-variant">beban × rep</span>
                     </div>
 
                     <div class="p-3 rounded-field glass-3 border border-outline-variant/30 flex flex-col">
-                        <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Gerakan</span>
+                        <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Gerakan</span>
                         <span class="font-metric text-lg sm:text-xl font-bold text-on-surface mt-0.5 tabular-nums">
                             {{ $workout->exercises->count() }} <span class="text-xs font-normal text-on-surface-variant">Latihan</span>
                         </span>
                     </div>
 
                     <div class="p-3 rounded-field glass-3 border border-outline-variant/30 flex flex-col">
-                        <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Total Set</span>
+                        <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Total Set</span>
                         <span class="font-metric text-lg sm:text-xl font-bold text-on-surface mt-0.5 tabular-nums">
                             {{ $totalSets }} <span class="text-xs font-normal text-on-surface-variant">Set</span>
                         </span>
                     </div>
                 @else
                     <div class="p-3 rounded-field glass-3 border border-outline-variant/30 flex flex-col">
-                        <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Jarak</span>
+                        <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Jarak</span>
                         <span class="font-metric text-lg sm:text-xl font-bold text-secondary mt-0.5 tabular-nums">
                             {{ \App\Support\Num::format($workout->distance_km, 1) }} <span class="text-xs font-normal text-on-surface-variant">km</span>
                         </span>
                     </div>
 
                     <div class="p-3 rounded-field glass-3 border border-outline-variant/30 flex flex-col">
-                        <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Pace Rata-rata</span>
+                        <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Pace Rata-rata</span>
                         <span class="font-metric text-lg sm:text-xl font-bold text-on-surface mt-0.5 tabular-nums">
                             {{ \App\Support\PaceCalculator::formatPace($workout->pace_seconds_per_km) }}
                         </span>
                     </div>
 
                     <div class="p-3 rounded-field glass-3 border border-outline-variant/30 flex flex-col">
-                        <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Langkah Lari</span>
+                        <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Langkah Lari</span>
                         <span class="font-metric text-lg sm:text-xl font-bold text-on-surface mt-0.5 tabular-nums">
                             {{ $workout->steps ? \App\Support\Num::format($workout->steps) : '-' }}
                         </span>
@@ -128,11 +128,11 @@
                 @endif
 
                 <div class="p-3 rounded-field glass-3 border border-outline-variant/30 flex flex-col">
-                    <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">RPE Sesi</span>
+                    <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">RPE Sesi</span>
                     <span class="font-metric text-lg sm:text-xl font-bold text-primary mt-0.5 tabular-nums">
                         {{ $workout->rpe ? $workout->rpe . ' / 10' : '-' }}
                     </span>
-                    <span class="font-sans text-[10px] text-on-surface-variant capitalize">
+                    <span class="font-sans text-xs text-on-surface-variant capitalize">
                         Kondisi: {{ $workout->body_condition ?: 'normal' }}
                     </span>
                 </div>
@@ -192,7 +192,7 @@
                             <div class="rounded-field glass-3 overflow-hidden border border-outline-variant/30">
                                 <table class="w-full text-left border-collapse text-xs">
                                     <thead>
-                                        <tr class="border-b border-outline-variant/30 text-on-surface-variant font-headline text-[11px] uppercase tracking-wider bg-surface-container-high/30">
+                                        <tr class="border-b border-outline-variant/30 text-on-surface-variant font-headline text-xs uppercase tracking-wider bg-surface-container-high/30">
                                             <th class="py-2 px-3">Set</th>
                                             <th class="py-2 px-3">Beban</th>
                                             <th class="py-2 px-3">Rep / Detik</th>
