@@ -487,23 +487,24 @@ Skeleton Laravel sudah ada. Fase ini hanya merapikan; jangan membuat project bar
 ### Fase 6B: Animasi dan kehalusan antarmuka
 Tujuan: antarmuka terasa halus tanpa membebani HP. Anggaran kinerja lebih penting daripada efek.
 Aturan:
-- Hanya animasikan `transform` dan `opacity`. Dilarang menganimasikan `width`, `height`, `top`, `left`, `backdrop-filter`/radius blur, `box-shadow`, atau memakai `transition: all`.
-- Durasi 120–280 ms, easing keluar (ease-out); tidak ada animasi tak berujung yang dekoratif (R1: tanpa konfeti, tanpa perayaan, tanpa efek "streak").
-- Semua animasi mati atau menjadi fade singkat saat `prefers-reduced-motion: reduce` (R13). Tambahkan kelas `fx-lite` (blur ≤ 12 px, tanpa stagger, tanpa animasi grafik) bila `navigator.deviceMemory <= 4`, `Save-Data` aktif, atau `prefers-reduced-motion`.
-- Maksimal satu elemen beranimasi dengan blur tinggi pada satu waktu; header dan tab bar tidak ikut bertransisi saat pindah halaman.
-Isi:
-- Perbaiki akar kedipan: semua `x-show` punya `x-cloak`; tidak ada elemen overlay yang tampil sebelum JavaScript siap.
-- Transisi antarhalaman memakai CSS View Transitions lintas dokumen (`@view-transition { navigation: auto; }`) untuk area konten saja, dengan `view-transition-name` tetap pada header dan tab bar; durasi ≤ 200 ms; browser yang tidak mendukung tetap berjalan tanpa transisi. Tidak memakai library SPA/Livewire.
-- Sheet dan modal: geser naik (transform) + latar memudar (opacity); toast masuk dan keluar.
-- Daftar dan kartu muncul dengan fade + naik 8 px, jeda antar item 30–40 ms, hanya untuk 8 item pertama dan hanya saat halaman dimuat pertama kali (bukan saat filter).
-- Progress bar memakai `transform: scaleX` (bukan `width`). Indikator tab aktif bergeser dengan `translateX`. Tombol tertekan memakai `scale(0.97)` 100 ms. Badge status berubah dengan "pop" kecil 180 ms.
-- Accordion form gym: transisi `grid-template-rows` 0fr→1fr.
-- Skeleton shimmer memakai pseudo-element `transform`, bukan animasi `background-position`.
-- Chart.js: animasi 400–500 ms, dimatikan pada `fx-lite`.
-- Perubahan status di Rencana, pencatatan makanan/langkah/berat dikirim lewat `fetch` (Alpine), hanya bagian yang berubah yang diperbarui, posisi scroll tidak berubah, dan toast "Tersimpan" muncul. Tanpa JavaScript, form tetap bekerja lewat pengiriman biasa (progressive enhancement) dengan pemulihan scroll.
-Pengukuran: uji di Chrome DevTools dengan CPU 4× throttle dan emulasi HP; tidak ada long task > 50 ms saat transisi, CLS 0, INP < 200 ms, FPS stabil mendekati 60 saat scroll dan buka sheet.
-Tes: tes fitur untuk endpoint yang diubah ke fetch (respons JSON/partial + fallback form biasa); pemeriksaan otomatis (grep) bahwa CSS tidak memuat `transition: all` dan tidak menganimasikan properti terlarang; blok `prefers-reduced-motion` ada.
-DoD: tidak ada kedipan overlay; scroll tidak melompat setelah menyimpan; semua animasi ≤ anggaran; fx-lite bekerja; semua tes hijau.
+### Fase 6B: Animasi dan kehalusan antarmuka (Revisi)
+- **Akar kedip font:** Ganti 7 import @fontsource statis dengan 2 font variabel (Plus Jakarta Sans dan Space Grotesk, subset latin saja di `public/fonts/`). Hapus `@import` fontsource dari `app.css`, tulis `@font-face` sendiri (`font-display: block`, `font-synthesis: none`, dan metric overrides pada fallback font untuk CLS 0). Preload woff2 di `<head>` sebelum `@vite`, cache immutable di `public/.htaccess`.
+- **Anggaran gerak & token:** Hanya animasikan `transform` dan `opacity` (kecuali SVG stroke untuk ring progres dan centang). Durasi 120–450 ms; tanpa `transition: all`; tanpa animasi tak berujung/konfeti/perayaan/streak (R1). Token: `--ease-out`, `--ease-spring`, `--dur-fast: 120ms`, `--dur-base: 220ms`, `--dur-slow: 320ms`, `--dur-hero: 500ms`.
+- **Aksesibilitas & performa:** Semua animasi mati/fade 100 ms pada `prefers-reduced-motion` (R13). Kelas `fx-lite` (memory <= 4, Save-Data, atau reduced-motion) mematikan stagger, count-up, dan animasi grafik serta membatasi blur 12 px.
+- **Pola gerak utama (a–j):**
+  - Perpindahan halaman: View Transitions (@view-transition { navigation: auto; }) untuk area konten (halaman lama fade out 90 ms, konten baru naik 12 px + fade in 220 ms ease-out). Header/sidebar/tabbar tetap; indikator tab aktif adalah shared element yang meluncur.
+  - Stagger kartu: fade + naik 8 px, jeda 40 ms, maks 8 item, HANYA pada kunjungan pertama sesi per tab (`sessionStorage`), bukan di setiap navigasi atau saat filter.
+  - Cincin/bar progres: scaleX pada bar, stroke-dashoffset pada cincin SVG, mengisi dalam `--dur-hero`, sekali per sesi. Count-up angka besar <= 500 ms dengan `tabular-nums`.
+  - Sheet & modal: naik dengan `--ease-spring`, overlay solid tanpa blur; di HP bisa ditutup dengan geser ke bawah pada handle (pointer events / transform drag). Toast geser + fade.
+  - Umpan balik sentuh: tombol scale(0.97) 100 ms; kartu desktop naik 2 px saat hover; badge status pop 180 ms; centang selesai gambar SVG stroke 280 ms tenang tanpa konfeti.
+  - Aksi tanpa muat ulang: in-place Alpine fetch untuk status sesi, berat badan, langkah, toast "Tersimpan", progressive enhancement jika tanpa JS.
+  - Hapus item: grid-template-rows 1fr -> 0fr + fade.
+  - Accordion gym: grid-template-rows 0fr -> 1fr `--dur-base`.
+  - Skeleton: shimmer transform translateX + crossfade.
+  - Chart.js: 450 ms easeOutQuart progresif, mati di fx-lite.
+- **Perbaikan struktural:** `.app-bg` memakai pseudo-element `::before` fixed; overlay modal tanpa backdrop-blur; satukan modal shell memakai `<x-sheet>`; query data shell di View Composer.
+- **Halaman demo:** Route `/_dev/motion` (local environment di balik auth) untuk evaluasi pemilik sebelum penerapan global.
+- **DoD:** Font tidak berganti terlihat saat loading (CLS font = 0); tidak ada kedipan overlay; scroll tidak melompat setelah menyimpan; animasi terasa halus dan taktil <= 450 ms; fx-lite bekerja; semua tes hijau.
 
 ### Fase 7: PWA
 - Manifest, ikon, `sw.js`, `offline.html`, banner offline, pengujian install/update, pengujian layar/browsers.

@@ -23,3 +23,10 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+<IfModule mod_headers.c>
+    # Long-term immutable caching for static variable fonts
+    <FilesMatch "\.(woff2|woff)$">
+        Header set Cache-Control "max-age=31536000, immutable"
+    </FilesMatch>
+</IfModule>

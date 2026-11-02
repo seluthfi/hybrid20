@@ -18,6 +18,10 @@
 
     <style>[x-cloak]{display:none!important}</style>
 
+    <!-- Preload Variable Fonts to eliminate FOUT / font flicker -->
+    <link rel="preload" href="/fonts/plus-jakarta-sans-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/space-grotesk-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+
     <!-- Scripts & Styles via Vite (Self-hosted fonts, Zero CDN) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>

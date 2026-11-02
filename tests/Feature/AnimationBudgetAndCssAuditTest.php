@@ -46,6 +46,46 @@ class AnimationBudgetAndCssAuditTest extends TestCase
         );
     }
 
+    public function test_no_fontsource_imports_in_app_css(): void
+    {
+        $css = file_get_contents(resource_path('css/app.css'));
+
+        $this->assertStringNotContainsString('@import \'@fontsource', $css);
+        $this->assertStringNotContainsString('@import "@fontsource', $css);
+    }
+
+    public function test_app_css_defines_self_hosted_fonts_with_block_display(): void
+    {
+        $css = file_get_contents(resource_path('css/app.css'));
+
+        $this->assertStringContainsString('font-family: \'Plus Jakarta Sans\'', $css);
+        $this->assertStringContainsString('font-family: \'Space Grotesk\'', $css);
+        $this->assertStringContainsString('font-display: block', $css);
+        $this->assertStringContainsString('plus-jakarta-sans-latin-variable.woff2', $css);
+        $this->assertStringContainsString('space-grotesk-latin-variable.woff2', $css);
+        $this->assertStringContainsString('font-synthesis: none', $css);
+        $this->assertStringContainsString('ascent-override', $css);
+        $this->assertStringContainsString('descent-override', $css);
+    }
+
+    public function test_views_contain_font_preload_headers(): void
+    {
+        $appShell = file_get_contents(resource_path('views/components/app-shell.blade.php'));
+        $login = file_get_contents(resource_path('views/auth/login.blade.php'));
+
+        foreach ([$appShell, $login] as $view) {
+            $this->assertStringContainsString('rel="preload"', $view);
+            $this->assertStringContainsString('href="/fonts/plus-jakarta-sans-latin-variable.woff2"', $view);
+            $this->assertStringContainsString('href="/fonts/space-grotesk-latin-variable.woff2"', $view);
+        }
+    }
+
+    public function test_public_fonts_exist(): void
+    {
+        $this->assertFileExists(public_path('fonts/plus-jakarta-sans-latin-variable.woff2'));
+        $this->assertFileExists(public_path('fonts/space-grotesk-latin-variable.woff2'));
+    }
+
     public function test_app_css_defines_reduced_motion_and_fx_lite(): void
     {
         $css = file_get_contents(resource_path('css/app.css'));
