@@ -13,7 +13,7 @@
         reps: {{ (int)$reps }},
         rpe: {{ $rpe !== null ? (int)$rpe : "''" }}
     }"
-    {{ $attributes->merge(['class' => 'flex flex-col gap-2 p-3 sm:p-4 rounded-field glass-3 border border-outline-variant/40 shadow-xs transition-all']) }}
+    {{ $attributes->merge(['class' => 'flex flex-col gap-2 p-3 sm:p-4 rounded-field glass-3 border border-outline-variant/40 shadow-xs transition-opacity duration-150 ease-out']) }}
     :class="checked ? 'opacity-85' : ''"
 >
     <!-- Baris Atas: Nomor Set, RPE, Checkbox -->
@@ -34,9 +34,9 @@
                 />
             </div>
 
-            <label class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-transform" aria-label="Tandai set selesai">
+            <label class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform duration-150 ease-out" aria-label="Tandai set selesai">
                 <input type="checkbox" x-model="checked" class="sr-only peer" />
-                <div class="w-8 h-8 rounded-full border-2 border-outline/50 flex items-center justify-center transition-all peer-checked:bg-secondary peer-checked:border-secondary text-transparent peer-checked:text-white shadow-xs">
+                <div class="w-8 h-8 rounded-full border-2 border-outline/50 flex items-center justify-center transition-colors duration-150 ease-out peer-checked:bg-secondary peer-checked:border-secondary text-transparent peer-checked:text-white shadow-xs">
                     <x-icon name="check" class="w-4 h-4" />
                 </div>
             </label>
@@ -50,7 +50,7 @@
             <button 
                 type="button" 
                 @click="weight = Math.max(0, Math.round((weight - 0.5) * 10) / 10)"
-                class="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                class="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                 aria-label="Kurangi beban"
             >
                 <x-icon name="remove" class="w-4 h-4" />
@@ -67,7 +67,7 @@
             <button 
                 type="button" 
                 @click="weight = Math.round((weight + 0.5) * 10) / 10"
-                class="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                class="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                 aria-label="Tambah beban"
             >
                 <x-icon name="add" class="w-4 h-4" />
@@ -79,7 +79,7 @@
             <button 
                 type="button" 
                 @click="reps = Math.max(0, reps - 1)"
-                class="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                class="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                 aria-label="Kurangi repetisi"
             >
                 <x-icon name="remove" class="w-4 h-4" />
@@ -96,7 +96,7 @@
             <button 
                 type="button" 
                 @click="reps = reps + 1"
-                class="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                class="w-9 h-9 min-w-[36px] min-h-[36px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                 aria-label="Tambah repetisi"
             >
                 <x-icon name="add" class="w-4 h-4" />

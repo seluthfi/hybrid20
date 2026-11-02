@@ -13,7 +13,7 @@
                 type="button"
                 @click="rpe = {{ $i }}"
                 :class="rpe === {{ $i }} ? 'bg-primary text-on-primary shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'"
-                class="min-h-[44px] min-w-[44px] rounded-field font-metric text-sm flex items-center justify-center border border-outline-variant/30 transition-all select-none tabular-nums"
+                class="min-h-[44px] min-w-[44px] rounded-field font-metric text-sm flex items-center justify-center border border-outline-variant/30 transition-[transform,colors] duration-150 ease-out active:scale-[0.97] select-none tabular-nums"
                 aria-label="Pilih RPE {{ $i }}"
             >
                 {{ $i }}

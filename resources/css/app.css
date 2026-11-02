@@ -101,6 +101,13 @@
         box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.8), 0 12px 32px -4px rgb(31 25 54 / 0.08);
     }
 
+    @media (max-width: 640px) {
+        .glass-1 {
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
+        }
+    }
+
     .glass-2 {
         background-color: rgb(255 255 255 / 0.72);
         backdrop-filter: blur(28px) saturate(180%);
@@ -123,16 +130,169 @@
         }
     }
 
+    /* Latar Belakang Performa GPU Tinggi: Menggunakan ::before fixed agar tidak memicu repaint scroll pada mobile */
     .app-bg {
+        position: relative;
         background-color: var(--color-surface);
+        min-height: 100vh;
+    }
+
+    .app-bg::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
         background-image: 
             radial-gradient(circle at 90% 10%, rgba(230, 222, 255, 0.45) 0%, transparent 40%),
             radial-gradient(circle at 10% 40%, rgba(97, 247, 219, 0.25) 0%, transparent 45%),
             radial-gradient(circle at 50% 90%, rgba(255, 217, 226, 0.3) 0%, transparent 50%);
-        background-attachment: fixed;
     }
 
     .tabular-nums {
         font-variant-numeric: tabular-nums;
+    }
+
+    /* Skeleton shimmer via transform (bukan background-position) */
+    .skeleton-shimmer {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .skeleton-shimmer::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    /* Status badge pop 180ms */
+    @keyframes badge-pop {
+        0% { transform: scale(0.92); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .animate-badge-pop {
+        animation: badge-pop 180ms ease-out;
+    }
+
+    /* Accordion grid-template-rows 0fr -> 1fr */
+    .accordion-grid {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 200ms ease-out;
+    }
+
+    .accordion-grid.open {
+        grid-template-rows: 1fr;
+    }
+
+    .accordion-grid > div {
+        overflow: hidden;
+    }
+}
+
+/* CSS View Transitions lintas dokumen (Fase 6B) */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-group(root) {
+    animation-duration: 180ms;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+::view-transition-group(app-sidebar),
+::view-transition-group(app-topbar),
+::view-transition-group(app-tabbar) {
+    animation-duration: 0.001ms;
+}
+
+#app-desktop-sidebar {
+    view-transition-name: app-sidebar;
+}
+
+#app-mobile-topbar {
+    view-transition-name: app-topbar;
+}
+
+#app-mobile-tabbar {
+    view-transition-name: app-tabbar;
+}
+
+#app-main-content,
+#app-main-content-desktop,
+#app-main-content-mobile {
+    view-transition-name: app-content;
+}
+
+/* Subtle card / list item entrance animation (Fase 6B: transform & opacity only, <= 280ms) */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-entrance {
+    animation: fadeInSlideUp 200ms cubic-bezier(0, 0, 0.2, 1) backwards;
+}
+
+.animate-entrance:nth-child(1) { animation-delay: 0ms; }
+.animate-entrance:nth-child(2) { animation-delay: 30ms; }
+.animate-entrance:nth-child(3) { animation-delay: 60ms; }
+.animate-entrance:nth-child(4) { animation-delay: 90ms; }
+.animate-entrance:nth-child(5) { animation-delay: 120ms; }
+.animate-entrance:nth-child(6) { animation-delay: 150ms; }
+.animate-entrance:nth-child(7) { animation-delay: 180ms; }
+.animate-entrance:nth-child(8) { animation-delay: 210ms; }
+
+/* Mode Perangkat Ringan / Hemat Daya: fx-lite */
+.fx-lite * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+}
+
+.fx-lite .animate-entrance {
+    animation: none !important;
+}
+
+.fx-lite .glass-1,
+.fx-lite .glass-2,
+.fx-lite .glass-3 {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.fx-lite .skeleton-shimmer::after {
+    animation: none !important;
+}
+
+/* Menghormati prefers-reduced-motion (R13 & Fase 6B) */
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

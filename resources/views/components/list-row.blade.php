@@ -9,12 +9,12 @@
 
 @php
     $tag = $href ? 'a' : 'div';
-    $interactiveClass = $href ? 'hover:bg-surface-container-low/90 active:scale-[0.99] cursor-pointer' : '';
+    $interactiveClass = $href ? 'hover:bg-surface-container-low/90 active:scale-[0.98] cursor-pointer' : '';
 @endphp
 
 <{{ $tag }} 
     @if($href) href="{{ $href }}" @endif
-    {{ $attributes->merge(['class' => "flex items-center justify-between p-3.5 sm:p-4 rounded-field glass-2 border border-outline-variant/30 shadow-xs transition-all duration-200 select-none $interactiveClass"]) }}
+    {{ $attributes->merge(['class' => "flex items-center justify-between p-3.5 sm:p-4 rounded-field glass-2 border border-outline-variant/30 shadow-xs transition-[transform,colors] duration-150 ease-out select-none $interactiveClass"]) }}
 >
     <div class="flex items-center gap-3.5 min-w-0">
         @if($icon)

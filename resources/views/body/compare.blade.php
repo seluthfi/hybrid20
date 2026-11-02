@@ -4,7 +4,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <a href="{{ route('progress-photos.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-95 transition-all">
+                <a href="{{ route('progress-photos.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-[0.97] transition-[transform,colors] duration-150 ease-out">
                     <x-icon name="arrow_back" class="w-5 h-5" />
                 </a>
                 <h1 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Komparasi Langsung</h1>

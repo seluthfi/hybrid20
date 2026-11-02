@@ -36,7 +36,7 @@
     <button 
         type="button" 
         @click="decrement()"
-        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-high/60 hover:bg-surface-container-high text-on-surface active:scale-90 transition-transform"
+        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-high/60 hover:bg-surface-container-high text-on-surface active:scale-[0.95] transition-transform"
         aria-label="Kurangi nilai"
     >
         <x-icon name="remove" class="w-5 h-5" />
@@ -59,7 +59,7 @@
     <button 
         type="button" 
         @click="increment()"
-        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-high/60 hover:bg-surface-container-high text-on-surface active:scale-90 transition-transform"
+        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-high/60 hover:bg-surface-container-high text-on-surface active:scale-[0.95] transition-transform"
         aria-label="Tambah nilai"
     >
         <x-icon name="add" class="w-5 h-5" />

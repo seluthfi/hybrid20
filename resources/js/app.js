@@ -4,6 +4,17 @@ import Chart from 'chart.js/auto';
 window.Alpine = Alpine;
 window.Chart = Chart;
 
+// Deteksi mode perangkat ringan (fx-lite) per PLAN.md Fase 6B
+try {
+    const isLowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
+    const isSaveData = navigator.connection && navigator.connection.saveData === true;
+    const isReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (isLowMemory || isSaveData || isReducedMotion) {
+        document.documentElement.classList.add('fx-lite');
+    }
+} catch (_) {}
+
 // Pemulihan posisi scroll otomatis setelah submit form (PLAN.md §1 R17)
 try {
     document.addEventListener('submit', (e) => {

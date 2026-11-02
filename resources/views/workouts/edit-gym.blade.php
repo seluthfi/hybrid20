@@ -39,7 +39,7 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <a href="{{ route('workouts.show', $workout->id) }}" 
-                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full glass-2 flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-all"
+                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full glass-2 flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-[transform,colors] duration-150 ease-out"
                    aria-label="Kembali"
                 >
                     <x-icon name="arrow_back" class="w-5 h-5" />
@@ -102,7 +102,7 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <template x-for="(ex, exIdx) in exercises" :key="exIdx">
-                        <div class="rounded-card glass-2 border border-outline-variant/30 overflow-hidden flex flex-col shadow-xs transition-all">
+                        <div class="rounded-card glass-2 border border-outline-variant/30 overflow-hidden flex flex-col shadow-xs transition-[transform,colors] duration-150 ease-out">
                             <!-- Accordion Header -->
                             <div class="p-4 flex items-center justify-between bg-surface-container-high/30 cursor-pointer select-none" @click="toggleAccordion(exIdx)">
                                 <div class="flex items-center gap-3 min-w-0">
@@ -150,9 +150,9 @@
                                                         />
                                                     </div>
 
-                                                    <label class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center cursor-pointer active:scale-95 transition-transform" aria-label="Tandai set selesai">
+                                                    <label class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center cursor-pointer active:scale-[0.97] transition-transform" aria-label="Tandai set selesai">
                                                         <input type="checkbox" x-model="set.checked" @change="onSetToggled()" class="sr-only peer" />
-                                                        <div class="w-8 h-8 rounded-full border-2 border-outline/50 flex items-center justify-center transition-all peer-checked:bg-secondary peer-checked:border-secondary text-transparent peer-checked:text-white shadow-xs">
+                                                        <div class="w-8 h-8 rounded-full border-2 border-outline/50 flex items-center justify-center transition-[transform,colors] duration-150 ease-out peer-checked:bg-secondary peer-checked:border-secondary text-transparent peer-checked:text-white shadow-xs">
                                                             <x-icon name="check" class="w-4 h-4" />
                                                         </div>
                                                     </label>
@@ -165,7 +165,7 @@
                                                     <button 
                                                         type="button" 
                                                         @click="set.weight_kg = Math.max(0, Math.round((parseFloat(set.weight_kg || 0) - 0.5) * 10) / 10)"
-                                                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                                                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                                                         aria-label="Kurangi beban"
                                                     >
                                                         <x-icon name="remove" class="w-4 h-4" />
@@ -183,7 +183,7 @@
                                                     <button 
                                                         type="button" 
                                                         @click="set.weight_kg = Math.round((parseFloat(set.weight_kg || 0) + 0.5) * 10) / 10"
-                                                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                                                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                                                         aria-label="Tambah beban"
                                                     >
                                                         <x-icon name="add" class="w-4 h-4" />
@@ -195,7 +195,7 @@
                                                     <button 
                                                         type="button" 
                                                         @click="ex.is_timed ? set.duration_seconds = Math.max(0, parseInt(set.duration_seconds || 0) - 5) : set.reps = Math.max(0, parseInt(set.reps || 0) - 1)"
-                                                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                                                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                                                         :aria-label="ex.is_timed ? 'Kurangi detik' : 'Kurangi repetisi'"
                                                     >
                                                         <x-icon name="remove" class="w-4 h-4" />
@@ -213,7 +213,7 @@
                                                     <button 
                                                         type="button" 
                                                         @click="ex.is_timed ? set.duration_seconds = parseInt(set.duration_seconds || 0) + 5 : set.reps = parseInt(set.reps || 0) + 1"
-                                                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                                                        class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                                                         :aria-label="ex.is_timed ? 'Tambah detik' : 'Tambah repetisi'"
                                                     >
                                                         <x-icon name="add" class="w-4 h-4" />
@@ -225,12 +225,12 @@
                                 </div>
 
                                 <div class="flex items-center justify-between pt-2">
-                                    <button type="button" @click="addSet(exIdx)" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-pill glass-2 text-xs font-headline font-semibold text-primary hover:bg-surface-container-high transition-all">
+                                    <button type="button" @click="addSet(exIdx)" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-pill glass-2 text-xs font-headline font-semibold text-primary hover:bg-surface-container-high transition-[transform,colors] duration-150 ease-out">
                                         <x-icon name="add" class="w-3.5 h-3.5" />
                                         <span>+ Set</span>
                                     </button>
 
-                                    <button type="button" @click="copyPreviousSet(exIdx)" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-pill text-xs font-headline font-medium text-on-surface-variant hover:text-on-surface transition-all">
+                                    <button type="button" @click="copyPreviousSet(exIdx)" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-pill text-xs font-headline font-medium text-on-surface-variant hover:text-on-surface transition-[transform,colors] duration-150 ease-out">
                                         <x-icon name="content_copy" class="w-3.5 h-3.5" />
                                         <span>Salin set sebelumnya</span>
                                     </button>
@@ -249,11 +249,11 @@
                 <div class="flex flex-col gap-2">
                     <label class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider">Status Pencatatan</label>
                     <div class="grid grid-cols-2 gap-2 max-w-sm">
-                        <button type="button" @click="status = 'completed'" :class="status === 'completed' ? 'bg-secondary text-white shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'" class="h-11 rounded-field text-sm font-headline flex items-center justify-center gap-2 transition-all">
+                        <button type="button" @click="status = 'completed'" :class="status === 'completed' ? 'bg-secondary text-white shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'" class="h-11 rounded-field text-sm font-headline flex items-center justify-center gap-2 transition-[transform,colors] duration-150 ease-out">
                             <x-icon name="check_circle" class="w-4 h-4" />
                             <span>Selesai</span>
                         </button>
-                        <button type="button" @click="status = 'partial'" :class="status === 'partial' ? 'bg-primary text-white shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'" class="h-11 rounded-field text-sm font-headline flex items-center justify-center gap-2 transition-all">
+                        <button type="button" @click="status = 'partial'" :class="status === 'partial' ? 'bg-primary text-white shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'" class="h-11 rounded-field text-sm font-headline flex items-center justify-center gap-2 transition-[transform,colors] duration-150 ease-out">
                             <x-icon name="timelapse" class="w-4 h-4" />
                             <span>Parsial</span>
                         </button>
@@ -271,15 +271,15 @@
                 <div class="flex flex-col gap-2">
                     <label class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider">Refleksi Kondisi Tubuh</label>
                     <div class="grid grid-cols-3 gap-2 max-w-md">
-                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-all has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
+                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-[transform,colors] duration-150 ease-out has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
                             <input type="radio" name="body_condition" value="segar" {{ $workout->body_condition === 'segar' ? 'checked' : '' }} class="sr-only">
                             <span>Segar</span>
                         </label>
-                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-all has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
+                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-[transform,colors] duration-150 ease-out has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
                             <input type="radio" name="body_condition" value="normal" {{ ($workout->body_condition === 'normal' || !$workout->body_condition) ? 'checked' : '' }} class="sr-only">
                             <span>Normal</span>
                         </label>
-                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-all has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
+                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-[transform,colors] duration-150 ease-out has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
                             <input type="radio" name="body_condition" value="lelah" {{ $workout->body_condition === 'lelah' ? 'checked' : '' }} class="sr-only">
                             <span>Lelah</span>
                         </label>
@@ -321,7 +321,7 @@
 
             <!-- Actions -->
             <div class="flex items-center justify-between gap-4 pt-2">
-                <a href="{{ route('workouts.show', $workout->id) }}" class="px-5 py-3 rounded-pill glass-2 font-headline text-sm font-semibold text-on-surface hover:bg-surface-container-high transition-all">
+                <a href="{{ route('workouts.show', $workout->id) }}" class="px-5 py-3 rounded-pill glass-2 font-headline text-sm font-semibold text-on-surface hover:bg-surface-container-high transition-[transform,colors] duration-150 ease-out">
                     Batal
                 </a>
 
@@ -334,7 +334,7 @@
 
         <!-- MODAL TAMBAH LATIHAN -->
         <div x-show="showAddExerciseModal" x-cloak class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
-            <div class="fixed inset-0 bg-on-background/25 backdrop-blur-md" @click="showAddExerciseModal = false"></div>
+            <div class="fixed inset-0 bg-on-background/40" @click="showAddExerciseModal = false"></div>
             <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none">
                 <div class="w-full max-w-md glass-3 rounded-card p-6 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4 max-h-[85vh] overflow-y-auto">
                     <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">

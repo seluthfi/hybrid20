@@ -95,11 +95,14 @@ class BodyMeasurementController extends Controller
      * Upsert body measurement for the given date (D14).
      * PUT /body/{date}
      */
-    public function upsert(Request $request, string $date): RedirectResponse
+    public function upsert(Request $request, string $date): \Symfony\Component\HttpFoundation\Response
     {
         try {
             $parsedDate = Carbon::createFromFormat('Y-m-d', $date)->startOfDay();
         } catch (\Exception $e) {
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => ['date' => ['Format tanggal tidak valid.']]], 422);
+            }
             return back()->withErrors(['date' => 'Format tanggal tidak valid.']);
         }
 
@@ -110,6 +113,9 @@ class BodyMeasurementController extends Controller
             $rawWeight = $request->input('weight_kg');
             $weight = Num::toDecimal($rawWeight);
             if ($rawWeight !== null && $rawWeight !== '' && ($weight === null || $weight < 20 || $weight > 300)) {
+                if ($request->expectsJson()) {
+                    return response()->json(['errors' => ['weight_kg' => ['Berat badan harus di antara 20 dan 300 kg.']]], 422);
+                }
                 return back()->withErrors(['weight_kg' => 'Berat badan harus di antara 20 dan 300 kg.']);
             }
             if ($weight !== null) {
@@ -146,6 +152,9 @@ class BodyMeasurementController extends Controller
         }
 
         if (empty($data)) {
+            if ($request->expectsJson()) {
+                return response()->json(['errors' => ['weight_kg' => ['Isi minimal satu metrik pengukuran.']]], 422);
+            }
             return back()->withErrors(['weight_kg' => 'Isi minimal satu metrik pengukuran.']);
         }
 
@@ -159,6 +168,17 @@ class BodyMeasurementController extends Controller
             $data['user_id'] = $user->id;
             $data['measured_at'] = $parsedDate->toDateString();
             BodyMeasurement::create($data);
+        }
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Tersimpan',
+                'measured_at' => $parsedDate->toDateString(),
+                'weight_kg' => $data['weight_kg'] ?? null,
+                'formatted_weight' => isset($data['weight_kg']) ? Num::format($data['weight_kg'], 1) : null,
+                'data' => $data,
+            ]);
         }
 
         return back()->with('toast', [

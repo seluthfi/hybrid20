@@ -50,7 +50,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <a href="{{ route('food-logs.index', ['date' => $date]) }}" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-95 transition-all">
+                <a href="{{ route('food-logs.index', ['date' => $date]) }}" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-[0.97] transition-[transform,colors] duration-150 ease-out">
                     <x-icon name="arrow_back" class="w-5 h-5" />
                 </a>
                 <h1 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Tambah Makanan</h1>
@@ -73,7 +73,7 @@
                     x-model="searchQuery" 
                     @input.debounce.250ms="fetchFoods()" 
                     placeholder="Cari nama makanan... (misal: telur, dada ayam, nasi)" 
-                    class="w-full pl-11 pr-4 py-3 rounded-full text-sm font-sans bg-surface-container-low border border-outline-variant/40 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all"
+                    class="w-full pl-11 pr-4 py-3 rounded-full text-sm font-sans bg-surface-container-low border border-outline-variant/40 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-[transform,colors] duration-150 ease-out"
                 >
             </div>
 
@@ -83,7 +83,7 @@
                     type="button" 
                     @click="activeFilter = activeFilter === 'favorite' ? '' : 'favorite'; fetchFoods()" 
                     :class="activeFilter === 'favorite' ? 'bg-primary text-on-primary font-bold' : 'bg-surface-container-high text-on-surface-variant'" 
-                    class="px-3 py-1.5 rounded-full text-xs font-headline flex items-center gap-1.5 transition-all"
+                    class="px-3 py-1.5 rounded-full text-xs font-headline flex items-center gap-1.5 transition-[transform,colors] duration-150 ease-out"
                 >
                     <x-icon name="star" class="w-3.5 h-3.5" />
                     <span>Favorit</span>
@@ -93,7 +93,7 @@
                     type="button" 
                     @click="activeFilter = activeFilter === 'recent' ? '' : 'recent'; fetchFoods()" 
                     :class="activeFilter === 'recent' ? 'bg-primary text-on-primary font-bold' : 'bg-surface-container-high text-on-surface-variant'" 
-                    class="px-3 py-1.5 rounded-full text-xs font-headline flex items-center gap-1.5 transition-all"
+                    class="px-3 py-1.5 rounded-full text-xs font-headline flex items-center gap-1.5 transition-[transform,colors] duration-150 ease-out"
                 >
                     <x-icon name="history" class="w-3.5 h-3.5" />
                     <span>Terakhir Dipakai</span>
@@ -112,7 +112,7 @@
                     <div 
                         @click="selectFood(item)" 
                         :class="selectedFood?.id === item.id ? 'bg-primary-fixed/50 border-primary ring-2 ring-primary/30' : 'bg-surface-container-low/60 hover:bg-surface-container-low border-outline-variant/30'" 
-                        class="p-3 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition-all"
+                        class="p-3 rounded-xl border flex items-center justify-between gap-3 cursor-pointer transition-[transform,colors] duration-150 ease-out"
                     >
                         <div class="flex items-center gap-3 min-w-0">
                             <div class="w-9 h-9 rounded-full flex items-center justify-center shrink-0" :class="item.is_favorite ? 'bg-primary text-on-primary' : 'bg-surface-container-high text-on-surface-variant'">
@@ -169,11 +169,11 @@
                                 Jumlah Porsi
                             </label>
                             <div class="flex items-center gap-1">
-                                <button type="button" @click="if(servings > 0.5) servings = (Number(servings) - 0.5).toFixed(1)" class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface active:scale-95 transition-all text-lg font-bold">
+                                <button type="button" @click="if(servings > 0.5) servings = (Number(servings) - 0.5).toFixed(1)" class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface active:scale-[0.97] transition-[transform,colors] duration-150 ease-out text-lg font-bold">
                                     -
                                 </button>
                                 <input type="number" step="0.1" min="0.1" max="50" name="servings" x-model="servings" required class="flex-1 text-center text-sm font-headline font-bold rounded-xl border border-outline-variant/60 bg-surface-container-lowest py-2 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
-                                <button type="button" @click="servings = (Number(servings) + 0.5).toFixed(1)" class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface active:scale-95 transition-all text-lg font-bold">
+                                <button type="button" @click="servings = (Number(servings) + 0.5).toFixed(1)" class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface active:scale-[0.97] transition-[transform,colors] duration-150 ease-out text-lg font-bold">
                                     +
                                 </button>
                             </div>

@@ -5,13 +5,13 @@
 ])
 
 @php
-    $baseClasses = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pill font-headline text-xs font-semibold select-none transition-all duration-200 border';
+    $baseClasses = 'inline-flex items-center gap-2 px-3.5 py-1.5 rounded-pill font-headline text-xs font-semibold select-none transition-[transform,colors] duration-150 ease-out border';
     
     $stateClasses = $active
         ? 'bg-primary-fixed text-on-primary-fixed border-primary/30 shadow-sm'
         : 'glass-2 text-on-surface-variant hover:text-on-surface border-outline-variant/40 shadow-sm';
 
-    $interactiveClasses = $interactive ? 'cursor-pointer active:scale-95 min-h-[44px]' : 'min-h-[32px]';
+    $interactiveClasses = $interactive ? 'cursor-pointer active:scale-[0.97] min-h-[44px]' : 'min-h-[32px]';
 @endphp
 
 @if($interactive)

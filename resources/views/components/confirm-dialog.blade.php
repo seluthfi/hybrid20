@@ -30,7 +30,7 @@
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
         @click="open = false"
-        class="fixed inset-0 bg-on-background/30 backdrop-blur-sm"
+        class="fixed inset-0 bg-on-background/40"
         aria-hidden="true"
     ></div>
 

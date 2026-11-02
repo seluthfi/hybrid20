@@ -20,16 +20,16 @@
     ][$size] ?? 'w-5 h-5';
 
     $variantClasses = [
-        'glass' => 'glass-2 text-on-surface hover:bg-surface-container-highest/80 shadow-sm active:scale-95',
-        'ghost' => 'bg-transparent text-on-surface hover:bg-surface-container-high/60 active:scale-95',
-        'primary' => 'bg-primary text-on-primary shadow-md shadow-primary/30 hover:bg-primary-container active:scale-95',
+        'glass' => 'glass-2 text-on-surface hover:bg-surface-container-highest/80 shadow-sm active:scale-[0.97]',
+        'ghost' => 'bg-transparent text-on-surface hover:bg-surface-container-high/60 active:scale-[0.97]',
+        'primary' => 'bg-primary text-on-primary shadow-md shadow-primary/30 hover:bg-primary-container active:scale-[0.97]',
     ][$variant] ?? 'glass-2 text-on-surface';
 @endphp
 
 <button 
     type="{{ $type }}" 
     aria-label="{{ $ariaLabel }}"
-    {{ $attributes->merge(['class' => "rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary $sizeClasses $variantClasses"]) }}
+    {{ $attributes->merge(['class' => "rounded-full flex items-center justify-center transition-[transform,colors] duration-150 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary $sizeClasses $variantClasses"]) }}
 >
     <x-icon :name="$name" :class="$iconSizes" />
 </button>

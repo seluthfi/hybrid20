@@ -22,7 +22,7 @@
             </div>
 
             <!-- Segmented Pill Selector (Berat & Lingkar vs Foto Progres) -->
-            <div class="p-1 rounded-full bg-surface-container-high/60 backdrop-blur-md flex items-center gap-1 self-start sm:self-auto">
+            <div class="p-1 rounded-full glass-2 flex items-center gap-1 self-start sm:self-auto">
                 <a href="{{ route('body.index') }}" class="px-4 py-2 rounded-full font-headline text-xs font-bold bg-surface-container-lowest text-primary shadow-sm flex items-center gap-1.5">
                     <x-icon name="straighten" class="w-4 h-4" />
                     <span>Berat & Lingkar</span>
@@ -101,19 +101,19 @@
                     <button type="button" 
                             @click="setRange('4w')" 
                             :class="range === '4w' ? 'bg-surface-container-lowest text-primary font-bold shadow-xs' : 'text-on-surface-variant hover:text-on-surface'"
-                            class="px-3 py-1 rounded-full text-xs font-headline transition-all">
+                            class="px-3 py-1 rounded-full text-xs font-headline transition-[transform,colors] duration-150 ease-out">
                         4 Minggu
                     </button>
                     <button type="button" 
                             @click="setRange('8w')" 
                             :class="range === '8w' ? 'bg-surface-container-lowest text-primary font-bold shadow-xs' : 'text-on-surface-variant hover:text-on-surface'"
-                            class="px-3 py-1 rounded-full text-xs font-headline transition-all">
+                            class="px-3 py-1 rounded-full text-xs font-headline transition-[transform,colors] duration-150 ease-out">
                         8 Minggu
                     </button>
                     <button type="button" 
                             @click="setRange('all')" 
                             :class="range === 'all' ? 'bg-surface-container-lowest text-primary font-bold shadow-xs' : 'text-on-surface-variant hover:text-on-surface'"
-                            class="px-3 py-1 rounded-full text-xs font-headline transition-all">
+                            class="px-3 py-1 rounded-full text-xs font-headline transition-[transform,colors] duration-150 ease-out">
                         Semua
                     </button>
                 </div>
@@ -124,33 +124,33 @@
                 <button type="button" 
                         @click="setMetric('weight_kg')"
                         :class="metric === 'weight_kg' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
-                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-[transform,colors] duration-150 ease-out flex items-center gap-1.5">
                     <x-icon name="scale" class="w-3.5 h-3.5" />
                     <span>Berat Badan</span>
                 </button>
                 <button type="button" 
                         @click="setMetric('waist_cm')"
                         :class="metric === 'waist_cm' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
-                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-[transform,colors] duration-150 ease-out flex items-center gap-1.5">
                     <x-icon name="straighten" class="w-3.5 h-3.5" />
                     <span>Pinggang</span>
                 </button>
                 <button type="button" 
                         @click="setMetric('chest_cm')"
                         :class="metric === 'chest_cm' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
-                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-[transform,colors] duration-150 ease-out flex items-center gap-1.5">
                     <span>Dada</span>
                 </button>
                 <button type="button" 
                         @click="setMetric('arm_cm')"
                         :class="metric === 'arm_cm' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
-                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-[transform,colors] duration-150 ease-out flex items-center gap-1.5">
                     <span>Lengan</span>
                 </button>
                 <button type="button" 
                         @click="setMetric('thigh_cm')"
                         :class="metric === 'thigh_cm' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
-                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-[transform,colors] duration-150 ease-out flex items-center gap-1.5">
                     <span>Paha</span>
                 </button>
             </div>
@@ -325,7 +325,7 @@
 
         <!-- MODAL CATAT / UPSERT PENGUKURAN TUBUH (PLAN.md §10.9) -->
         <div x-show="logWeightModalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
-            <div class="fixed inset-0 bg-on-background/25 backdrop-blur-md" @click="logWeightModalOpen = false"></div>
+            <div class="fixed inset-0 bg-on-background/40" @click="logWeightModalOpen = false"></div>
             <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none">
                 <div class="w-full max-w-md glass-3 rounded-card p-6 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4">
                     <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">
@@ -451,7 +451,7 @@
                     if (!this.$refs.metricCanvas) return;
 
                     const ctx = this.$refs.metricCanvas.getContext('2d');
-                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const isFxLite = document.documentElement.classList.contains('fx-lite') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
                     this.chartInstance = new window.Chart(ctx, {
                         type: 'line',
@@ -489,7 +489,7 @@
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
-                            animation: prefersReducedMotion ? false : { duration: 500 },
+                            animation: isFxLite ? false : { duration: 450 },
                             interaction: {
                                 mode: 'index',
                                 intersect: false,
@@ -611,7 +611,7 @@
                     if (!this.$refs.exerciseCanvas) return;
 
                     const ctx = this.$refs.exerciseCanvas.getContext('2d');
-                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const isFxLite = document.documentElement.classList.contains('fx-lite') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     const labels = data.sessions.map(s => s.formatted_date);
                     const maxWeights = data.sessions.map(s => s.max_weight_kg);
                     const volumes = data.sessions.map(s => s.volume_kg);
@@ -651,7 +651,7 @@
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
-                            animation: prefersReducedMotion ? false : { duration: 500 },
+                            animation: isFxLite ? false : { duration: 450 },
                             interaction: {
                                 mode: 'index',
                                 intersect: false,

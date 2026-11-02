@@ -16,7 +16,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="flex items-center gap-2">
                 <a href="{{ route('food-logs.index', ['date' => $date->copy()->subDay()->toDateString()]) }}" 
-                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center glass-2 text-on-surface hover:bg-surface-container active:scale-95 transition-all" 
+                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center glass-2 text-on-surface hover:bg-surface-container active:scale-[0.97] transition-[transform,colors] duration-150 ease-out" 
                    aria-label="Hari sebelumnya">
                     <x-icon name="chevron_left" class="w-5 h-5" />
                 </a>
@@ -29,7 +29,7 @@
                 </div>
 
                 <a href="{{ route('food-logs.index', ['date' => $date->copy()->addDay()->toDateString()]) }}" 
-                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center glass-2 text-on-surface hover:bg-surface-container active:scale-95 transition-all" 
+                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center glass-2 text-on-surface hover:bg-surface-container active:scale-[0.97] transition-[transform,colors] duration-150 ease-out" 
                    aria-label="Hari berikutnya">
                     <x-icon name="chevron_right" class="w-5 h-5" />
                 </a>
@@ -87,7 +87,7 @@
                 <!-- Progress Bar Kalori (Dibatasi 100%, netral jika melebihi) -->
                 <div class="w-full flex flex-col gap-1.5">
                     <div class="w-full h-3 rounded-full bg-surface-container-high overflow-hidden">
-                        <div class="h-full rounded-full bg-primary transition-all duration-500" style="width: {{ $caloriePercent }}%"></div>
+                        <div class="h-full rounded-full bg-primary transition-[transform,colors] duration-150 ease-out duration-500" style="width: {{ $caloriePercent }}%"></div>
                     </div>
                     <div class="flex justify-between text-[11px] font-sans text-on-surface-variant">
                         <span>Pencapaian: {{ $caloriePercent }}%</span>
@@ -165,7 +165,7 @@
                             </div>
 
                             <a href="{{ route('food-logs.create', ['meal_type' => $meal['key'], 'date' => $dateString]) }}" 
-                               class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-all"
+                               class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-[transform,colors] duration-150 ease-out"
                                aria-label="Tambah {{ $meal['title'] }}">
                                 <x-icon name="add" class="w-4 h-4" />
                             </a>
@@ -176,7 +176,7 @@
                     <div class="flex flex-col gap-2">
                         @forelse($meal['items'] as $item)
                             <div @click="openEdit({{ json_encode($item) }})" 
-                                 class="p-3 rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low border border-outline-variant/30 flex items-center justify-between gap-3 cursor-pointer transition-all active:scale-[0.99]">
+                                 class="p-3 rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low border border-outline-variant/30 flex items-center justify-between gap-3 cursor-pointer transition-[transform,colors] duration-150 ease-out active:scale-[0.99]">
                                 <div class="flex flex-col min-w-0">
                                     <span class="font-headline text-sm font-semibold text-on-surface truncate">
                                         {{ $item->food_name_snapshot }}
@@ -210,7 +210,7 @@
 
         <!-- MODAL UBAH / HAPUS CATATAN MAKANAN -->
         <div x-show="editLogModalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
-            <div class="fixed inset-0 bg-on-background/25 backdrop-blur-md" @click="editLogModalOpen = false"></div>
+            <div class="fixed inset-0 bg-on-background/40" @click="editLogModalOpen = false"></div>
             <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none">
                 <div class="w-full max-w-md glass-3 rounded-card p-6 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4">
                     <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">

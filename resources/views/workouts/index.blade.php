@@ -18,15 +18,15 @@
         <!-- Segmented Filter Server-side (Semua / Gym / Lari) -->
         <div class="w-full p-1 rounded-pill glass-2 border border-outline-variant/30 flex items-center justify-between shadow-xs">
             <a href="{{ route('workouts.index', ['type' => 'all']) }}" 
-               class="flex-1 py-2 px-3 rounded-pill text-center font-headline text-xs sm:text-sm font-semibold transition-all select-none {{ $type === 'all' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface' }}">
+               class="flex-1 py-2 px-3 rounded-pill text-center font-headline text-xs sm:text-sm font-semibold transition-[transform,colors] duration-150 ease-out select-none {{ $type === 'all' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface' }}">
                 Semua
             </a>
             <a href="{{ route('workouts.index', ['type' => 'gym']) }}" 
-               class="flex-1 py-2 px-3 rounded-pill text-center font-headline text-xs sm:text-sm font-semibold transition-all select-none {{ $type === 'gym' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface' }}">
+               class="flex-1 py-2 px-3 rounded-pill text-center font-headline text-xs sm:text-sm font-semibold transition-[transform,colors] duration-150 ease-out select-none {{ $type === 'gym' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface' }}">
                 Gym
             </a>
             <a href="{{ route('workouts.index', ['type' => 'run']) }}" 
-               class="flex-1 py-2 px-3 rounded-pill text-center font-headline text-xs sm:text-sm font-semibold transition-all select-none {{ $type === 'run' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface' }}">
+               class="flex-1 py-2 px-3 rounded-pill text-center font-headline text-xs sm:text-sm font-semibold transition-[transform,colors] duration-150 ease-out select-none {{ $type === 'run' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface' }}">
                 Lari
             </a>
         </div>
@@ -88,7 +88,7 @@
                     @endphp
 
                     <a href="{{ route('workouts.show', $workout->id) }}" 
-                       class="group relative flex flex-col p-4 rounded-card glass-2 hover:bg-surface-container-low active:scale-[0.99] border border-outline-variant/30 transition-all shadow-xs"
+                       class="group relative flex flex-col p-4 rounded-card glass-2 hover:bg-surface-container-low active:scale-[0.99] border border-outline-variant/30 transition-[transform,colors] duration-150 ease-out shadow-xs"
                     >
                         <div class="flex items-start justify-between gap-3">
                             <div class="flex items-start gap-3.5 min-w-0">

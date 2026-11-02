@@ -12,7 +12,7 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <a href="{{ $scheduledWorkout ? route('today') : route('workouts.index') }}" 
-                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full glass-2 flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-all"
+                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full glass-2 flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-[transform,colors] duration-150 ease-out"
                    aria-label="Kembali"
                 >
                     <x-icon name="arrow_back" class="w-5 h-5" />
@@ -83,7 +83,7 @@
                             <button 
                                 type="button" 
                                 @click="distance = Math.max(0, Math.round((parseFloat(distance || 0) - 0.1) * 10) / 10)"
-                                class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                                class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                                 aria-label="Kurangi jarak"
                             >
                                 <x-icon name="remove" class="w-4 h-4" />
@@ -99,7 +99,7 @@
                             <button 
                                 type="button" 
                                 @click="distance = Math.round((parseFloat(distance || 0) + 0.1) * 10) / 10"
-                                class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-90 shadow-2xs"
+                                class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center bg-surface-container-lowest text-on-surface active:scale-[0.95] shadow-2xs"
                                 aria-label="Tambah jarak"
                             >
                                 <x-icon name="add" class="w-4 h-4" />
@@ -153,11 +153,11 @@
                 <div class="flex flex-col gap-2">
                     <label class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider">Status Sesi</label>
                     <div class="grid grid-cols-2 gap-2 max-w-sm">
-                        <button type="button" @click="status = 'completed'" :class="status === 'completed' ? 'bg-secondary text-white shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'" class="h-11 rounded-field text-sm font-headline flex items-center justify-center gap-2 transition-all">
+                        <button type="button" @click="status = 'completed'" :class="status === 'completed' ? 'bg-secondary text-white shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'" class="h-11 rounded-field text-sm font-headline flex items-center justify-center gap-2 transition-[transform,colors] duration-150 ease-out">
                             <x-icon name="check_circle" class="w-4 h-4" />
                             <span>Selesai</span>
                         </button>
-                        <button type="button" @click="status = 'partial'" :class="status === 'partial' ? 'bg-primary text-white shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'" class="h-11 rounded-field text-sm font-headline flex items-center justify-center gap-2 transition-all">
+                        <button type="button" @click="status = 'partial'" :class="status === 'partial' ? 'bg-primary text-white shadow-md font-bold' : 'glass-2 text-on-surface hover:bg-surface-container-high font-medium'" class="h-11 rounded-field text-sm font-headline flex items-center justify-center gap-2 transition-[transform,colors] duration-150 ease-out">
                             <x-icon name="timelapse" class="w-4 h-4" />
                             <span>Parsial</span>
                         </button>
@@ -175,15 +175,15 @@
                 <div class="flex flex-col gap-2">
                     <label class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider">Refleksi Kondisi Tubuh</label>
                     <div class="grid grid-cols-3 gap-2 max-w-md">
-                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-all has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
+                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-[transform,colors] duration-150 ease-out has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
                             <input type="radio" name="body_condition" value="segar" class="sr-only">
                             <span>Segar</span>
                         </label>
-                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-all has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
+                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-[transform,colors] duration-150 ease-out has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
                             <input type="radio" name="body_condition" value="normal" checked class="sr-only">
                             <span>Normal</span>
                         </label>
-                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-all has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
+                        <label class="flex items-center justify-center gap-2 h-11 rounded-field glass-2 cursor-pointer border border-outline-variant/30 text-xs font-headline font-semibold text-on-surface transition-[transform,colors] duration-150 ease-out has-[:checked]:bg-primary-fixed has-[:checked]:text-primary has-[:checked]:border-primary">
                             <input type="radio" name="body_condition" value="lelah" class="sr-only">
                             <span>Lelah</span>
                         </label>
@@ -226,7 +226,7 @@
 
             <!-- Actions -->
             <div class="flex items-center justify-between gap-4 pt-2">
-                <a href="{{ $scheduledWorkout ? route('today') : route('workouts.index') }}" class="px-5 py-3 rounded-pill glass-2 font-headline text-sm font-semibold text-on-surface hover:bg-surface-container-high transition-all">
+                <a href="{{ $scheduledWorkout ? route('today') : route('workouts.index') }}" class="px-5 py-3 rounded-pill glass-2 font-headline text-sm font-semibold text-on-surface hover:bg-surface-container-high transition-[transform,colors] duration-150 ease-out">
                     Batal
                 </a>
 

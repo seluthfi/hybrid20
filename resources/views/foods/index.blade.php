@@ -5,7 +5,7 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="flex flex-col gap-1">
                 <div class="flex items-center gap-2">
-                    <a href="{{ route('food-logs.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-95 transition-all">
+                    <a href="{{ route('food-logs.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-[0.97] transition-[transform,colors] duration-150 ease-out">
                         <x-icon name="arrow_back" class="w-5 h-5" />
                     </a>
                     <h1 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Pustaka Makanan</h1>
@@ -27,7 +27,7 @@
         <x-card level="1" class="p-4 sm:p-6">
             <div class="flex flex-col gap-2">
                 @forelse($foods as $food)
-                    <div class="p-3.5 rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low border border-outline-variant/30 flex items-center justify-between gap-3 transition-all">
+                    <div class="p-3.5 rounded-xl bg-surface-container-low/60 hover:bg-surface-container-low border border-outline-variant/30 flex items-center justify-between gap-3 transition-[transform,colors] duration-150 ease-out">
                         <div class="flex items-center gap-3 min-w-0">
                             <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 {{ $food->is_favorite ? 'bg-primary text-on-primary' : 'bg-surface-container-high text-on-surface-variant' }}">
                                 <x-icon :name="$food->is_favorite ? 'star' : 'restaurant'" class="w-5 h-5" />

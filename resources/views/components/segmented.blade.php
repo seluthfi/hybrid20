@@ -19,7 +19,7 @@
             type="button"
             @click="current = '{{ $key }}'; {{ $model ? "$model = '$key';" : '' }}"
             :class="current === '{{ $key }}' ? 'bg-surface-container-lowest text-on-surface shadow-md font-semibold' : 'text-on-surface-variant hover:text-on-surface font-medium'"
-            class="flex-1 min-h-[44px] px-3 py-2 rounded-pill font-headline text-xs text-center transition-all duration-200 select-none flex items-center justify-center"
+            class="flex-1 min-h-[44px] px-3 py-2 rounded-pill font-headline text-xs text-center transition-[transform,colors] duration-150 ease-out active:scale-[0.98] select-none flex items-center justify-center"
         >
             {{ $label }}
         </button>

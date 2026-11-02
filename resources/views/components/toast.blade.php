@@ -5,22 +5,21 @@
 ])
 
 <div 
-    x-data="{ show: false, timeout: null }"
+    x-data="{ show: false, timeout: null, messageText: @js($message) }"
     @show-toast.window="
-        message = $event.detail.message || message;
+        messageText = $event.detail.message || messageText;
         show = true;
         clearTimeout(timeout);
         timeout = setTimeout(() => show = false, 3500);
     "
     x-show="show"
     x-cloak
-    x-transition:enter="ease-out duration-300"
-    x-transition:enter-start="opacity-0 -translate-y-4 sm:translate-y-4"
+    x-transition:enter="ease-out duration-250"
+    x-transition:enter-start="opacity-0 -translate-y-2 sm:translate-y-2"
     x-transition:enter-end="opacity-100 translate-y-0"
-    x-transition:leave="ease-in duration-200"
+    x-transition:leave="ease-out duration-180"
     x-transition:leave-start="opacity-100 translate-y-0"
-    x-transition:leave-end="opacity-0 -translate-y-4 sm:translate-y-4"
-    style="display: none;"
+    x-transition:leave-end="opacity-0 -translate-y-2 sm:translate-y-2"
     role="status"
     aria-live="polite"
     class="fixed top-20 sm:top-auto sm:bottom-24 inset-x-0 z-50 flex justify-center px-4 pointer-events-none"
@@ -31,7 +30,7 @@
         </div>
 
         <div class="flex flex-col">
-            <span class="font-headline text-sm font-semibold text-on-surface tracking-tight leading-tight">
+            <span class="font-headline text-sm font-semibold text-on-surface tracking-tight leading-tight" x-text="messageText">
                 {{ $message }}
             </span>
             @if($description)
