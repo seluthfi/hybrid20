@@ -12,7 +12,8 @@ class ProgramDateService
      */
     public function validateStartDate(Carbon|string $startDate): Carbon
     {
-        $date = $startDate instanceof Carbon ? $startDate->copy()->startOfDay() : Carbon::parse($startDate)->startOfDay();
+        $dateStr = $startDate instanceof Carbon ? $startDate->toDateString() : (string) $startDate;
+        $date = Carbon::parse($dateStr)->startOfDay();
 
         if (! $date->isMonday()) {
             throw new InvalidArgumentException('Tanggal mulai harus hari Senin.');
@@ -27,7 +28,8 @@ class ProgramDateService
      */
     public function weekStartDate(Carbon|string $startDate, int $calendarPosition): Carbon
     {
-        $start = $startDate instanceof Carbon ? $startDate->copy()->startOfDay() : Carbon::parse($startDate)->startOfDay();
+        $startStr = $startDate instanceof Carbon ? $startDate->toDateString() : (string) $startDate;
+        $start = Carbon::parse($startStr)->startOfDay();
 
         if ($calendarPosition < 1) {
             throw new InvalidArgumentException('Posisi kalender harus minimal 1.');
@@ -65,8 +67,11 @@ class ProgramDateService
      */
     public function programStatus(Carbon|string $startDate, int $totalWeeks = 20, Carbon|string|null $today = null): array
     {
-        $start = $startDate instanceof Carbon ? $startDate->copy()->startOfDay() : Carbon::parse($startDate)->startOfDay();
-        $current = $today ? ($today instanceof Carbon ? $today->copy()->startOfDay() : Carbon::parse($today)->startOfDay()) : Carbon::today();
+        $startStr = $startDate instanceof Carbon ? $startDate->toDateString() : (string) $startDate;
+        $start = Carbon::parse($startStr)->startOfDay();
+
+        $currentStr = $today ? ($today instanceof Carbon ? $today->toDateString() : (string) $today) : Carbon::today()->toDateString();
+        $current = Carbon::parse($currentStr)->startOfDay();
 
         if ($current->lt($start)) {
             $daysUntil = (int) $current->diffInDays($start);

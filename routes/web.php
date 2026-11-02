@@ -22,7 +22,20 @@ Route::middleware('auth')->group(function () {
 
     // Daily Activities & Body Measurements
     Route::put('/daily-activities/{date}', [\App\Http\Controllers\DailyActivityController::class, 'upsert'])->name('daily-activities.upsert');
+    Route::get('/body', [\App\Http\Controllers\BodyMeasurementController::class, 'index'])->name('body.index');
     Route::put('/body/{date}', [\App\Http\Controllers\BodyMeasurementController::class, 'upsert'])->name('measurements.upsert');
+    Route::delete('/body/{date}', [\App\Http\Controllers\BodyMeasurementController::class, 'destroy'])->name('measurements.destroy');
+
+    // Foods & Food Diary (PLAN.md §5, §10.8)
+    Route::get('/foods/search', [\App\Http\Controllers\FoodController::class, 'search'])->name('foods.search');
+    Route::resource('foods', \App\Http\Controllers\FoodController::class);
+    Route::resource('food-logs', \App\Http\Controllers\FoodLogController::class);
+
+    // Progress Photos (PLAN.md §5, §10.9, §12)
+    Route::get('/body/photos/compare', [\App\Http\Controllers\ProgressPhotoController::class, 'compare'])->name('progress-photos.compare');
+    Route::get('/progress-photos/{id}/image', [\App\Http\Controllers\ProgressPhotoController::class, 'image'])->name('progress-photos.image');
+    Route::get('/progress-photos/{id}/thumb', [\App\Http\Controllers\ProgressPhotoController::class, 'thumb'])->name('progress-photos.thumb');
+    Route::resource('progress-photos', \App\Http\Controllers\ProgressPhotoController::class)->only(['index', 'store', 'destroy']);
 
     // Rencana (Plan) Routes
     Route::get('/plan/{calendar_position?}', [\App\Http\Controllers\PlanController::class, 'show'])->name('plan.show');
