@@ -35,7 +35,7 @@ Aplikasi fitness pribadi (Laravel 13, PHP 8.5, Tailwind 4, single-user, web resp
 - UI Bahasa Indonesia, sapaan "kamu", istilah "Minggu". Target sentuh ≥ 44 px, kontras ≥ 4,5:1, status = ikon + teks.
 - Tidak ada klaim privasi palsu ("on-device", "terenkripsi lokal").
 - Setiap elemen ber-x-show wajib x-cloak. Setelah menyimpan perubahan di halaman mana pun, posisi scroll tidak boleh kembali ke atas.
-- Animasi: hanya transform dan opacity, ≤ 280 ms, hormati prefers-reduced-motion; tanpa konfeti atau efek perayaan.
+- Animasi: hanya transform/opacity (kecuali SVG stroke), <= 450 ms, hormati prefers-reduced-motion, tanpa konfeti atau efek perayaan; font tidak boleh berganti terlihat saat loading.
 
 ## Perintah umum
 ```powershell
