@@ -265,24 +265,43 @@
                             <div class="flex flex-col gap-1.5">
                                 <div class="flex items-center justify-between text-xs font-sans">
                                     <span class="text-on-surface-variant font-medium">Kalori Harian</span>
-                                    <span class="font-metric font-semibold text-on-surface tabular-nums">0 / {{ \App\Support\Num::format($calorieTarget) }} kcal</span>
+                                    <span class="font-metric font-semibold text-on-surface tabular-nums">
+                                        {{ \App\Support\Num::format($todayCalories) }} / {{ \App\Support\Num::format($calorieTarget) }} kcal
+                                    </span>
                                 </div>
-                                <x-progress-bar :value="0" :max="$calorieTarget" color="tertiary" />
+                                <x-progress-bar :value="$todayCalories" :max="$calorieTarget" color="tertiary" />
+                                <div class="flex items-center justify-between text-[11px] font-sans text-on-surface-variant">
+                                    @if($todayCalories > $calorieTarget)
+                                        <span>Melebihi target {{ \App\Support\Num::format($todayCalories - $calorieTarget) }} kcal</span>
+                                    @else
+                                        <span>Sisa {{ \App\Support\Num::format($calorieTarget - $todayCalories) }} kcal</span>
+                                    @endif
+                                    <span>Target panduan fleksibel</span>
+                                </div>
                             </div>
 
                             <!-- Protein -->
                             <div class="flex flex-col gap-1.5">
                                 <div class="flex items-center justify-between text-xs font-sans">
                                     <span class="text-on-surface-variant font-medium">Protein</span>
-                                    <span class="font-metric font-semibold text-on-surface tabular-nums">0 / {{ $proteinTarget }} g</span>
+                                    <span class="font-metric font-semibold text-on-surface tabular-nums">
+                                        {{ \App\Support\Num::format($todayProtein) }} / {{ $proteinTarget }} g
+                                    </span>
                                 </div>
-                                <x-progress-bar :value="0" :max="$proteinTarget" color="secondary" />
+                                <x-progress-bar :value="$todayProtein" :max="$proteinTarget" color="secondary" />
+                                <div class="flex items-center justify-between text-[11px] font-sans text-on-surface-variant">
+                                    @if($todayProtein < $proteinTarget)
+                                        <span>Sisa {{ \App\Support\Num::format($proteinTarget - $todayProtein) }} g</span>
+                                    @else
+                                        <span>{{ \App\Support\Num::format($todayProtein) }} g tercatat</span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </x-card>
 
                     <!-- Kartu Berat Badan & Tren 7 Hari (D13, §8.8) -->
-                    <x-card tier="1" padding="md" class="flex flex-col gap-3">
+                    <x-card tier="1" padding="md" class="flex flex-col gap-3" x-data="miniWeightChart()">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
                                 <x-icon name="scale" class="w-4 h-4 text-secondary" />
@@ -310,6 +329,16 @@
                             </span>
                         </div>
 
+                        <!-- Mini Chart Tren (Desktop) -->
+                        <div class="hidden sm:block pt-1">
+                            <div x-show="!isEmpty" class="h-24 w-full relative">
+                                <canvas x-ref="miniCanvas"></canvas>
+                            </div>
+                            <div x-show="isEmpty" class="py-3 text-center text-xs font-sans text-outline">
+                                Belum cukup data untuk grafik tren
+                            </div>
+                        </div>
+
                         <!-- Baris Tren Berat Netral (§8.8) -->
                         <div class="pt-2 border-t border-outline-variant/20 flex items-center justify-between font-sans text-xs text-on-surface-variant">
                             <span>{{ $weightTrend['label'] }}</span>
@@ -320,7 +349,7 @@
 
             <!-- STRIP RINGKASAN 7 HARI MINGGU BERJALAN (§8.3, §10.2) -->
             @if($weekSummary->isNotEmpty())
-                <div class="flex flex-col gap-3 pt-4">
+                <div class="flex flex-col gap-3 pt-2">
                     <div class="flex items-center justify-between px-1">
                         <h3 class="font-headline text-sm font-bold uppercase tracking-wider text-on-surface">
                             Ringkasan {{ $weekLabel }}
@@ -357,6 +386,324 @@
                     </div>
                 </div>
             @endif
+
+            <!-- GRAFIK 20 MINGGU: JARAK LARI TARGET VS AKTUAL (PLAN.md §6.1, §9.8, §10.2) -->
+            <div class="pt-4" x-data="runWeeklyChart()">
+                <x-card tier="1" padding="lg" class="flex flex-col gap-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-outline-variant/20">
+                        <div class="flex flex-col">
+                            <div class="flex items-center gap-2">
+                                <x-icon name="bar_chart" class="w-5 h-5 text-primary" />
+                                <h3 class="font-headline text-base sm:text-lg font-bold text-on-surface">
+                                    Jarak Lari per Minggu (Target vs Aktual)
+                                </h3>
+                            </div>
+                            <p class="font-sans text-xs text-on-surface-variant mt-0.5">
+                                Target template 20 minggu vs total jarak aktual yang dicatat per minggu.
+                            </p>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="flex items-center flex-wrap gap-3 text-xs font-sans text-on-surface-variant">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-sm bg-primary-container"></span>
+                                <span>Target</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-sm bg-secondary"></span>
+                                <span>Aktual</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-sm bg-tertiary"></span>
+                                <span>Deload</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Canvas Area -->
+                    <div x-show="!isEmpty" class="relative w-full h-64 sm:h-72">
+                        <canvas x-ref="canvas"></canvas>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div x-show="isEmpty" class="py-10 flex flex-col items-center justify-center text-center">
+                        <x-icon name="directions_run" class="w-10 h-10 text-outline mb-2" />
+                        <span class="font-headline text-sm font-semibold text-on-surface">Belum Ada Program Aktif</span>
+                        <span class="font-sans text-xs text-on-surface-variant max-w-sm mt-0.5">
+                            Grafik perbandingan lari mingguan akan otomatis tampil setelah program 20 minggu berjalan.
+                        </span>
+                    </div>
+
+                    <!-- Screen Reader Accessible Table (PLAN.md §9.8) -->
+                    <table class="sr-only" aria-label="Tabel ringkasan jarak lari target versus aktual 20 minggu">
+                        <caption class="sr-only">Tabel Data Jarak Lari Mingguan</caption>
+                        <thead>
+                            <tr>
+                                <th>Minggu</th>
+                                <th>Target Jarak (km)</th>
+                                <th>Aktual Selesai (km)</th>
+                                <th>Fase</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="w in weeks" :key="w.calendar_position">
+                                <tr>
+                                    <td x-text="w.label"></td>
+                                    <td x-text="w.target_km + ' km'"></td>
+                                    <td x-text="w.actual_km + ' km'"></td>
+                                    <td x-text="w.phase_label || '-'"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </x-card>
+            </div>
         @endif
     </div>
+
+    <!-- Chart.js Alpine Logic -->
+    <script>
+        function miniWeightChart() {
+            return {
+                isEmpty: false,
+                isLoading: false,
+                chartInstance: null,
+
+                init() {
+                    this.fetchData();
+                },
+
+                async fetchData() {
+                    this.isLoading = true;
+                    try {
+                        const res = await fetch('/charts/weight?range=4w');
+                        const data = await res.json();
+                        this.isEmpty = data.empty || !data.values || data.values.length < 2;
+
+                        if (!this.isEmpty && this.$refs.miniCanvas) {
+                            this.$nextTick(() => {
+                                this.renderChart(data);
+                            });
+                        }
+                    } catch (e) {
+                        this.isEmpty = true;
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+
+                renderChart(data) {
+                    if (this.chartInstance) {
+                        this.chartInstance.destroy();
+                        this.chartInstance = null;
+                    }
+                    if (!this.$refs.miniCanvas) return;
+
+                    const ctx = this.$refs.miniCanvas.getContext('2d');
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                    this.chartInstance = new window.Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [
+                                {
+                                    label: 'Berat (kg)',
+                                    data: data.values,
+                                    borderColor: '#613dde',
+                                    backgroundColor: 'rgba(97, 61, 222, 0.08)',
+                                    borderWidth: 2,
+                                    pointRadius: 3,
+                                    pointBackgroundColor: '#613dde',
+                                    fill: true,
+                                    tension: 0.2
+                                },
+                                {
+                                    label: 'Rata-rata 7 Hari',
+                                    data: data.moving_averages,
+                                    borderColor: '#006b5c',
+                                    borderWidth: 1.5,
+                                    borderDash: [4, 4],
+                                    pointRadius: 0,
+                                    fill: false,
+                                    tension: 0.3,
+                                    spanGaps: false
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            animation: prefersReducedMotion ? false : { duration: 400 },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    backgroundColor: 'rgba(28, 25, 41, 0.9)',
+                                    padding: 8,
+                                    cornerRadius: 6,
+                                    callbacks: {
+                                        label: (c) => `${c.dataset.label}: ${c.parsed.y.toLocaleString('id-ID')} kg`
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: { display: false },
+                                y: {
+                                    display: true,
+                                    grid: { color: 'rgba(202, 196, 215, 0.15)', drawBorder: false },
+                                    ticks: { font: { family: 'Space Grotesk', size: 10 }, color: '#797586' }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        function runWeeklyChart() {
+            return {
+                isEmpty: false,
+                isLoading: false,
+                weeks: [],
+                currentPosition: null,
+                chartInstance: null,
+
+                init() {
+                    this.fetchData();
+                },
+
+                async fetchData() {
+                    this.isLoading = true;
+                    try {
+                        const res = await fetch('/charts/run-weekly');
+                        const data = await res.json();
+                        this.isEmpty = data.empty || !data.weeks || data.weeks.length === 0;
+                        this.weeks = data.weeks || [];
+                        this.currentPosition = data.current_position;
+
+                        if (!this.isEmpty && this.$refs.canvas) {
+                            this.$nextTick(() => {
+                                this.renderChart(data);
+                            });
+                        }
+                    } catch (e) {
+                        this.isEmpty = true;
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+
+                renderChart(data) {
+                    if (this.chartInstance) {
+                        this.chartInstance.destroy();
+                        this.chartInstance = null;
+                    }
+                    if (!this.$refs.canvas) return;
+
+                    const ctx = this.$refs.canvas.getContext('2d');
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const labels = data.weeks.map(w => w.label);
+                    const targets = data.weeks.map(w => w.target_km);
+                    const actuals = data.weeks.map(w => w.actual_km);
+
+                    const targetColors = data.weeks.map(w => {
+                        if (w.phase_label === 'deload') return 'rgba(157, 59, 96, 0.55)';
+                        if (w.phase_label === 'taper') return 'rgba(97, 61, 222, 0.55)';
+                        return 'rgba(122, 90, 248, 0.55)';
+                    });
+
+                    const actualColors = data.weeks.map(w => {
+                        if (w.is_current) return '#006b5c';
+                        return 'rgba(0, 107, 92, 0.85)';
+                    });
+
+                    this.chartInstance = new window.Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Target Jarak (km)',
+                                    data: targets,
+                                    backgroundColor: targetColors,
+                                    borderColor: targetColors.map(c => c.replace('0.55', '1.0')),
+                                    borderWidth: 1.5,
+                                    borderRadius: 4,
+                                    barPercentage: 0.8,
+                                    categoryPercentage: 0.7
+                                },
+                                {
+                                    label: 'Aktual Selesai (km)',
+                                    data: actuals,
+                                    backgroundColor: actualColors,
+                                    borderColor: '#006b5c',
+                                    borderWidth: 1.5,
+                                    borderRadius: 4,
+                                    barPercentage: 0.8,
+                                    categoryPercentage: 0.7
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            animation: prefersReducedMotion ? false : { duration: 500 },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    backgroundColor: 'rgba(28, 25, 41, 0.9)',
+                                    titleFont: { family: 'Space Grotesk', size: 13, weight: 700 },
+                                    bodyFont: { family: 'Plus Jakarta Sans', size: 12 },
+                                    padding: 10,
+                                    cornerRadius: 8,
+                                    callbacks: {
+                                        afterTitle: function(items) {
+                                            const idx = items[0].dataIndex;
+                                            const w = data.weeks[idx];
+                                            let note = '';
+                                            if (w.phase_label === 'deload') note += ' [Minggu Ringan / Deload]';
+                                            if (w.phase_label === 'taper') note += ' [Taper / Tes 10K]';
+                                            if (w.is_current) note += ' (Minggu Berjalan)';
+                                            return note;
+                                        },
+                                        label: function(context) {
+                                            return `${context.dataset.label}: ${context.parsed.y.toLocaleString('id-ID')} km`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { display: false },
+                                    ticks: {
+                                        color: (ctx) => {
+                                            const w = data.weeks[ctx.index];
+                                            if (w && w.is_current) return '#613dde';
+                                            return '#484555';
+                                        },
+                                        font: (ctx) => {
+                                            const w = data.weeks[ctx.index];
+                                            return {
+                                                family: 'Space Grotesk',
+                                                size: 11,
+                                                weight: (w && w.is_current) ? '700' : '500'
+                                            };
+                                        }
+                                    }
+                                },
+                                y: {
+                                    grid: { color: 'rgba(202, 196, 215, 0.25)', drawBorder: false },
+                                    ticks: {
+                                        color: '#484555',
+                                        font: { family: 'Space Grotesk', size: 12 },
+                                        callback: function(val) { return val + ' km'; }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    </script>
 </x-app-shell>

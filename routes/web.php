@@ -51,6 +51,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [\App\Http\Controllers\SettingsController::class, 'edit'])->name('settings.edit');
     Route::match(['put', 'patch'], '/settings', [\App\Http\Controllers\SettingsController::class, 'update'])->name('settings.update');
     Route::put('/settings/program', [\App\Http\Controllers\SettingsController::class, 'updateProgram'])->name('settings.update-program');
+
+    // Charts API Routes (PLAN.md §5.3, §9.8, §13 Fase 6)
+    Route::get('/charts/weight', [\App\Http\Controllers\ChartController::class, 'weight'])->name('charts.weight');
+    Route::get('/charts/run-weekly', [\App\Http\Controllers\ChartController::class, 'runWeekly'])->name('charts.run-weekly');
+    Route::get('/charts/exercise-history', [\App\Http\Controllers\ChartController::class, 'exerciseHistory'])->name('charts.exercise-history');
 });
 
 // Development Design System Preview (Local Environment Only)
