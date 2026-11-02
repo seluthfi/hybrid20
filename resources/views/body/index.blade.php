@@ -81,6 +81,178 @@
             </div>
         </x-card>
 
+        <!-- GRAFIK TREN METRIK TUBUH (PLAN.md §8.8, §9.8, D13) -->
+        <x-card level="1" class="p-4 sm:p-6 flex flex-col gap-4" x-data="bodyMetricChart()">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-outline-variant/20">
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-2">
+                        <x-icon name="show_chart" class="w-5 h-5 text-primary" />
+                        <h2 class="font-headline text-base sm:text-lg font-bold text-on-surface">
+                            Grafik Tren Metrik Tubuh
+                        </h2>
+                    </div>
+                    <p class="font-sans text-xs text-on-surface-variant mt-0.5">
+                        Titik data asli dan garis rata-rata 7 hari (dihitung saat ada ≥ 4 data dalam jendela 7 hari).
+                    </p>
+                </div>
+
+                <!-- Range Selector Chips -->
+                <div class="flex items-center gap-1.5 self-start sm:self-auto bg-surface-container-high/60 p-1 rounded-full">
+                    <button type="button" 
+                            @click="setRange('4w')" 
+                            :class="range === '4w' ? 'bg-surface-container-lowest text-primary font-bold shadow-xs' : 'text-on-surface-variant hover:text-on-surface'"
+                            class="px-3 py-1 rounded-full text-xs font-headline transition-all">
+                        4 Minggu
+                    </button>
+                    <button type="button" 
+                            @click="setRange('8w')" 
+                            :class="range === '8w' ? 'bg-surface-container-lowest text-primary font-bold shadow-xs' : 'text-on-surface-variant hover:text-on-surface'"
+                            class="px-3 py-1 rounded-full text-xs font-headline transition-all">
+                        8 Minggu
+                    </button>
+                    <button type="button" 
+                            @click="setRange('all')" 
+                            :class="range === 'all' ? 'bg-surface-container-lowest text-primary font-bold shadow-xs' : 'text-on-surface-variant hover:text-on-surface'"
+                            class="px-3 py-1 rounded-full text-xs font-headline transition-all">
+                        Semua
+                    </button>
+                </div>
+            </div>
+
+            <!-- Metric Selector Tabs -->
+            <div class="flex items-center flex-wrap gap-2 pt-1">
+                <button type="button" 
+                        @click="setMetric('weight_kg')"
+                        :class="metric === 'weight_kg' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                    <x-icon name="scale" class="w-3.5 h-3.5" />
+                    <span>Berat Badan</span>
+                </button>
+                <button type="button" 
+                        @click="setMetric('waist_cm')"
+                        :class="metric === 'waist_cm' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                    <x-icon name="straighten" class="w-3.5 h-3.5" />
+                    <span>Pinggang</span>
+                </button>
+                <button type="button" 
+                        @click="setMetric('chest_cm')"
+                        :class="metric === 'chest_cm' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                    <span>Dada</span>
+                </button>
+                <button type="button" 
+                        @click="setMetric('arm_cm')"
+                        :class="metric === 'arm_cm' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                    <span>Lengan</span>
+                </button>
+                <button type="button" 
+                        @click="setMetric('thigh_cm')"
+                        :class="metric === 'thigh_cm' ? 'bg-primary text-on-primary font-bold shadow-xs' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface'"
+                        class="px-3.5 py-1.5 rounded-pill text-xs font-headline transition-all flex items-center gap-1.5">
+                    <span>Paha</span>
+                </button>
+            </div>
+
+            <!-- Canvas Container -->
+            <div x-show="!isEmpty" class="relative w-full h-72 sm:h-80 pt-2">
+                <canvas id="bodyMetricChart" x-ref="metricCanvas"></canvas>
+            </div>
+
+            <!-- Empty State (PLAN.md §13 Fase 6: DB kosong harus menampilkan empty state) -->
+            <div x-show="isEmpty" class="py-12 flex flex-col items-center justify-center text-center">
+                <x-icon name="monitor_weight" class="w-10 h-10 text-outline mb-2" />
+                <span class="font-headline text-sm font-semibold text-on-surface">Belum Ada Data Pengukuran</span>
+                <span class="font-sans text-xs text-on-surface-variant max-w-sm mt-0.5">
+                    Catat pengukuran <span x-text="currentMetricLabel"></span> untuk melihat grafik perkembangan nyata di sini.
+                </span>
+            </div>
+
+            <!-- Screen Reader Accessible Table (PLAN.md §9.8) -->
+            <table class="sr-only" :aria-label="'Tabel ringkasan tren ' + currentMetricLabel">
+                <caption class="sr-only">Tabel Data Riwayat Metrik Tubuh</caption>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Nilai</th>
+                        <th>Rata-rata 7 Hari</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(item, idx) in tableData" :key="idx">
+                        <tr>
+                            <td x-text="item.date"></td>
+                            <td x-text="item.val"></td>
+                            <td x-text="item.ma"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </x-card>
+
+        <!-- GRAFIK RIWAYAT LATIHAN TERPILIH (PLAN.md §9.8) -->
+        <x-card level="1" class="p-4 sm:p-6 flex flex-col gap-4" x-data="exerciseProgressionChart()">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-outline-variant/20">
+                <div class="flex flex-col">
+                    <div class="flex items-center gap-2">
+                        <x-icon name="fitness_center" class="w-5 h-5 text-secondary" />
+                        <h2 class="font-headline text-base sm:text-lg font-bold text-on-surface">
+                            Riwayat Beban & Volume Latihan
+                        </h2>
+                    </div>
+                    <p class="font-sans text-xs text-on-surface-variant mt-0.5">
+                        Perkembangan beban tertinggi (kg) dan total volume (beban × repetisi) per sesi latihan.
+                    </p>
+                </div>
+
+                <!-- Exercise Selector Dropdown -->
+                <div x-show="availableExercises.length > 0" class="self-start sm:self-auto">
+                    <select @change="changeExercise($event.target.value)" 
+                            class="px-3 py-1.5 rounded-field text-xs font-headline font-semibold bg-surface-container-lowest border border-outline-variant/60 text-on-surface focus:outline-primary">
+                        <template x-for="ex in availableExercises" :key="ex.id">
+                            <option :value="ex.id" :selected="ex.id === exerciseId" x-text="ex.name"></option>
+                        </template>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Canvas Container -->
+            <div x-show="!isEmpty" class="relative w-full h-72 sm:h-80 pt-2">
+                <canvas id="exerciseHistoryChart" x-ref="exerciseCanvas"></canvas>
+            </div>
+
+            <!-- Empty State -->
+            <div x-show="isEmpty" class="py-12 flex flex-col items-center justify-center text-center">
+                <x-icon name="fitness_center" class="w-10 h-10 text-outline mb-2" />
+                <span class="font-headline text-sm font-semibold text-on-surface">Belum Ada Riwayat Latihan</span>
+                <span class="font-sans text-xs text-on-surface-variant max-w-sm mt-0.5">
+                    Selesaikan sesi latihan gym dan catat set untuk melihat progres beban dan volume di sini.
+                </span>
+            </div>
+
+            <!-- Screen Reader Accessible Table (PLAN.md §9.8) -->
+            <table class="sr-only" :aria-label="'Tabel ringkasan riwayat latihan ' + currentExerciseName">
+                <caption class="sr-only">Tabel Data Progres Latihan Beban</caption>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Beban Tertinggi</th>
+                        <th>Total Volume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(item, idx) in tableData" :key="idx">
+                        <tr>
+                            <td x-text="item.date"></td>
+                            <td x-text="item.max"></td>
+                            <td x-text="item.vol"></td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </x-card>
+
         <!-- Riwayat Pengukuran Tubuh (PLAN.md §10.9) -->
         <x-card level="1" class="p-4 sm:p-6 flex flex-col gap-4">
             <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">
@@ -213,4 +385,331 @@
         </div>
 
     </div>
+
+    <!-- Chart.js Alpine Logic -->
+    <script>
+        function bodyMetricChart() {
+            return {
+                metric: 'weight_kg',
+                range: '4w',
+                currentMetricLabel: 'Berat Badan',
+                unit: 'kg',
+                isEmpty: false,
+                isLoading: false,
+                tableData: [],
+                chartInstance: null,
+
+                init() {
+                    this.fetchData();
+                },
+
+                setMetric(newMetric) {
+                    this.metric = newMetric;
+                    this.fetchData();
+                },
+
+                setRange(newRange) {
+                    this.range = newRange;
+                    this.fetchData();
+                },
+
+                async fetchData() {
+                    this.isLoading = true;
+                    try {
+                        const res = await fetch(`/charts/weight?metric=${this.metric}&range=${this.range}`);
+                        const data = await res.json();
+                        this.isEmpty = data.empty || !data.values || data.values.length === 0;
+                        this.currentMetricLabel = data.metric_label || 'Metrik';
+                        this.unit = data.unit || 'kg';
+
+                        this.tableData = (data.labels || []).map((label, i) => ({
+                            date: label,
+                            val: data.values[i] + ' ' + this.unit,
+                            ma: data.moving_averages[i] ? data.moving_averages[i] + ' ' + this.unit : '-'
+                        }));
+
+                        if (!this.isEmpty && this.$refs.metricCanvas) {
+                            this.$nextTick(() => {
+                                this.renderChart(data);
+                            });
+                        } else if (this.chartInstance) {
+                            this.chartInstance.destroy();
+                            this.chartInstance = null;
+                        }
+                    } catch (e) {
+                        this.isEmpty = true;
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+
+                renderChart(data) {
+                    if (this.chartInstance) {
+                        this.chartInstance.destroy();
+                        this.chartInstance = null;
+                    }
+                    if (!this.$refs.metricCanvas) return;
+
+                    const ctx = this.$refs.metricCanvas.getContext('2d');
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+                    this.chartInstance = new window.Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: data.labels,
+                            datasets: [
+                                {
+                                    label: `${data.metric_label} (${data.unit})`,
+                                    data: data.values,
+                                    borderColor: '#613dde',
+                                    backgroundColor: 'rgba(97, 61, 222, 0.08)',
+                                    borderWidth: 2.5,
+                                    pointBackgroundColor: '#ffffff',
+                                    pointBorderColor: '#613dde',
+                                    pointBorderWidth: 2,
+                                    pointRadius: 4.5,
+                                    pointHoverRadius: 6.5,
+                                    fill: true,
+                                    tension: 0.2,
+                                },
+                                {
+                                    label: 'Rata-rata 7 Hari (≥4 data)',
+                                    data: data.moving_averages,
+                                    borderColor: '#006b5c',
+                                    borderWidth: 2,
+                                    borderDash: [5, 5],
+                                    pointRadius: 0,
+                                    pointHoverRadius: 4,
+                                    fill: false,
+                                    tension: 0.3,
+                                    spanGaps: false
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            animation: prefersReducedMotion ? false : { duration: 500 },
+                            interaction: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                    labels: {
+                                        color: '#1c1929',
+                                        font: {
+                                            family: 'Plus Jakarta Sans',
+                                            size: 12,
+                                            weight: 600
+                                        },
+                                        usePointStyle: true,
+                                        boxWidth: 8
+                                    }
+                                },
+                                tooltip: {
+                                    backgroundColor: 'rgba(28, 25, 41, 0.9)',
+                                    titleFont: { family: 'Space Grotesk', size: 13, weight: 700 },
+                                    bodyFont: { family: 'Plus Jakarta Sans', size: 12 },
+                                    padding: 10,
+                                    cornerRadius: 8,
+                                    callbacks: {
+                                        label: function(context) {
+                                            if (context.parsed.y === null) return null;
+                                            return `${context.dataset.label}: ${context.parsed.y.toLocaleString('id-ID')} ${data.unit}`;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: {
+                                        color: 'rgba(202, 196, 215, 0.25)',
+                                        drawBorder: false
+                                    },
+                                    ticks: {
+                                        color: '#484555',
+                                        font: { family: 'Plus Jakarta Sans', size: 11 }
+                                    }
+                                },
+                                y: {
+                                    grid: {
+                                        color: 'rgba(202, 196, 215, 0.25)',
+                                        drawBorder: false
+                                    },
+                                    ticks: {
+                                        color: '#484555',
+                                        font: { family: 'Space Grotesk', size: 12 }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        function exerciseProgressionChart() {
+            return {
+                exerciseId: null,
+                availableExercises: [],
+                currentExerciseName: '',
+                isEmpty: false,
+                isLoading: false,
+                tableData: [],
+                chartInstance: null,
+
+                init() {
+                    this.fetchData();
+                },
+
+                changeExercise(id) {
+                    this.exerciseId = id;
+                    this.fetchData();
+                },
+
+                async fetchData() {
+                    this.isLoading = true;
+                    try {
+                        const url = this.exerciseId ? `/charts/exercise-history?exercise_id=${this.exerciseId}` : '/charts/exercise-history';
+                        const res = await fetch(url);
+                        const data = await res.json();
+                        this.isEmpty = data.empty || !data.sessions || data.sessions.length === 0;
+                        this.availableExercises = data.available_exercises || [];
+                        if (data.exercise) {
+                            this.exerciseId = data.exercise.id;
+                            this.currentExerciseName = data.exercise.name;
+                        }
+
+                        this.tableData = (data.sessions || []).map(s => ({
+                            date: s.formatted_date,
+                            max: s.max_weight_kg + ' kg',
+                            vol: s.volume_kg.toLocaleString('id-ID') + ' kg'
+                        }));
+
+                        if (!this.isEmpty && this.$refs.exerciseCanvas) {
+                            this.$nextTick(() => {
+                                this.renderChart(data);
+                            });
+                        } else if (this.chartInstance) {
+                            this.chartInstance.destroy();
+                            this.chartInstance = null;
+                        }
+                    } catch (e) {
+                        this.isEmpty = true;
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+
+                renderChart(data) {
+                    if (this.chartInstance) {
+                        this.chartInstance.destroy();
+                        this.chartInstance = null;
+                    }
+                    if (!this.$refs.exerciseCanvas) return;
+
+                    const ctx = this.$refs.exerciseCanvas.getContext('2d');
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const labels = data.sessions.map(s => s.formatted_date);
+                    const maxWeights = data.sessions.map(s => s.max_weight_kg);
+                    const volumes = data.sessions.map(s => s.volume_kg);
+
+                    this.chartInstance = new window.Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    type: 'line',
+                                    label: 'Beban Puncak (kg)',
+                                    data: maxWeights,
+                                    borderColor: '#613dde',
+                                    backgroundColor: '#613dde',
+                                    borderWidth: 2.5,
+                                    pointRadius: 4.5,
+                                    pointHoverRadius: 6.5,
+                                    pointBackgroundColor: '#ffffff',
+                                    pointBorderColor: '#613dde',
+                                    pointBorderWidth: 2,
+                                    yAxisID: 'y',
+                                    tension: 0.2
+                                },
+                                {
+                                    type: 'bar',
+                                    label: 'Total Volume (kg)',
+                                    data: volumes,
+                                    backgroundColor: 'rgba(0, 107, 92, 0.45)',
+                                    borderColor: '#006b5c',
+                                    borderWidth: 1.5,
+                                    borderRadius: 6,
+                                    yAxisID: 'y1'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            animation: prefersReducedMotion ? false : { duration: 500 },
+                            interaction: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                    labels: {
+                                        color: '#1c1929',
+                                        font: { family: 'Plus Jakarta Sans', size: 12, weight: 600 },
+                                        usePointStyle: true,
+                                        boxWidth: 8
+                                    }
+                                },
+                                tooltip: {
+                                    backgroundColor: 'rgba(28, 25, 41, 0.9)',
+                                    titleFont: { family: 'Space Grotesk', size: 13, weight: 700 },
+                                    bodyFont: { family: 'Plus Jakarta Sans', size: 12 },
+                                    padding: 10,
+                                    cornerRadius: 8
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { color: 'rgba(202, 196, 215, 0.25)', drawBorder: false },
+                                    ticks: { color: '#484555', font: { family: 'Plus Jakarta Sans', size: 11 } }
+                                },
+                                y: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'left',
+                                    title: {
+                                        display: true,
+                                        text: 'Beban Puncak (kg)',
+                                        color: '#613dde',
+                                        font: { family: 'Plus Jakarta Sans', size: 11, weight: 600 }
+                                    },
+                                    grid: { color: 'rgba(202, 196, 215, 0.25)', drawBorder: false },
+                                    ticks: { color: '#484555', font: { family: 'Space Grotesk', size: 11 } }
+                                },
+                                y1: {
+                                    type: 'linear',
+                                    display: true,
+                                    position: 'right',
+                                    title: {
+                                        display: true,
+                                        text: 'Volume (kg)',
+                                        color: '#006b5c',
+                                        font: { family: 'Plus Jakarta Sans', size: 11, weight: 600 }
+                                    },
+                                    grid: { drawOnChartArea: false, drawBorder: false },
+                                    ticks: { color: '#484555', font: { family: 'Space Grotesk', size: 11 } }
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    </script>
 </x-app-shell>

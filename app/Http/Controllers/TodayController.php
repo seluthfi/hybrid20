@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BodyMeasurement;
 use App\Models\DailyActivity;
+use App\Models\FoodLog;
 use App\Models\Program;
 use App\Models\ScheduledWorkout;
 use App\Models\Workout;
@@ -129,6 +130,14 @@ class TodayController extends Controller
             ->first();
         $todaySteps = $todayActivity?->steps ?? 0;
 
+        // Food logs today (PLAN.md §8.7, §10.2)
+        $todayCalories = (float) FoodLog::where('user_id', $user->id)
+            ->whereDate('logged_on', $todayDate)
+            ->sum('calories_kcal');
+        $todayProtein = (float) FoodLog::where('user_id', $user->id)
+            ->whereDate('logged_on', $todayDate)
+            ->sum('protein_g');
+
         // Weight measurements & 7-day trend (D13, §8.8)
         $latestMeasurement = BodyMeasurement::where('user_id', $user->id)
             ->whereNotNull('weight_kg')
@@ -149,6 +158,8 @@ class TodayController extends Controller
             'todayDate',
             'painNotice',
             'todaySteps',
+            'todayCalories',
+            'todayProtein',
             'latestMeasurement',
             'weightTrend'
         ));
