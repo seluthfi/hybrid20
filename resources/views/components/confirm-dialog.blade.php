@@ -10,6 +10,7 @@
 <div 
     x-data="{ open: false }"
     x-show="open"
+    x-cloak
     @keydown.escape.window="open = false"
     id="{{ $id }}"
     class="fixed inset-0 z-50 overflow-y-auto"

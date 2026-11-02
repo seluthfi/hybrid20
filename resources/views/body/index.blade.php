@@ -156,12 +156,12 @@
             </div>
 
             <!-- Canvas Container -->
-            <div x-show="!isEmpty" class="relative w-full h-72 sm:h-80 pt-2">
+            <div x-show="!isEmpty" x-cloak class="relative w-full h-72 sm:h-80 pt-2">
                 <canvas id="bodyMetricChart" x-ref="metricCanvas"></canvas>
             </div>
 
             <!-- Empty State (PLAN.md §13 Fase 6: DB kosong harus menampilkan empty state) -->
-            <div x-show="isEmpty" class="py-12 flex flex-col items-center justify-center text-center">
+            <div x-show="isEmpty" x-cloak class="py-12 flex flex-col items-center justify-center text-center">
                 <x-icon name="monitor_weight" class="w-10 h-10 text-outline mb-2" />
                 <span class="font-headline text-sm font-semibold text-on-surface">Belum Ada Data Pengukuran</span>
                 <span class="font-sans text-xs text-on-surface-variant max-w-sm mt-0.5">
@@ -207,7 +207,7 @@
                 </div>
 
                 <!-- Exercise Selector Dropdown -->
-                <div x-show="availableExercises.length > 0" class="self-start sm:self-auto">
+                <div x-show="availableExercises.length > 0" x-cloak class="self-start sm:self-auto">
                     <select @change="changeExercise($event.target.value)" 
                             class="px-3 py-1.5 rounded-field text-xs font-headline font-semibold bg-surface-container-lowest border border-outline-variant/60 text-on-surface focus:outline-primary">
                         <template x-for="ex in availableExercises" :key="ex.id">
@@ -218,12 +218,12 @@
             </div>
 
             <!-- Canvas Container -->
-            <div x-show="!isEmpty" class="relative w-full h-72 sm:h-80 pt-2">
+            <div x-show="!isEmpty" x-cloak class="relative w-full h-72 sm:h-80 pt-2">
                 <canvas id="exerciseHistoryChart" x-ref="exerciseCanvas"></canvas>
             </div>
 
             <!-- Empty State -->
-            <div x-show="isEmpty" class="py-12 flex flex-col items-center justify-center text-center">
+            <div x-show="isEmpty" x-cloak class="py-12 flex flex-col items-center justify-center text-center">
                 <x-icon name="fitness_center" class="w-10 h-10 text-outline mb-2" />
                 <span class="font-headline text-sm font-semibold text-on-surface">Belum Ada Riwayat Latihan</span>
                 <span class="font-sans text-xs text-on-surface-variant max-w-sm mt-0.5">

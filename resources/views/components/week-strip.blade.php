@@ -19,7 +19,7 @@
     }
 @endphp
 
-<div {{ $attributes->merge(['class' => 'flex items-center justify-between gap-1 p-1.5 rounded-card glass-2 border border-outline-variant/30 shadow-xs w-full overflow-x-auto']) }}>
+<div {{ $attributes->merge(['id' => 'week-strip', 'data-scroll-keep' => true, 'class' => 'flex items-center justify-between gap-1 p-1.5 rounded-card glass-2 border border-outline-variant/30 shadow-xs w-full overflow-x-auto']) }}>
     @foreach($days as $day)
         @php
             $isActive = $day['is_active'] ?? ($selectedDate && ($day['date'] ?? '') === $selectedDate);

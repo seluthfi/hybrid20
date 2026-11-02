@@ -25,6 +25,8 @@
 
     <title>{{ $title }} — HYBRID 20</title>
 
+    <style>[x-cloak]{display:none!important}</style>
+
     <!-- Scripts & Styles via Vite (Self-hosted fonts, Zero CDN) -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -34,7 +36,8 @@
           weightModalOpen: false, 
           stepsModalOpen: false, 
           freeWorkoutModalOpen: false 
-      }">
+      }"
+      @pagehide.window="quickActionOpen = false; weightModalOpen = false; stepsModalOpen = false; freeWorkoutModalOpen = false">
 
     <!-- DESKTOP LAYOUT (Hidden on mobile < 1024px) -->
     <div class="hidden lg:flex min-h-screen">

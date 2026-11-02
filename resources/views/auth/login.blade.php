@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Masuk — HYBRID 20</title>
 
+    <style>[x-cloak]{display:none!important}</style>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="app-bg font-sans text-on-surface min-h-screen flex items-center justify-center p-4 antialiased selection:bg-primary-fixed">

@@ -34,6 +34,8 @@ Aplikasi fitness pribadi (Laravel 13, PHP 8.5, Tailwind 4, single-user, web resp
 - Tanpa timer live, AI, wearable, sosial, multi-user, offline write, mode gelap.
 - UI Bahasa Indonesia, sapaan "kamu", istilah "Minggu". Target sentuh ≥ 44 px, kontras ≥ 4,5:1, status = ikon + teks.
 - Tidak ada klaim privasi palsu ("on-device", "terenkripsi lokal").
+- Setiap elemen ber-x-show wajib x-cloak. Setelah menyimpan perubahan di halaman mana pun, posisi scroll tidak boleh kembali ke atas.
+- Animasi: hanya transform dan opacity, ≤ 280 ms, hormati prefers-reduced-motion; tanpa konfeti atau efek perayaan.
 
 ## Perintah umum
 ```powershell
@@ -46,3 +48,4 @@ npm run build    # produksi
 php artisan hybrid:create-user "Nama" email@contoh.com   # tersedia sejak Fase 1
 ```
 Gunakan sintaks PowerShell (bukan bash) saat memberi perintah ke pemilik.
+

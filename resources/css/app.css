@@ -88,6 +88,10 @@
     --spacing-space-xl: 2.25rem;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
 @layer components {
     .glass-1 {
         background-color: rgb(255 255 255 / 0.55);
