@@ -41,11 +41,11 @@
                             Tinggi Badan (cm)
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
+                            inputmode="decimal"
                             id="height_cm" 
                             name="height_cm" 
                             value="{{ old('height_cm', $settings->height_cm) }}" 
-                            step="0.5"
                             class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
                         >
                     </div>
@@ -55,11 +55,11 @@
                             Berat Awal (kg)
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
+                            inputmode="decimal"
                             id="starting_weight_kg" 
                             name="starting_weight_kg" 
                             value="{{ old('starting_weight_kg', $settings->starting_weight_kg) }}" 
-                            step="0.1"
                             class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
                         >
                     </div>
@@ -69,11 +69,11 @@
                             Target Berat (kg)
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
+                            inputmode="decimal"
                             id="target_weight_kg" 
                             name="target_weight_kg" 
                             value="{{ old('target_weight_kg', $settings->target_weight_kg) }}" 
-                            step="0.1"
                             class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
                         >
                         <span class="block font-sans text-[11px] text-outline mt-1">Target jangka panjang; tidak harus tercapai dalam 20 minggu.</span>
@@ -87,11 +87,11 @@
                             Target Langkah Harian
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
+                            inputmode="numeric"
                             id="daily_steps_target" 
                             name="daily_steps_target" 
                             value="{{ old('daily_steps_target', $settings->daily_steps_target) }}" 
-                            step="500"
                             class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
                         >
                         <span class="block font-sans text-[11px] text-outline mt-1">Total akumulasi termasuk langkah saat lari.</span>
@@ -102,11 +102,11 @@
                             Target Kalori Harian (kcal)
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
+                            inputmode="numeric"
                             id="daily_calorie_target" 
                             name="daily_calorie_target" 
                             value="{{ old('daily_calorie_target', $settings->daily_calorie_target) }}" 
-                            step="50"
                             class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
                         >
                     </div>
@@ -119,11 +119,11 @@
                             Target Protein (g)
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
+                            inputmode="decimal"
                             id="protein_target_g" 
                             name="protein_target_g" 
                             value="{{ old('protein_target_g', $settings->protein_target_g) }}" 
-                            step="5"
                             class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
                         >
                     </div>
@@ -133,11 +133,11 @@
                             Target Karbohidrat (g)
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
+                            inputmode="decimal"
                             id="carbs_target_g" 
                             name="carbs_target_g" 
                             value="{{ old('carbs_target_g', $settings->carbs_target_g) }}" 
-                            step="5"
                             class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
                         >
                     </div>
@@ -147,11 +147,11 @@
                             Target Lemak (g)
                         </label>
                         <input 
-                            type="number" 
+                            type="text" 
+                            inputmode="decimal"
                             id="fat_target_g" 
                             name="fat_target_g" 
                             value="{{ old('fat_target_g', $settings->fat_target_g) }}" 
-                            step="5"
                             class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
                         >
                     </div>

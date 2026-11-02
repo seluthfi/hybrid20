@@ -39,7 +39,7 @@
                             <label for="serving_size_g" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">
                                 Berat Takaran (gram)
                             </label>
-                            <input type="number" step="0.1" id="serving_size_g" name="serving_size_g" value="{{ old('serving_size_g', $food->serving_size_g) }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            <input type="text" inputmode="decimal" id="serving_size_g" name="serving_size_g" value="{{ old('serving_size_g', $food->serving_size_g) }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                         <label for="calories_kcal" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">
                             Energi Kalori (kcal) <span class="text-error">*</span>
                         </label>
-                        <input type="number" step="0.1" id="calories_kcal" name="calories_kcal" value="{{ old('calories_kcal', $food->calories_kcal) }}" required class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                        <input type="text" inputmode="decimal" id="calories_kcal" name="calories_kcal" value="{{ old('calories_kcal', $food->calories_kcal) }}" required class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                         @error('calories_kcal')
                             <span class="block text-xs text-error font-sans mt-1">{{ $message }}</span>
                         @enderror
@@ -63,21 +63,21 @@
                             <label for="protein_g" class="block font-headline text-xs font-semibold text-primary mb-1.5">
                                 Protein (g)
                             </label>
-                            <input type="number" step="0.1" id="protein_g" name="protein_g" value="{{ old('protein_g', $food->protein_g) }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            <input type="text" inputmode="decimal" id="protein_g" name="protein_g" value="{{ old('protein_g', $food->protein_g) }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                         </div>
 
                         <div>
                             <label for="carbs_g" class="block font-headline text-xs font-semibold text-secondary mb-1.5">
                                 Karbohidrat (g)
                             </label>
-                            <input type="number" step="0.1" id="carbs_g" name="carbs_g" value="{{ old('carbs_g', $food->carbs_g) }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary/40">
+                            <input type="text" inputmode="decimal" id="carbs_g" name="carbs_g" value="{{ old('carbs_g', $food->carbs_g) }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-secondary/40">
                         </div>
 
                         <div>
                             <label for="fat_g" class="block font-headline text-xs font-semibold text-tertiary mb-1.5">
                                 Lemak (g)
                             </label>
-                            <input type="number" step="0.1" id="fat_g" name="fat_g" value="{{ old('fat_g', $food->fat_g) }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-tertiary/40">
+                            <input type="text" inputmode="decimal" id="fat_g" name="fat_g" value="{{ old('fat_g', $food->fat_g) }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-tertiary/40">
                         </div>
                     </div>
                 </div>
@@ -96,11 +96,9 @@
                     </button>
 
                     <div class="flex gap-2">
-                        <a href="{{ route('foods.index') }}">
-                            <x-button type="button" variant="ghost" size="md">
-                                Batal
-                            </x-button>
-                        </a>
+                        <x-button :href="route('foods.index')" variant="ghost" size="md">
+                            Batal
+                        </x-button>
                         <x-button type="submit" variant="primary" size="md">
                             Simpan Perubahan
                         </x-button>

@@ -135,6 +135,10 @@ class FoodLogController extends Controller
         $settings = UserSetting::where('user_id', $user->id)->first();
         $timezone = $settings?->timezone ?? 'Asia/Jakarta';
 
+        if ($request->has('servings')) {
+            $request->merge(['servings' => \App\Support\Num::toDecimal($request->input('servings'))]);
+        }
+
         $validated = $request->validate([
             'food_id' => ['required', 'exists:foods,id'],
             'meal_type' => ['required', Rule::in(['breakfast', 'lunch', 'dinner', 'snack'])],
@@ -182,6 +186,10 @@ class FoodLogController extends Controller
     public function update(Request $request, FoodLog $foodLog): RedirectResponse
     {
         abort_unless($foodLog->user_id === Auth::id(), 403);
+
+        if ($request->has('servings')) {
+            $request->merge(['servings' => \App\Support\Num::toDecimal($request->input('servings'))]);
+        }
 
         $validated = $request->validate([
             'servings' => ['required', 'numeric', 'min:0.1', 'max:50'],

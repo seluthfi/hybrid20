@@ -56,6 +56,23 @@ class SettingsController extends Controller
         $user = $request->user();
         $settings = UserSetting::where('user_id', $user->id)->firstOrFail();
 
+        $raw = [];
+        $fieldsToDecimal = ['height_cm', 'starting_weight_kg', 'target_weight_kg'];
+        $fieldsToInt = ['daily_steps_target', 'daily_calorie_target', 'protein_target_g', 'carbs_target_g', 'fat_target_g'];
+        foreach ($fieldsToDecimal as $f) {
+            if ($request->has($f) && $request->filled($f)) {
+                $raw[$f] = \App\Support\Num::toDecimal($request->input($f));
+            }
+        }
+        foreach ($fieldsToInt as $f) {
+            if ($request->has($f) && $request->filled($f)) {
+                $raw[$f] = \App\Support\Num::toInteger($request->input($f));
+            }
+        }
+        if (! empty($raw)) {
+            $request->merge($raw);
+        }
+
         $validated = $request->validate([
             'height_cm' => ['nullable', 'numeric', 'min:50', 'max:250'],
             'starting_weight_kg' => ['nullable', 'numeric', 'min:20', 'max:300'],

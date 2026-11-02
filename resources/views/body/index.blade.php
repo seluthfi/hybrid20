@@ -1,13 +1,13 @@
 <x-app-shell :title="'Metrik Tubuh'">
     <div class="flex flex-col gap-6 w-full max-w-4xl mx-auto pb-12" x-data="{
-        logWeightModalOpen: false,
-        inputDate: '{{ Carbon\Carbon::now($settings?->timezone ?? 'Asia/Jakarta')->toDateString() }}',
-        inputWeight: '{{ $latest?->weight_kg ? number_format($latest->weight_kg, 1, '.', '') : '' }}',
-        inputWaist: '',
-        inputChest: '',
-        inputArm: '',
-        inputThigh: '',
-        inputNotes: ''
+        logWeightModalOpen: {{ $errors->any() ? 'true' : 'false' }},
+        inputDate: '{{ old('date', Carbon\Carbon::now($settings?->timezone ?? 'Asia/Jakarta')->toDateString()) }}',
+        inputWeight: '{{ old('weight_kg', '') }}',
+        inputWaist: '{{ old('waist_cm', '') }}',
+        inputChest: '{{ old('chest_cm', '') }}',
+        inputArm: '{{ old('arm_cm', '') }}',
+        inputThigh: '{{ old('thigh_cm', '') }}',
+        inputNotes: '{{ old('notes', '') }}'
     }">
 
         <!-- Header: Judul & Segmented Nav (Berat & Lingkar vs Foto Progres) -->
@@ -61,12 +61,10 @@
                         @endif
                     </div>
 
-                    <button type="button" @click="logWeightModalOpen = true">
-                        <x-button variant="primary" size="md">
-                            <x-icon name="add" class="w-4 h-4" />
-                            <span>Catat Pengukuran</span>
-                        </x-button>
-                    </button>
+                    <x-button type="button" @click="logWeightModalOpen = true" variant="primary" size="md">
+                        <x-icon name="add" class="w-4 h-4" />
+                        <span>Catat Pengukuran</span>
+                    </x-button>
                 </div>
 
                 <!-- Tren 7 Hari Netral (§8.8: tanpa kata aman, sukses, target tercapai) -->
@@ -340,34 +338,37 @@
                         @method('PUT')
 
                         <div>
-                            <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Tanggal</label>
-                            <input type="date" name="date" x-model="inputDate" required class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            <label for="measurement-date" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Tanggal</label>
+                            <input id="measurement-date" type="date" name="date" x-model="inputDate" required class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                         </div>
 
                         <div>
-                            <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Berat Badan (kg)</label>
-                            <input type="number" step="0.1" name="weight_kg" x-model="inputWeight" placeholder="misal: 73.5" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            <label for="measurement-weight" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Berat Badan (kg)</label>
+                            <input id="measurement-weight" type="text" inputmode="decimal" name="weight_kg" x-model="inputWeight" placeholder="Terakhir: {{ $latest?->weight_kg ? number_format($latest->weight_kg, 1, ',', '.') : '-' }}" aria-describedby="weight-error" class="w-full text-sm font-sans rounded-field border @error('weight_kg') border-error @else border-outline-variant/60 @enderror bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            @error('weight_kg')
+                                <p id="weight-error" class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Lingkar Pinggang (cm)</label>
-                                <input type="number" step="0.1" name="waist_cm" x-model="inputWaist" placeholder="Opsional" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                                <label for="measurement-waist" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Lingkar Pinggang (cm)</label>
+                                <input id="measurement-waist" type="text" inputmode="decimal" name="waist_cm" x-model="inputWaist" placeholder="Terakhir: {{ $latest?->waist_cm ? number_format($latest->waist_cm, 1, ',', '.') : '-' }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                             </div>
                             <div>
-                                <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Lingkar Dada (cm)</label>
-                                <input type="number" step="0.1" name="chest_cm" x-model="inputChest" placeholder="Opsional" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                                <label for="measurement-chest" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Lingkar Dada (cm)</label>
+                                <input id="measurement-chest" type="text" inputmode="decimal" name="chest_cm" x-model="inputChest" placeholder="Terakhir: {{ $latest?->chest_cm ? number_format($latest->chest_cm, 1, ',', '.') : '-' }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Lingkar Lengan (cm)</label>
-                                <input type="number" step="0.1" name="arm_cm" x-model="inputArm" placeholder="Opsional" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                                <label for="measurement-arm" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Lingkar Lengan (cm)</label>
+                                <input id="measurement-arm" type="text" inputmode="decimal" name="arm_cm" x-model="inputArm" placeholder="Terakhir: {{ $latest?->arm_cm ? number_format($latest->arm_cm, 1, ',', '.') : '-' }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                             </div>
                             <div>
-                                <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Lingkar Paha (cm)</label>
-                                <input type="number" step="0.1" name="thigh_cm" x-model="inputThigh" placeholder="Opsional" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                                <label for="measurement-thigh" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Lingkar Paha (cm)</label>
+                                <input id="measurement-thigh" type="text" inputmode="decimal" name="thigh_cm" x-model="inputThigh" placeholder="Terakhir: {{ $latest?->thigh_cm ? number_format($latest->thigh_cm, 1, ',', '.') : '-' }}" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                             </div>
                         </div>
 

@@ -1,6 +1,6 @@
 <x-app-shell :title="'Jurnal Makan'">
     <div class="flex flex-col gap-6 w-full max-w-4xl mx-auto pb-12" x-data="{
-        editLogModalOpen: false,
+        editLogModalOpen: {{ $errors->any() ? 'true' : 'false' }},
         activeLog: null,
         editServings: 1,
         editMealType: 'breakfast',
@@ -36,19 +36,15 @@
             </div>
 
             <div class="flex items-center gap-2">
-                <a href="{{ route('foods.index') }}">
-                    <x-button variant="ghost" size="sm">
-                        <x-icon name="menu_book" class="w-4 h-4" />
-                        <span>Pustaka Makanan</span>
-                    </x-button>
-                </a>
+                <x-button :href="route('foods.index')" variant="ghost" size="sm">
+                    <x-icon name="menu_book" class="w-4 h-4" />
+                    <span>Pustaka Makanan</span>
+                </x-button>
 
-                <a href="{{ route('food-logs.create', ['date' => $dateString]) }}">
-                    <x-button variant="primary" size="sm">
-                        <x-icon name="add" class="w-4 h-4" />
-                        <span>Catat Makanan</span>
-                    </x-button>
-                </a>
+                <x-button :href="route('food-logs.create', ['date' => $dateString])" variant="primary" size="sm">
+                    <x-icon name="add" class="w-4 h-4" />
+                    <span>Catat Makanan</span>
+                </x-button>
             </div>
         </div>
 
@@ -228,8 +224,11 @@
                         @method('PUT')
 
                         <div>
-                            <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Jumlah Porsi</label>
-                            <input type="number" step="0.1" min="0.1" max="50" name="servings" x-model="editServings" required class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            <label for="edit-servings" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Jumlah Porsi</label>
+                            <input id="edit-servings" type="text" inputmode="decimal" name="servings" x-model="editServings" required aria-describedby="servings-error" class="w-full text-sm font-sans rounded-field border @error('servings') border-error @else border-outline-variant/60 @enderror bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            @error('servings')
+                                <p id="servings-error" class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>

@@ -28,8 +28,8 @@
 <body class="app-bg font-sans text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed" 
       x-data="{ 
           quickActionOpen: false, 
-          weightModalOpen: false, 
-          stepsModalOpen: false, 
+          weightModalOpen: {{ $errors->has('weight_kg') ? 'true' : 'false' }}, 
+          stepsModalOpen: {{ $errors->has('steps') ? 'true' : 'false' }}, 
           freeWorkoutModalOpen: false 
       }"
       @pagehide.window="quickActionOpen = false; weightModalOpen = false; stepsModalOpen = false; freeWorkoutModalOpen = false">
@@ -236,6 +236,7 @@
         <!-- Overlay Semi-Transparan (Solid tanpa blur demi 60fps) -->
         <div 
             x-show="quickActionOpen"
+            x-cloak
             x-transition:enter="ease-out duration-250"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
@@ -251,6 +252,7 @@
         <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
             <div 
                 x-show="quickActionOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-250"
                 x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                 x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"
@@ -347,6 +349,7 @@
         <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
             <div 
                 x-show="weightModalOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-250"
                 x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                 x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"
@@ -367,8 +370,8 @@
 
                 <form 
                     x-data="{ 
-                        weightDate: '{{ $shellToday }}', 
-                        weightKg: '',
+                        weightDate: '{{ old('measured_at', $shellToday) }}', 
+                        weightKg: '{{ old('weight_kg', '') }}',
                         submitting: false,
                         async submitWeight(e) {
                             if (!this.weightKg) return;
@@ -414,11 +417,14 @@
                     @method('PUT')
 
                     <x-field label="Tanggal Timbangan" name="measured_at">
-                        <input type="date" x-model="weightDate" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
+                        <input type="date" x-model="weightDate" name="measured_at" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
                     </x-field>
 
                     <x-field label="Berat Badan (kg)" name="weight_kg" hint="{{ $shellLatestWeight ? 'Terakhir: ' . \App\Support\Num::format($shellLatestWeight, 1) . ' kg' : 'Belum ada data' }}">
-                        <input type="text" x-model="weightKg" name="weight_kg" inputmode="decimal" placeholder="Contoh: 74,5" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus />
+                        <input type="text" x-model="weightKg" name="weight_kg" id="quick_weight_kg" inputmode="decimal" placeholder="Contoh: 74,5" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus aria-describedby="quick_weight_error" />
+                        @error('weight_kg')
+                            <p id="quick_weight_error" class="text-xs text-error mt-1">{{ $message }}</p>
+                        @enderror
                     </x-field>
 
                     <div class="flex items-center justify-end gap-2 pt-2">
@@ -436,6 +442,7 @@
         <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
             <div 
                 x-show="stepsModalOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-250"
                 x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                 x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"
@@ -456,8 +463,8 @@
 
                 <form 
                     x-data="{ 
-                        stepsDate: '{{ $shellToday }}', 
-                        stepsCount: '{{ $shellTodaySteps ?? '' }}',
+                        stepsDate: '{{ old('activity_date', $shellToday) }}', 
+                        stepsCount: '{{ old('steps', $shellTodaySteps ?? '') }}',
                         submitting: false,
                         async submitSteps(e) {
                             if (!this.stepsCount) return;
@@ -502,11 +509,14 @@
                     @method('PUT')
 
                     <x-field label="Tanggal Aktivitas" name="activity_date">
-                        <input type="date" x-model="stepsDate" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
+                        <input type="date" x-model="stepsDate" name="activity_date" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
                     </x-field>
 
                     <x-field label="Total Langkah" name="steps" hint="Total termasuk langkah saat lari">
-                        <input type="text" x-model="stepsCount" name="steps" inputmode="numeric" placeholder="Contoh: 10.000" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus />
+                        <input type="text" x-model="stepsCount" name="steps" id="quick_steps" inputmode="numeric" placeholder="Contoh: 10.000" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus aria-describedby="quick_steps_error" />
+                        @error('steps')
+                            <p id="quick_steps_error" class="text-xs text-error mt-1">{{ $message }}</p>
+                        @enderror
                     </x-field>
 
                     <div class="flex items-center justify-end gap-2 pt-2">
@@ -524,6 +534,7 @@
         <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
             <div 
                 x-show="freeWorkoutModalOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-250"
                 x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                 x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"

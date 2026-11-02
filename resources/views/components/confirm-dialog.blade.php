@@ -23,6 +23,7 @@
     <!-- Overlay -->
     <div 
         x-show="open"
+        x-cloak
         x-transition:enter="ease-out duration-200"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -38,6 +39,7 @@
     <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none">
         <div 
             x-show="open"
+            x-cloak
             x-transition:enter="ease-out duration-200"
             x-transition:enter-start="scale-95 opacity-0"
             x-transition:enter-end="scale-100 opacity-100"

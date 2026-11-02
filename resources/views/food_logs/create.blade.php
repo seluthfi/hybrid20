@@ -56,12 +56,10 @@
                 <h1 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Tambah Makanan</h1>
             </div>
 
-            <a href="{{ route('foods.create') }}">
-                <x-button variant="ghost" size="sm">
-                    <x-icon name="add" class="w-4 h-4" />
-                    <span>Buat Makanan Baru</span>
-                </x-button>
-            </a>
+            <x-button :href="route('foods.create')" variant="ghost" size="sm">
+                <x-icon name="add" class="w-4 h-4" />
+                <span>Buat Makanan Baru</span>
+            </x-button>
         </div>
 
         <!-- Search Bar & Filters (D17, PLAN.md §10.8) -->
@@ -172,7 +170,7 @@
                                 <button type="button" @click="if(servings > 0.5) servings = (Number(servings) - 0.5).toFixed(1)" class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface active:scale-[0.97] transition-[transform,colors] duration-150 ease-out text-lg font-bold">
                                     -
                                 </button>
-                                <input type="number" step="0.1" min="0.1" max="50" name="servings" x-model="servings" required class="flex-1 text-center text-sm font-headline font-bold rounded-xl border border-outline-variant/60 bg-surface-container-lowest py-2 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                                <input type="text" inputmode="decimal" name="servings" x-model="servings" required class="flex-1 text-center text-sm font-headline font-bold rounded-xl border border-outline-variant/60 bg-surface-container-lowest py-2 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                                 <button type="button" @click="servings = (Number(servings) + 0.5).toFixed(1)" class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-on-surface active:scale-[0.97] transition-[transform,colors] duration-150 ease-out text-lg font-bold">
                                     +
                                 </button>

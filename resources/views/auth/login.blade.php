@@ -83,10 +83,10 @@
                                 class="absolute right-1 w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center text-on-surface-variant hover:text-on-surface rounded-full transition-colors"
                                 aria-label="Tampilkan atau sembunyikan kata sandi"
                             >
-                                <span x-show="!showPass">
+                                <span x-show="!showPass" x-cloak>
                                     <x-icon name="visibility" class="w-5 h-5" />
                                 </span>
-                                <span x-show="showPass" style="display: none;">
+                                <span x-show="showPass" x-cloak style="display: none;">
                                     <x-icon name="visibility_off" class="w-5 h-5" />
                                 </span>
                             </button>

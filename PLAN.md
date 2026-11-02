@@ -506,6 +506,16 @@ Aturan:
 - **Halaman demo:** Route `/_dev/motion` (local environment di balik auth) untuk evaluasi pemilik sebelum penerapan global.
 - **DoD:** Font tidak berganti terlihat saat loading (CLS font = 0); tidak ada kedipan overlay; scroll tidak melompat setelah menyimpan; animasi terasa halus dan taktil <= 450 ms; fx-lite bekerja; semua tes hijau.
 
+### Fase 6C: Perbaikan fungsional menyeluruh (Fase 1–6)
+- **Bug A (Tombol di dalam tombol):** Pindahkan `@click` langsung ke `<x-button>` di seluruh Blade; tidak ada `<button>` membungkus `<x-button>`.
+- **Bug B (<a> membungkus <x-button>):** Tambahkan prop `href` pada `components/button.blade.php`; render `<a>` berkelas tombol bila ada `href`, render `<button>` bila tidak. Ganti semua 10 lokasi pembungkus `<a><x-button>`.
+- **Bug C (Ikon tidak terdefinisi):** Tambahkan 26 ikon SVG Material Symbols di `components/icon.blade.php` (hotel, directions_walk, scale, bar_chart, compare, photo_camera, lock, add_a_photo, trending_neutral, show_chart, monitor_weight, event_note, replay, edit_note, save, event, event_repeat, vpn_key, backup, speed, content_copy, restaurant_menu, search, star, history, menu_book). Fallback: lempar exception di local/testing bila nama tidak dikenal; log warning + render "info" di production.
+- **Bug D (Modal pengukuran & input angka D12):** Kosongkan field Catat Pengukuran secara default dengan placeholder "Terakhir: {nilai}"; hanya simpan field yang diisi. Ganti semua `<input type="number">` menjadi `<input type="text" inputmode="decimal"|"numeric">` diparse oleh `App\Support\Num`.
+- **Bug E (Modal form reopen & inline errors):** Semua modal form terbuka kembali saat validasi gagal (`$errors->any()`), isi ulang nilai dengan `old()`, dan tampilkan pesan error inline dengan `aria-describedby`.
+- **Audit fungsional menyeluruh:** Uji setiap layar (§5.1) dan route pada lebar 390 px dan 1440 px, klik setiap elemen interaktif dan kirim setiap form (data valid dan tidak valid). Catat tabel temuan dan perbaikan di `docs/AUDIT_FUNGSIONAL.md`. Verifikasi 7 alur minimal (Autentikasi, Hari Ini, Latihan Gym & Lari, Makan, Tubuh & Foto privat EXIF GPS stripped, Rencana, Pengaturan).
+- **Tes otomatis:** Tes fitur komprehensif (GET 200 seed & empty DB, POST/PUT/PATCH/DELETE success & validation fail, isolasi cross-user, foto EXIF stripped) dan tes statis Blade (integritas button/a, seluruh ikon terdefinisi, x-cloak ada, tanpa input number).
+- **DoD:** Tidak ada tombol bersarang; semua ikon terdefinisi; modal form reopen saat error; audit fungsional 7 alur lulus di 390px dan 1440px; semua tes hijau.
+
 ### Fase 7: PWA
 - Manifest, ikon, `sw.js`, `offline.html`, banner offline, pengujian install/update, pengujian layar/browsers.
 - Tes/pemeriksaan: halaman privat tidak masuk cache; foto tidak di-cache; update SW berjalan.

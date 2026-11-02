@@ -1,12 +1,12 @@
 <x-app-shell :title="'Rencana Program'">
     <div x-data="{
         selectedWorkout: null,
-        detailOpen: false,
+        detailOpen: {{ ($errors->has('status') || $errors->has('rescheduled_to')) ? 'true' : 'false' }},
         repeatConfirmOpen: false,
         cancelRepeatConfirmOpen: false,
         skipConfirmOpen: false,
-        statusVal: 'planned',
-        rescheduledToVal: '',
+        statusVal: '{{ old('status', 'planned') }}',
+        rescheduledToVal: '{{ old('rescheduled_to', '') }}',
         notesVal: '',
         submitting: false,
         workoutStatuses: {
@@ -143,12 +143,10 @@
                         Kamu belum memiliki program aktif. Silakan atur tanggal mulai program di halaman Pengaturan untuk memulai jadwal latihan.
                     </p>
                 </div>
-                <a href="{{ route('settings.edit') }}">
-                    <x-button variant="primary" size="md">
-                        <x-icon name="settings" class="w-4 h-4" />
-                        <span>Buka Pengaturan</span>
-                    </x-button>
-                </a>
+                <x-button :href="route('settings.edit')" variant="primary" size="md">
+                    <x-icon name="settings" class="w-4 h-4" />
+                    <span>Buka Pengaturan</span>
+                </x-button>
             </x-card>
         @else
             <!-- Header Program Status & Info -->
@@ -567,6 +565,9 @@
                                 </button>
                             </div>
                             <input type="hidden" name="status" :value="statusVal">
+                            @error('status')
+                                <p class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <!-- Datepicker Rescheduled To (Hanya muncul jika Ditunda) -->
@@ -579,8 +580,12 @@
                                 id="rescheduled_to" 
                                 name="rescheduled_to" 
                                 x-model="rescheduledToVal" 
+                                aria-describedby="rescheduled_to_error"
                                 class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-tertiary/40"
                             >
+                            @error('rescheduled_to')
+                                <p id="rescheduled_to_error" class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
                             <span class="text-[11px] font-sans text-on-surface-variant">Sesi tetap dihitung dalam minggu aslinya.</span>
                         </div>
 

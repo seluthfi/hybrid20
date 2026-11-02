@@ -1,6 +1,6 @@
 <x-app-shell :title="'Foto Progres'">
     <div class="flex flex-col gap-6 w-full max-w-4xl mx-auto pb-12" x-data="{
-        uploadModalOpen: false,
+        uploadModalOpen: {{ $errors->any() ? 'true' : 'false' }},
         viewerModalOpen: false,
         activePhoto: null,
         openViewer(photo) {
@@ -51,22 +51,18 @@
         <!-- Action Bar: Tombol Upload & Komparasi -->
         <div class="flex items-center justify-between gap-3">
             @if($photos->count() >= 2)
-                <a href="{{ route('progress-photos.compare') }}">
-                    <x-button variant="ghost" size="sm">
-                        <x-icon name="compare" class="w-4 h-4" />
-                        <span>Komparasi 2 Foto</span>
-                    </x-button>
-                </a>
+                <x-button :href="route('progress-photos.compare')" variant="ghost" size="sm">
+                    <x-icon name="compare" class="w-4 h-4" />
+                    <span>Komparasi 2 Foto</span>
+                </x-button>
             @else
                 <div></div>
             @endif
 
-            <button type="button" @click="uploadModalOpen = true">
-                <x-button variant="primary" size="md">
-                    <x-icon name="add_a_photo" class="w-4 h-4" />
-                    <span>Unggah Foto Progres</span>
-                </x-button>
-            </button>
+            <x-button type="button" @click="uploadModalOpen = true" variant="primary" size="md">
+                <x-icon name="add_a_photo" class="w-4 h-4" />
+                <span>Unggah Foto Progres</span>
+            </x-button>
         </div>
 
         <!-- Chronological Galleries Grouped by Date (PLAN.md §10.9) -->
@@ -132,12 +128,10 @@
                             Foto progres membantumu melihat transformasi fisik yang tidak selalu terlihat di timbangan. Unggah foto pertamamu hari ini.
                         </p>
                     </div>
-                    <button type="button" @click="uploadModalOpen = true" class="mt-2">
-                        <x-button variant="primary" size="md">
-                            <x-icon name="add_a_photo" class="w-4 h-4" />
-                            <span>Unggah Foto Pertama</span>
-                        </x-button>
-                    </button>
+                    <x-button type="button" @click="uploadModalOpen = true" class="mt-2" variant="primary" size="md">
+                        <x-icon name="add_a_photo" class="w-4 h-4" />
+                        <span>Unggah Foto Pertama</span>
+                    </x-button>
                 </x-card>
             @endforelse
         </div>
@@ -158,29 +152,38 @@
                         @csrf
 
                         <div>
-                            <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Berkas Foto</label>
-                            <input type="file" name="photo" accept="image/jpeg,image/png,image/webp" required class="w-full text-xs font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
-                            <span class="block text-[11px] font-sans text-outline mt-1">Format: JPG, PNG, atau WebP (maks. 10 MB). Metadata EXIF otomatis dibersihkan.</span>
+                            <label for="photo-file" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Berkas Foto</label>
+                            <input id="photo-file" type="file" name="photo" accept="image/jpeg,image/png,image/webp" required aria-describedby="photo-error photo-help" class="w-full text-xs font-sans rounded-field border @error('photo') border-error @else border-outline-variant/60 @enderror bg-surface-container-lowest p-2 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            <span id="photo-help" class="block text-[11px] font-sans text-outline mt-1">Format: JPG, PNG, atau WebP (maks. 10 MB). Metadata EXIF otomatis dibersihkan.</span>
+                            @error('photo')
+                                <p id="photo-error" class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
-                            <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Tanggal Pengambilan</label>
-                            <input type="date" name="taken_at" value="{{ Carbon\Carbon::today()->toDateString() }}" required class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            <label for="photo-taken-at" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Tanggal Pengambilan</label>
+                            <input id="photo-taken-at" type="date" name="taken_at" value="{{ old('taken_at', Carbon\Carbon::today()->toDateString()) }}" required aria-describedby="taken-at-error" class="w-full text-sm font-sans rounded-field border @error('taken_at') border-error @else border-outline-variant/60 @enderror bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            @error('taken_at')
+                                <p id="taken-at-error" class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
-                            <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Sudut Pose</label>
-                            <select name="pose_label" required class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
-                                <option value="front">Pose Depan (Front)</option>
-                                <option value="side">Pose Samping (Side)</option>
-                                <option value="back">Pose Belakang (Back)</option>
-                                <option value="other">Lainnya (Other)</option>
+                            <label for="photo-pose" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Sudut Pose</label>
+                            <select id="photo-pose" name="pose_label" required aria-describedby="pose-error" class="w-full text-sm font-sans rounded-field border @error('pose_label') border-error @else border-outline-variant/60 @enderror bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                                <option value="front" {{ old('pose_label') === 'front' ? 'selected' : '' }}>Pose Depan (Front)</option>
+                                <option value="side" {{ old('pose_label') === 'side' ? 'selected' : '' }}>Pose Samping (Side)</option>
+                                <option value="back" {{ old('pose_label') === 'back' ? 'selected' : '' }}>Pose Belakang (Back)</option>
+                                <option value="other" {{ old('pose_label') === 'other' ? 'selected' : '' }}>Lainnya (Other)</option>
                             </select>
+                            @error('pose_label')
+                                <p id="pose-error" class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
-                            <label class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Catatan Tambahan (Opsional)</label>
-                            <input type="text" name="notes" placeholder="misal: pencahayaan pagi, puasa 12 jam" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+                            <label for="photo-notes" class="block font-headline text-xs font-semibold text-on-surface mb-1.5">Catatan Tambahan (Opsional)</label>
+                            <input id="photo-notes" type="text" name="notes" value="{{ old('notes') }}" placeholder="misal: pencahayaan pagi, puasa 12 jam" class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
                         </div>
 
                         <div class="flex justify-end gap-2 pt-2 border-t border-outline-variant/20">
