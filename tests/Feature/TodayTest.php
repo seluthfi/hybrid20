@@ -31,7 +31,7 @@ class TodayTest extends TestCase
         $user = User::factory()->create();
         Program::factory()->create([
             'user_id' => $user->id,
-            'start_date' => Carbon::now('Asia/Jakarta')->addDays(5)->startOfWeek()->toDateString(),
+            'start_date' => Carbon::now('Asia/Jakarta')->next(Carbon::MONDAY)->toDateString(),
             'status' => 'planned',
         ]);
 

@@ -68,14 +68,16 @@
                         <span>Latihan</span>
                     </a>
 
-                    <a href="#" 
-                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none text-on-surface hover:bg-surface-container-high/60">
+                    <a href="{{ route('food-logs.index') }}" 
+                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none {{ str_starts_with($currentRoute, 'food-logs.') || str_starts_with($currentRoute, 'foods.') ? 'bg-primary text-on-primary shadow-md shadow-primary/20' : 'text-on-surface hover:bg-surface-container-high/60' }}"
+                       @if(str_starts_with($currentRoute, 'food-logs.') || str_starts_with($currentRoute, 'foods.')) aria-current="page" @endif>
                         <x-icon name="restaurant" class="w-5 h-5" />
                         <span>Makan</span>
                     </a>
 
-                    <a href="#" 
-                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none text-on-surface hover:bg-surface-container-high/60">
+                    <a href="{{ route('body.index') }}" 
+                       class="flex items-center gap-3.5 px-4 py-3 rounded-pill font-headline text-sm font-semibold transition-all select-none {{ str_starts_with($currentRoute, 'body.') || str_starts_with($currentRoute, 'progress-photos.') ? 'bg-primary text-on-primary shadow-md shadow-primary/20' : 'text-on-surface hover:bg-surface-container-high/60' }}"
+                       @if(str_starts_with($currentRoute, 'body.') || str_starts_with($currentRoute, 'progress-photos.')) aria-current="page" @endif>
                         <x-icon name="straighten" class="w-5 h-5" />
                         <span>Tubuh</span>
                     </a>
@@ -205,15 +207,17 @@
                 </div>
 
                 <!-- 4. Makan -->
-                <a href="#" 
-                   class="flex-1 flex flex-col items-center justify-center gap-0.5 py-1 rounded-pill transition-all select-none min-h-[48px] text-on-surface-variant hover:text-on-surface font-medium">
+                <a href="{{ route('food-logs.index') }}" 
+                   class="flex-1 flex flex-col items-center justify-center gap-0.5 py-1 rounded-pill transition-all select-none min-h-[48px] {{ str_starts_with($currentRoute, 'food-logs.') || str_starts_with($currentRoute, 'foods.') ? 'text-primary font-bold' : 'text-on-surface-variant hover:text-on-surface font-medium' }}"
+                   @if(str_starts_with($currentRoute, 'food-logs.') || str_starts_with($currentRoute, 'foods.')) aria-current="page" @endif>
                     <x-icon name="restaurant" class="w-5 h-5" />
                     <span class="font-headline text-[12px] leading-none">Makan</span>
                 </a>
 
                 <!-- 5. Tubuh -->
-                <a href="#" 
-                   class="flex-1 flex flex-col items-center justify-center gap-0.5 py-1 rounded-pill transition-all select-none min-h-[48px] text-on-surface-variant hover:text-on-surface font-medium">
+                <a href="{{ route('body.index') }}" 
+                   class="flex-1 flex flex-col items-center justify-center gap-0.5 py-1 rounded-pill transition-all select-none min-h-[48px] {{ str_starts_with($currentRoute, 'body.') || str_starts_with($currentRoute, 'progress-photos.') ? 'text-primary font-bold' : 'text-on-surface-variant hover:text-on-surface font-medium' }}"
+                   @if(str_starts_with($currentRoute, 'body.') || str_starts_with($currentRoute, 'progress-photos.')) aria-current="page" @endif>
                     <x-icon name="straighten" class="w-5 h-5" />
                     <span class="font-headline text-[12px] leading-none">Tubuh</span>
                 </a>
@@ -280,7 +284,7 @@
 
                 <div class="flex flex-col gap-2.5 pt-1">
                     <!-- 1. Catat Makanan -->
-                    <button type="button" @click="quickActionOpen = false; alert('Pencatatan makanan tersedia di Fase 5.')" class="w-full flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs text-left">
+                    <a href="{{ route('food-logs.create') }}" class="w-full flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs text-left">
                         <div class="flex items-center gap-3.5">
                             <div class="w-11 h-11 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center shrink-0">
                                 <x-icon name="restaurant" class="w-5 h-5" />
@@ -291,7 +295,7 @@
                             </div>
                         </div>
                         <x-icon name="chevron_right" class="w-4 h-4 text-on-surface-variant" />
-                    </button>
+                    </a>
 
                     <!-- 2. Catat Berat -->
                     <button type="button" @click="quickActionOpen = false; weightModalOpen = true" class="w-full flex items-center justify-between p-3.5 rounded-field glass-2 hover:bg-surface-container-low active:scale-[0.98] transition-all border border-outline-variant/30 shadow-xs text-left">
