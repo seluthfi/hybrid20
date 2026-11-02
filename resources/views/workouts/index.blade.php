@@ -36,29 +36,29 @@
             <div class="grid grid-cols-3 gap-2 divide-x divide-outline-variant/30 text-center">
                 <!-- Volume Gym -->
                 <div class="flex flex-col items-center justify-center p-1">
-                    <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Volume {{ $weekLabel }}</span>
+                    <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Volume {{ $weekLabel }}</span>
                     <span class="font-metric text-lg sm:text-xl font-bold text-on-surface mt-0.5 tabular-nums">
                         {{ \App\Support\Num::format($weeklyVolume) }} <span class="font-sans text-xs font-normal text-on-surface-variant">kg</span>
                     </span>
-                    <span class="font-sans text-[10px] text-on-surface-variant">beban × rep</span>
+                    <span class="font-sans text-xs text-on-surface-variant">beban × rep</span>
                 </div>
 
                 <!-- Jarak Lari -->
                 <div class="flex flex-col items-center justify-center p-1">
-                    <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Jarak Lari</span>
+                    <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Jarak Lari</span>
                     <span class="font-metric text-lg sm:text-xl font-bold text-secondary mt-0.5 tabular-nums">
                         {{ \App\Support\Num::format($weeklyDistance, 1) }} <span class="font-sans text-xs font-normal text-on-surface-variant">km</span>
                     </span>
-                    <span class="font-sans text-[10px] text-on-surface-variant">total lari</span>
+                    <span class="font-sans text-xs text-on-surface-variant">total lari</span>
                 </div>
 
                 <!-- Status Sesi Mingguan -->
                 <div class="flex flex-col items-center justify-center p-1">
-                    <span class="font-sans text-[11px] text-on-surface-variant uppercase tracking-wider">Sesi Terjadwal</span>
+                    <span class="font-sans text-xs text-on-surface-variant uppercase tracking-wider">Sesi Terjadwal</span>
                     <span class="font-metric text-lg sm:text-xl font-bold text-primary mt-0.5 tabular-nums">
                         {{ $completedSessions }} <span class="font-sans text-xs font-normal text-on-surface-variant">/ {{ $totalScheduled }}</span>
                     </span>
-                    <span class="font-sans text-[10px] text-on-surface-variant">
+                    <span class="font-sans text-xs text-on-surface-variant">
                         @if($partialCount > 0)
                             {{ $partialCount }} parsial
                         @else
@@ -103,7 +103,7 @@
                                             {{ $workout->title }}
                                         </h2>
                                         @if($workout->pain_flag)
-                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-[11px] font-sans font-medium" title="Catatan nyeri dilaporkan">
+                                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-error-container text-on-error-container text-xs font-sans font-medium" title="Catatan nyeri dilaporkan">
                                                 <x-icon name="info" class="w-3 h-3 text-error" />
                                                 <span>Nyeri</span>
                                             </span>
@@ -163,7 +163,7 @@
                             @endif
 
                             @if($workout->body_condition)
-                                <span class="capitalize bg-surface-container-high/40 px-2.5 py-1 rounded-pill text-[11px]">
+                                <span class="capitalize bg-surface-container-high/40 px-2.5 py-1 rounded-pill text-xs">
                                     {{ $workout->body_condition }}
                                 </span>
                             @endif

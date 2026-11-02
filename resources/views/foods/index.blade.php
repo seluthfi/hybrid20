@@ -15,12 +15,10 @@
                 </p>
             </div>
 
-            <a href="{{ route('foods.create') }}">
-                <x-button variant="primary" size="md">
-                    <x-icon name="add" class="w-4 h-4" />
-                    <span>Makanan Baru</span>
-                </x-button>
-            </a>
+            <x-button :href="route('foods.create')" variant="primary" size="md">
+                <x-icon name="add" class="w-4 h-4" />
+                <span>Makanan Baru</span>
+            </x-button>
         </div>
 
         <!-- Daftar Makanan -->
@@ -39,7 +37,7 @@
                                         {{ $food->name }}
                                     </span>
                                     @if($food->is_favorite)
-                                        <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-headline text-[10px] font-bold">
+                                        <span class="px-2 py-0.5 rounded-full bg-primary-fixed text-primary font-headline text-xs font-bold">
                                             Favorit
                                         </span>
                                     @endif
@@ -70,12 +68,10 @@
                             <span class="font-headline text-base font-bold text-on-surface">Pustaka Makanan Kosong</span>
                             <span class="font-sans text-xs text-on-surface-variant">Tambahkan makanan yang sering kamu konsumsi untuk mempermudah pencatatan harian.</span>
                         </div>
-                        <a href="{{ route('foods.create') }}" class="mt-2">
-                            <x-button variant="primary" size="sm">
-                                <x-icon name="add" class="w-4 h-4" />
-                                <span>Buat Makanan Pertama</span>
-                            </x-button>
-                        </a>
+                        <x-button :href="route('foods.create')" class="mt-2" variant="primary" size="sm">
+                            <x-icon name="add" class="w-4 h-4" />
+                            <span>Buat Makanan Pertama</span>
+                        </x-button>
                     </div>
                 @endforelse
             </div>

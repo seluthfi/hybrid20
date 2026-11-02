@@ -10,11 +10,9 @@
                 <h1 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Komparasi Langsung</h1>
             </div>
 
-            <a href="{{ route('progress-photos.index') }}">
-                <x-button variant="ghost" size="sm">
-                    Kembali ke Galeri
-                </x-button>
-            </a>
+            <x-button :href="route('progress-photos.index')" variant="ghost" size="sm">
+                Kembali ke Galeri
+            </x-button>
         </div>
 
         @if(! $photoA || ! $photoB)
@@ -24,11 +22,9 @@
                 <p class="font-sans text-xs text-on-surface-variant max-w-sm">
                     Kamu membutuhkan minimal 2 foto dengan sudut pose yang sama untuk melihat perbandingan fisik.
                 </p>
-                <a href="{{ route('progress-photos.index') }}">
-                    <x-button variant="primary" size="sm">
-                        Buka Galeri Foto
-                    </x-button>
-                </a>
+                <x-button :href="route('progress-photos.index')" variant="primary" size="sm">
+                    Buka Galeri Foto
+                </x-button>
             </x-card>
         @else
             <!-- Side-by-Side Dual Frame (PLAN.md §10.9) -->

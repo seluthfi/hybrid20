@@ -35,10 +35,11 @@
 
         <button 
             type="button"
+            @click="$dispatch('date-selected', '{{ $day['date'] ?? '' }}')"
             class="flex-1 min-w-[44px] min-h-[56px] py-1.5 px-1 rounded-pill flex flex-col items-center justify-between transition-[transform,colors] duration-150 ease-out active:scale-[0.98] select-none {{ $isActive ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface hover:bg-surface-container-high/60' }}"
             aria-label="{{ $day['day_name'] }}, tanggal {{ $day['date_number'] }}, status {{ $status }}"
         >
-            <span class="font-headline text-[11px] font-semibold uppercase tracking-wider {{ $isActive ? 'text-on-primary' : 'text-on-surface-variant' }}">
+            <span class="font-headline text-xs font-semibold uppercase tracking-wider {{ $isActive ? 'text-on-primary' : 'text-on-surface-variant' }}">
                 {{ $day['day_name'] }}
             </span>
 

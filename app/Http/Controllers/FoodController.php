@@ -84,6 +84,17 @@ class FoodController extends Controller
     {
         $user = Auth::user();
 
+        $fields = ['serving_size_g', 'calories_kcal', 'protein_g', 'carbs_g', 'fat_g'];
+        $raw = [];
+        foreach ($fields as $field) {
+            if ($request->has($field) && $request->filled($field)) {
+                $raw[$field] = \App\Support\Num::toDecimal($request->input($field));
+            }
+        }
+        if (! empty($raw)) {
+            $request->merge($raw);
+        }
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'serving_name' => ['nullable', 'string', 'max:100'],
@@ -137,6 +148,17 @@ class FoodController extends Controller
     public function update(Request $request, Food $food): RedirectResponse
     {
         abort_unless($food->user_id === Auth::id(), 403);
+
+        $fields = ['serving_size_g', 'calories_kcal', 'protein_g', 'carbs_g', 'fat_g'];
+        $raw = [];
+        foreach ($fields as $field) {
+            if ($request->has($field) && $request->filled($field)) {
+                $raw[$field] = \App\Support\Num::toDecimal($request->input($field));
+            }
+        }
+        if (! empty($raw)) {
+            $request->merge($raw);
+        }
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],

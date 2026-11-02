@@ -1,12 +1,12 @@
 <x-app-shell :title="'Rencana Program'">
     <div x-data="{
         selectedWorkout: null,
-        detailOpen: false,
+        detailOpen: {{ ($errors->has('status') || $errors->has('rescheduled_to')) ? 'true' : 'false' }},
         repeatConfirmOpen: false,
         cancelRepeatConfirmOpen: false,
         skipConfirmOpen: false,
-        statusVal: 'planned',
-        rescheduledToVal: '',
+        statusVal: '{{ old('status', 'planned') }}',
+        rescheduledToVal: '{{ old('rescheduled_to', '') }}',
         notesVal: '',
         submitting: false,
         workoutStatuses: {
@@ -143,12 +143,10 @@
                         Kamu belum memiliki program aktif. Silakan atur tanggal mulai program di halaman Pengaturan untuk memulai jadwal latihan.
                     </p>
                 </div>
-                <a href="{{ route('settings.edit') }}">
-                    <x-button variant="primary" size="md">
-                        <x-icon name="settings" class="w-4 h-4" />
-                        <span>Buka Pengaturan</span>
-                    </x-button>
-                </a>
+                <x-button :href="route('settings.edit')" variant="primary" size="md">
+                    <x-icon name="settings" class="w-4 h-4" />
+                    <span>Buka Pengaturan</span>
+                </x-button>
             </x-card>
         @else
             <!-- Header Program Status & Info -->
@@ -226,7 +224,7 @@
                         @endphp
                         <a href="{{ route('plan.show', ['calendar_position' => $w->calendar_position]) }}"
                            class="shrink-0 flex flex-col items-center justify-center min-w-[76px] py-2 px-3 rounded-2xl transition-[transform,colors] duration-150 ease-out text-center select-none {{ $isSelected ? 'bg-primary text-on-primary shadow-md shadow-primary/25 scale-[1.02]' : 'bg-surface-container-low hover:bg-surface-container text-on-surface' }}">
-                            <span class="font-sans text-[11px] leading-tight {{ $isSelected ? 'text-on-primary/80' : 'text-outline' }}">
+                            <span class="font-sans text-xs leading-tight {{ $isSelected ? 'text-on-primary/80' : 'text-outline' }}">
                                 M{{ $w->week_number }}
                             </span>
                             <span class="font-headline text-lg font-bold tabular-nums leading-tight">
@@ -234,11 +232,11 @@
                             </span>
                             <div class="h-4 flex items-center justify-center mt-0.5">
                                 @if($w->is_repeat)
-                                    <span class="text-[9px] font-bold uppercase tracking-wider px-1 rounded {{ $isSelected ? 'bg-white/20 text-white' : 'bg-tertiary-fixed text-on-tertiary-fixed-variant' }}">Ulang</span>
+                                    <span class="text-xs font-bold uppercase tracking-wider px-1 rounded {{ $isSelected ? 'bg-white/20 text-white' : 'bg-tertiary-fixed text-on-tertiary-fixed-variant' }}">Ulang</span>
                                 @elseif($w->phase_label === 'deload')
-                                    <span class="text-[9px] font-semibold px-1 rounded {{ $isSelected ? 'bg-white/20 text-white' : 'bg-secondary-container text-on-secondary-container' }}">Ringan</span>
+                                    <span class="text-xs font-semibold px-1 rounded {{ $isSelected ? 'bg-white/20 text-white' : 'bg-secondary-container text-on-secondary-container' }}">Ringan</span>
                                 @elseif($isActiveNow)
-                                    <span class="text-[9px] font-bold px-1 rounded {{ $isSelected ? 'bg-white/20 text-white' : 'bg-primary-fixed text-primary' }}">Aktif</span>
+                                    <span class="text-xs font-bold px-1 rounded {{ $isSelected ? 'bg-white/20 text-white' : 'bg-primary-fixed text-primary' }}">Aktif</span>
                                 @endif
                             </div>
                         </a>
@@ -265,21 +263,21 @@
                             <span class="font-headline text-lg font-bold text-secondary tabular-nums">
                                 {{ number_format($summary['total_run_target_km'], 1, ',', '.') }}
                             </span>
-                            <span class="block font-sans text-[11px] text-outline">km</span>
+                            <span class="block font-sans text-xs text-outline">km</span>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low">
                             <span class="block font-sans text-xs text-on-surface-variant">Gym</span>
                             <span class="font-headline text-lg font-bold text-primary tabular-nums">
                                 {{ $summary['total_gym_sets'] }}
                             </span>
-                            <span class="block font-sans text-[11px] text-outline">set</span>
+                            <span class="block font-sans text-xs text-outline">set</span>
                         </div>
                         <div class="p-2.5 rounded-xl bg-surface-container-low">
                             <span class="block font-sans text-xs text-on-surface-variant">Sesi</span>
                             <span class="font-headline text-lg font-bold text-on-surface tabular-nums">
                                 {{ $summary['completed_sessions'] }}/{{ $summary['total_sessions'] }}
                             </span>
-                            <span class="block font-sans text-[11px] text-outline">selesai</span>
+                            <span class="block font-sans text-xs text-outline">selesai</span>
                         </div>
                     </div>
 
@@ -302,7 +300,7 @@
                                     <x-icon name="edit_note" class="w-4 h-4 text-primary" />
                                     <span>Catatan Minggu Ini</span>
                                 </label>
-                                <span class="font-sans text-[11px] text-outline">Tersimpan di program</span>
+                                <span class="font-sans text-xs text-outline">Tersimpan di program</span>
                             </div>
                             <textarea 
                                 id="week-notes" 
@@ -341,12 +339,12 @@
                                     <span class="font-headline text-xs font-bold uppercase tracking-wider {{ $day['is_today'] ? 'text-primary' : 'text-on-surface-variant' }}">
                                         {{ $day['day_name'] }}
                                     </span>
-                                    <span class="block font-sans text-[11px] text-outline">
+                                    <span class="block font-sans text-xs text-outline">
                                         {{ $day['date_formatted'] }}
                                     </span>
                                 </div>
                                 @if($day['is_today'])
-                                    <span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-headline text-[10px] font-bold">
+                                    <span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-headline text-xs font-bold">
                                         Hari Ini
                                     </span>
                                 @endif
@@ -395,28 +393,28 @@
                                         </div>
 
                                         @if($isRun)
-                                            <div class="flex items-center justify-between text-[11px] font-sans text-on-surface-variant">
+                                            <div class="flex items-center justify-between text-xs font-sans text-on-surface-variant">
                                                 <span>Target: <strong class="font-headline text-on-surface">{{ number_format($workout->planned_distance_km, 1, ',', '.') }} km</strong></span>
                                                 <span class="text-outline">{{ $workout->intensity_label === 'long_run' ? 'Long Run' : ($workout->intensity_label === 'taper_or_test' ? 'Percobaan 10K' : 'Easy') }}</span>
                                             </div>
                                         @elseif($isGym)
-                                            <div class="flex items-center justify-between text-[11px] font-sans text-on-surface-variant">
+                                            <div class="flex items-center justify-between text-xs font-sans text-on-surface-variant">
                                                 <span>{{ $workout->exercises->count() }} latihan</span>
                                                 <span><strong class="font-headline text-on-surface">{{ $workout->exercises->sum('target_sets') }}</strong> set</span>
                                             </div>
                                         @else
-                                            <p class="font-sans text-[11px] text-outline">Istirahat penuh</p>
+                                            <p class="font-sans text-xs text-outline">Istirahat penuh</p>
                                         @endif
 
                                         <template x-if="workoutStatuses[{{ $workout->id }}]?.rescheduled_to">
-                                            <div class="flex items-center gap-1 text-[10px] text-tertiary font-medium">
+                                            <div class="flex items-center gap-1 text-xs text-tertiary font-medium">
                                                 <x-icon name="update" class="w-3 h-3" />
                                                 <span>Dipindahkan ke <span x-text="workoutStatuses[{{ $workout->id }}]?.rescheduled_to"></span></span>
                                             </div>
                                         </template>
                                         @if($workout->rescheduled_to)
                                             <template x-if="!workoutStatuses[{{ $workout->id }}]?.rescheduled_to">
-                                                <div class="flex items-center gap-1 text-[10px] text-tertiary font-medium">
+                                                <div class="flex items-center gap-1 text-xs text-tertiary font-medium">
                                                     <x-icon name="update" class="w-3 h-3" />
                                                     <span>Dipindahkan ke {{ \Carbon\Carbon::parse($workout->rescheduled_to)->translatedFormat('d M') }}</span>
                                                 </div>
@@ -519,7 +517,7 @@
                                     class="flex flex-col items-center justify-center py-2 px-1 rounded-lg text-xs transition-[transform,colors] duration-150 ease-out active:scale-[0.97]"
                                 >
                                     <x-icon name="schedule" class="w-4 h-4 mb-0.5" />
-                                    <span class="text-[10px] leading-tight">Rencana</span>
+                                    <span class="text-xs leading-tight">Rencana</span>
                                 </button>
 
                                 <!-- completed -->
@@ -530,7 +528,7 @@
                                     class="flex flex-col items-center justify-center py-2 px-1 rounded-lg text-xs transition-[transform,colors] duration-150 ease-out active:scale-[0.97]"
                                 >
                                     <x-icon name="check_circle" class="w-4 h-4 mb-0.5" />
-                                    <span class="text-[10px] leading-tight">Selesai</span>
+                                    <span class="text-xs leading-tight">Selesai</span>
                                 </button>
 
                                 <!-- partial -->
@@ -541,7 +539,7 @@
                                     class="flex flex-col items-center justify-center py-2 px-1 rounded-lg text-xs transition-[transform,colors] duration-150 ease-out active:scale-[0.97]"
                                 >
                                     <x-icon name="timelapse" class="w-4 h-4 mb-0.5" />
-                                    <span class="text-[10px] leading-tight">Parsial</span>
+                                    <span class="text-xs leading-tight">Parsial</span>
                                 </button>
 
                                 <!-- skipped -->
@@ -552,7 +550,7 @@
                                     class="flex flex-col items-center justify-center py-2 px-1 rounded-lg text-xs transition-[transform,colors] duration-150 ease-out active:scale-[0.97]"
                                 >
                                     <x-icon name="event_busy" class="w-4 h-4 mb-0.5" />
-                                    <span class="text-[10px] leading-tight">Lewati</span>
+                                    <span class="text-xs leading-tight">Lewati</span>
                                 </button>
 
                                 <!-- rescheduled -->
@@ -563,10 +561,13 @@
                                     class="flex flex-col items-center justify-center py-2 px-1 rounded-lg text-xs transition-[transform,colors] duration-150 ease-out active:scale-[0.97]"
                                 >
                                     <x-icon name="update" class="w-4 h-4 mb-0.5" />
-                                    <span class="text-[10px] leading-tight">Ditunda</span>
+                                    <span class="text-xs leading-tight">Ditunda</span>
                                 </button>
                             </div>
                             <input type="hidden" name="status" :value="statusVal">
+                            @error('status')
+                                <p class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <!-- Datepicker Rescheduled To (Hanya muncul jika Ditunda) -->
@@ -579,9 +580,13 @@
                                 id="rescheduled_to" 
                                 name="rescheduled_to" 
                                 x-model="rescheduledToVal" 
+                                aria-describedby="rescheduled_to_error"
                                 class="w-full text-sm font-sans rounded-field border border-outline-variant/60 bg-surface-container-lowest p-2.5 text-on-surface focus:outline-none focus:ring-2 focus:ring-tertiary/40"
                             >
-                            <span class="text-[11px] font-sans text-on-surface-variant">Sesi tetap dihitung dalam minggu aslinya.</span>
+                            @error('rescheduled_to')
+                                <p id="rescheduled_to_error" class="text-xs text-error mt-1">{{ $message }}</p>
+                            @enderror
+                            <span class="text-xs font-sans text-on-surface-variant">Sesi tetap dihitung dalam minggu aslinya.</span>
                         </div>
 
                         <!-- Tombol Aksi Simpan & Pintasan Lewati -->

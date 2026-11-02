@@ -62,7 +62,7 @@
                     x-model="weight"
                     class="w-12 text-center font-metric text-sm font-bold text-on-surface bg-transparent focus:outline-none tabular-nums"
                 />
-                <span class="font-headline text-[10px] text-on-surface-variant font-semibold">KG</span>
+                <span class="font-headline text-xs text-on-surface-variant font-semibold">KG</span>
             </div>
             <button 
                 type="button" 
@@ -91,7 +91,7 @@
                     x-model="reps"
                     class="w-12 text-center font-metric text-sm font-bold text-on-surface bg-transparent focus:outline-none tabular-nums"
                 />
-                <span class="font-headline text-[10px] text-on-surface-variant font-semibold">REP</span>
+                <span class="font-headline text-xs text-on-surface-variant font-semibold">REP</span>
             </div>
             <button 
                 type="button" 

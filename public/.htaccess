@@ -24,9 +24,26 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest
+</IfModule>
+
 <IfModule mod_headers.c>
     # Long-term immutable caching for static variable fonts
     <FilesMatch "\.(woff2|woff)$">
         Header set Cache-Control "max-age=31536000, immutable"
     </FilesMatch>
+
+    # Service Worker must not be cached long term
+    <FilesMatch "sw\.js$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Service-Worker-Allowed "/"
+    </FilesMatch>
+
+    # Manifest headers
+    <FilesMatch "\.webmanifest$">
+        Header set Content-Type "application/manifest+json; charset=utf-8"
+        Header set Cache-Control "max-age=3600, must-revalidate"
+    </FilesMatch>
 </IfModule>
+

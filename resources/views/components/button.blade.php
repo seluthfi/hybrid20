@@ -3,6 +3,7 @@
     'size' => 'md',
     'type' => 'button',
     'disabled' => false,
+    'href' => null,
 ])
 
 @php
@@ -23,10 +24,20 @@
     ][$variant] ?? 'bg-primary text-on-primary';
 @endphp
 
-<button 
-    type="{{ $type }}" 
-    {{ $disabled ? 'disabled' : '' }}
-    {{ $attributes->merge(['class' => "$baseClasses $sizeClasses $variantClasses"]) }}
->
-    {{ $slot }}
-</button>
+@if($href)
+    <a 
+        href="{{ $href }}" 
+        role="button"
+        {{ $attributes->merge(['class' => "$baseClasses $sizeClasses $variantClasses"]) }}
+    >
+        {{ $slot }}
+    </a>
+@else
+    <button 
+        type="{{ $type }}" 
+        {{ $disabled ? 'disabled' : '' }}
+        {{ $attributes->merge(['class' => "$baseClasses $sizeClasses $variantClasses"]) }}
+    >
+        {{ $slot }}
+    </button>
+@endif

@@ -18,6 +18,7 @@
     <!-- Semi-transparent Backdrop Overlay (tanpa blur layar penuh) -->
     <div 
         x-show="open"
+        x-cloak
         x-transition:enter="ease-out duration-200"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -33,6 +34,7 @@
     <div class="fixed inset-x-0 bottom-0 sm:inset-0 sm:flex sm:items-center sm:justify-center p-0 sm:p-4 pointer-events-none">
         <div 
             x-show="open"
+            x-cloak
             x-transition:enter="ease-out duration-250"
             x-transition:enter-start="translate-y-full sm:translate-y-0 sm:scale-95 sm:opacity-0"
             x-transition:enter-end="translate-y-0 sm:scale-100 sm:opacity-100"

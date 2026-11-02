@@ -21,7 +21,7 @@
                             {{ $weekPosLabel }}
                         </span>
                         @if($currentWeek->is_repeat)
-                            <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-headline text-[10px] font-bold">
+                            <span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-headline text-xs font-bold">
                                 Ulangan
                             </span>
                         @endif
@@ -257,7 +257,7 @@
                                 </div>
                             </div>
                             <x-progress-bar :value="$todaySteps" :max="$stepsTarget" color="primary" />
-                            <span class="font-sans text-[11px] text-on-surface-variant">Total termasuk langkah saat lari</span>
+                            <span class="font-sans text-xs text-on-surface-variant">Total termasuk langkah saat lari</span>
                         </div>
 
                         <div class="border-t border-outline-variant/20 pt-3 flex flex-col gap-3">
@@ -270,7 +270,7 @@
                                     </span>
                                 </div>
                                 <x-progress-bar :value="$todayCalories" :max="$calorieTarget" color="tertiary" />
-                                <div class="flex items-center justify-between text-[11px] font-sans text-on-surface-variant">
+                                <div class="flex items-center justify-between text-xs font-sans text-on-surface-variant">
                                     @if($todayCalories > $calorieTarget)
                                         <span>Melebihi target {{ \App\Support\Num::format($todayCalories - $calorieTarget) }} kcal</span>
                                     @else
@@ -289,7 +289,7 @@
                                     </span>
                                 </div>
                                 <x-progress-bar :value="$todayProtein" :max="$proteinTarget" color="secondary" />
-                                <div class="flex items-center justify-between text-[11px] font-sans text-on-surface-variant">
+                                <div class="flex items-center justify-between text-xs font-sans text-on-surface-variant">
                                     @if($todayProtein < $proteinTarget)
                                         <span>Sisa {{ \App\Support\Num::format($proteinTarget - $todayProtein) }} g</span>
                                     @else
@@ -362,7 +362,7 @@
                     <div class="grid grid-cols-7 gap-2">
                         @foreach($weekSummary as $day)
                             <div class="flex flex-col items-center justify-center p-2.5 rounded-field glass-2 border {{ $day['is_today'] ? 'border-primary shadow-xs' : 'border-outline-variant/30' }}">
-                                <span class="font-headline text-[11px] uppercase tracking-wider {{ $day['is_today'] ? 'text-primary font-bold' : 'text-on-surface-variant' }}">
+                                <span class="font-headline text-xs uppercase tracking-wider {{ $day['is_today'] ? 'text-primary font-bold' : 'text-on-surface-variant' }}">
                                     {{ $day['day_name'] }}
                                 </span>
                                 <span class="font-metric text-sm font-bold {{ $day['is_today'] ? 'text-primary' : 'text-on-surface' }} mt-0.5 tabular-nums">

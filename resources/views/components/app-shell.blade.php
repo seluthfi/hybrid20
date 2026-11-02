@@ -16,6 +16,14 @@
 
     <title>{{ $title }} — HYBRID 20</title>
 
+    <meta name="theme-color" content="#613dde">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HYBRID 20">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
     <style>[x-cloak]{display:none!important}</style>
 
     <!-- Preload Variable Fonts to eliminate FOUT / font flicker -->
@@ -28,11 +36,35 @@
 <body class="app-bg font-sans text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed" 
       x-data="{ 
           quickActionOpen: false, 
-          weightModalOpen: false, 
-          stepsModalOpen: false, 
+          weightModalOpen: {{ $errors->has('weight_kg') ? 'true' : 'false' }}, 
+          stepsModalOpen: {{ $errors->has('steps') ? 'true' : 'false' }}, 
           freeWorkoutModalOpen: false 
       }"
       @pagehide.window="quickActionOpen = false; weightModalOpen = false; stepsModalOpen = false; freeWorkoutModalOpen = false">
+
+    <!-- Offline Banner (PLAN.md §10.12, §12) -->
+    <div 
+        x-data="{ isOffline: !navigator.onLine }"
+        x-show="isOffline"
+        x-cloak
+        @online.window="isOffline = false"
+        @offline.window="isOffline = true"
+        class="bg-tertiary-fixed text-on-tertiary-fixed-variant border-b border-tertiary/20 px-4 py-2.5 text-xs font-headline font-semibold flex items-center justify-between gap-3 shadow-xs sticky top-0 z-50 transition-[transform,opacity] duration-200"
+        role="status"
+        aria-live="polite"
+    >
+        <div class="flex items-center gap-2">
+            <x-icon name="sync_problem" class="w-4 h-4 text-tertiary shrink-0" />
+            <span>Kamu offline. Menyimpan butuh koneksi.</span>
+        </div>
+        <button 
+            type="button" 
+            @click="window.location.reload()" 
+            class="px-2.5 py-1 rounded-pill bg-tertiary text-on-tertiary text-xs font-bold hover:opacity-90 active:scale-95 transition-transform"
+        >
+            Coba lagi
+        </button>
+    </div>
 
     <!-- DESKTOP LAYOUT (Hidden on mobile < 1024px) -->
     <div class="hidden lg:flex min-h-screen">
@@ -46,7 +78,7 @@
                     </div>
                     <div class="flex flex-col">
                         <span class="font-headline text-lg font-bold tracking-tight text-on-surface">HYBRID 20</span>
-                        <span class="font-sans text-[11px] font-medium text-on-surface-variant">Program Kebugaran 20 Minggu</span>
+                        <span class="font-sans text-xs font-medium text-on-surface-variant">Program Kebugaran 20 Minggu</span>
                     </div>
                 </div>
 
@@ -112,7 +144,7 @@
                     </div>
                     <div class="flex flex-col min-w-0">
                         <span class="font-headline text-sm font-bold text-on-surface truncate">{{ $userName }}</span>
-                        <span class="font-sans text-[11px] text-on-surface-variant truncate">{{ auth()->user()->email ?? '' }}</span>
+                        <span class="font-sans text-xs text-on-surface-variant truncate">{{ auth()->user()->email ?? '' }}</span>
                     </div>
                 </div>
 
@@ -154,7 +186,7 @@
         <!-- Top App Bar Mobile -->
         <header id="app-mobile-topbar" class="h-16 px-4 glass-2 border-b border-outline-variant/30 fixed top-0 inset-x-0 z-30 flex items-center justify-between pt-[env(safe-area-inset-top,0px)]">
             <div class="flex flex-col">
-                <span class="font-headline text-[11px] font-semibold tracking-wider text-primary uppercase">HYBRID 20</span>
+                <span class="font-headline text-xs font-semibold tracking-wider text-primary uppercase">HYBRID 20</span>
                 <h1 class="font-headline text-lg font-bold text-on-surface tracking-tight leading-tight">{{ $title }}</h1>
             </div>
 
@@ -236,6 +268,7 @@
         <!-- Overlay Semi-Transparan (Solid tanpa blur demi 60fps) -->
         <div 
             x-show="quickActionOpen"
+            x-cloak
             x-transition:enter="ease-out duration-250"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
@@ -251,6 +284,7 @@
         <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
             <div 
                 x-show="quickActionOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-250"
                 x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                 x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"
@@ -347,6 +381,7 @@
         <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
             <div 
                 x-show="weightModalOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-250"
                 x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                 x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"
@@ -367,8 +402,8 @@
 
                 <form 
                     x-data="{ 
-                        weightDate: '{{ $shellToday }}', 
-                        weightKg: '',
+                        weightDate: '{{ old('measured_at', $shellToday) }}', 
+                        weightKg: '{{ old('weight_kg', '') }}',
                         submitting: false,
                         async submitWeight(e) {
                             if (!this.weightKg) return;
@@ -414,11 +449,14 @@
                     @method('PUT')
 
                     <x-field label="Tanggal Timbangan" name="measured_at">
-                        <input type="date" x-model="weightDate" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
+                        <input type="date" x-model="weightDate" name="measured_at" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
                     </x-field>
 
                     <x-field label="Berat Badan (kg)" name="weight_kg" hint="{{ $shellLatestWeight ? 'Terakhir: ' . \App\Support\Num::format($shellLatestWeight, 1) . ' kg' : 'Belum ada data' }}">
-                        <input type="text" x-model="weightKg" name="weight_kg" inputmode="decimal" placeholder="Contoh: 74,5" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus />
+                        <input type="text" x-model="weightKg" name="weight_kg" id="quick_weight_kg" inputmode="decimal" placeholder="Contoh: 74,5" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus aria-describedby="quick_weight_error" />
+                        @error('weight_kg')
+                            <p id="quick_weight_error" class="text-xs text-error mt-1">{{ $message }}</p>
+                        @enderror
                     </x-field>
 
                     <div class="flex items-center justify-end gap-2 pt-2">
@@ -436,6 +474,7 @@
         <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
             <div 
                 x-show="stepsModalOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-250"
                 x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                 x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"
@@ -456,8 +495,8 @@
 
                 <form 
                     x-data="{ 
-                        stepsDate: '{{ $shellToday }}', 
-                        stepsCount: '{{ $shellTodaySteps ?? '' }}',
+                        stepsDate: '{{ old('activity_date', $shellToday) }}', 
+                        stepsCount: '{{ old('steps', $shellTodaySteps ?? '') }}',
                         submitting: false,
                         async submitSteps(e) {
                             if (!this.stepsCount) return;
@@ -502,11 +541,14 @@
                     @method('PUT')
 
                     <x-field label="Tanggal Aktivitas" name="activity_date">
-                        <input type="date" x-model="stepsDate" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
+                        <input type="date" x-model="stepsDate" name="activity_date" class="w-full h-11 px-4 rounded-field glass-3 border border-outline-variant/50 text-sm font-sans focus:outline-primary" required />
                     </x-field>
 
                     <x-field label="Total Langkah" name="steps" hint="Total termasuk langkah saat lari">
-                        <input type="text" x-model="stepsCount" name="steps" inputmode="numeric" placeholder="Contoh: 10.000" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus />
+                        <input type="text" x-model="stepsCount" name="steps" id="quick_steps" inputmode="numeric" placeholder="Contoh: 10.000" class="w-full h-12 px-4 rounded-field glass-3 border border-outline-variant/50 font-metric text-lg font-bold text-on-surface focus:outline-primary tabular-nums" required autofocus aria-describedby="quick_steps_error" />
+                        @error('steps')
+                            <p id="quick_steps_error" class="text-xs text-error mt-1">{{ $message }}</p>
+                        @enderror
                     </x-field>
 
                     <div class="flex items-center justify-end gap-2 pt-2">
@@ -524,6 +566,7 @@
         <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
             <div 
                 x-show="freeWorkoutModalOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-250"
                 x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                 x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"

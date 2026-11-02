@@ -24,11 +24,9 @@
     @if($actionText)
         <div class="pt-2">
             @if($actionHref)
-                <a href="{{ $actionHref }}">
-                    <x-button variant="primary" size="sm">
-                        {{ $actionText }}
-                    </x-button>
-                </a>
+                <x-button :href="$actionHref" variant="primary" size="sm">
+                    {{ $actionText }}
+                </x-button>
             @else
                 {{ $slot }}
             @endif

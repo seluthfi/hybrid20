@@ -36,6 +36,7 @@ Aplikasi fitness pribadi (Laravel 13, PHP 8.5, Tailwind 4, single-user, web resp
 - Tidak ada klaim privasi palsu ("on-device", "terenkripsi lokal").
 - Setiap elemen ber-x-show wajib x-cloak. Setelah menyimpan perubahan di halaman mana pun, posisi scroll tidak boleh kembali ke atas.
 - Animasi: hanya transform/opacity (kecuali SVG stroke), <= 450 ms, hormati prefers-reduced-motion, tanpa konfeti atau efek perayaan; font tidak boleh berganti terlihat saat loading.
+- Dilarang menaruh <button>/<x-button> di dalam <button> atau <a>; setiap nama ikon x-icon harus terdefinisi; modal berisi form harus terbuka kembali bila validasi gagal.
 
 ## Perintah umum
 ```powershell
