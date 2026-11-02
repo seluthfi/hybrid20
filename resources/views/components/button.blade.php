@@ -6,7 +6,7 @@
 ])
 
 @php
-    $baseClasses = 'inline-flex items-center justify-center font-headline font-semibold rounded-pill transition-all duration-200 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]';
+    $baseClasses = 'inline-flex items-center justify-center font-headline font-semibold rounded-pill transition-[transform,colors,opacity] duration-150 ease-out select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none active:scale-[0.98]';
 
     $sizeClasses = [
         'sm' => 'min-h-[44px] px-4 text-xs gap-1.5',

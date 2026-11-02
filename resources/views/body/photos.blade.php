@@ -21,7 +21,7 @@
             </div>
 
             <!-- Segmented Pill Selector (Berat & Lingkar vs Foto Progres) -->
-            <div class="p-1 rounded-full bg-surface-container-high/60 backdrop-blur-md flex items-center gap-1 self-start sm:self-auto">
+            <div class="p-1 rounded-full glass-2 flex items-center gap-1 self-start sm:self-auto">
                 <a href="{{ route('body.index') }}" class="px-4 py-2 rounded-full font-headline text-xs font-medium text-on-surface-variant hover:text-on-surface flex items-center gap-1.5 transition-colors">
                     <x-icon name="straighten" class="w-4 h-4" />
                     <span>Berat & Lingkar</span>
@@ -109,7 +109,7 @@
                                          alt="{{ $poseTitles[$p->pose_label] ?? 'Foto Progres' }} tanggal {{ $group['date_formatted'] }}" 
                                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                                     
-                                    <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-on-background/70 text-white font-headline text-[10px] backdrop-blur-sm">
+                                    <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-on-background/70 text-white font-headline text-[10px]">
                                         {{ $poseTitles[$p->pose_label] ?? ucfirst($p->pose_label) }}
                                     </span>
                                 </div>
@@ -144,7 +144,7 @@
 
         <!-- MODAL UPLOAD FOTO (PLAN.md §10.9) -->
         <div x-show="uploadModalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
-            <div class="fixed inset-0 bg-on-background/30 backdrop-blur-md" @click="uploadModalOpen = false"></div>
+            <div class="fixed inset-0 bg-on-background/40" @click="uploadModalOpen = false"></div>
             <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none">
                 <div class="w-full max-w-md glass-3 rounded-card p-6 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4">
                     <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">
@@ -198,7 +198,7 @@
 
         <!-- MODAL VIEWER FULLSCREEN (PLAN.md §10.9) -->
         <div x-show="viewerModalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
-            <div class="fixed inset-0 bg-on-background/70 backdrop-blur-md" @click="viewerModalOpen = false"></div>
+            <div class="fixed inset-0 bg-on-background/70" @click="viewerModalOpen = false"></div>
             <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none">
                 <div class="w-full max-w-lg glass-3 rounded-card p-5 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4">
                     <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30">

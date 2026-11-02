@@ -144,7 +144,7 @@
                                     </x-card>
                                 @else
                                     <!-- KARTU SESI GYM ATAU LARI -->
-                                    <x-card tier="1" padding="lg" class="flex flex-col gap-4 border-outline-variant/30 transition-all shadow-xs">
+                                    <x-card tier="1" padding="lg" class="flex flex-col gap-4 border-outline-variant/30 transition-[transform,colors] duration-150 ease-out shadow-xs">
                                         <div class="flex items-start justify-between gap-3">
                                             <div class="flex items-start gap-3.5 min-w-0">
                                                 <div class="w-12 h-12 rounded-full {{ $isGym ? 'bg-primary/10 text-primary' : 'bg-secondary/10 text-secondary' }} flex items-center justify-center shrink-0 shadow-2xs">
@@ -196,7 +196,7 @@
                                                     </div>
                                                 </div>
 
-                                                <a href="{{ route('workouts.show', $latestWorkout->id) }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-pill glass-2 font-headline text-xs font-semibold text-primary hover:bg-surface-container-high transition-all">
+                                                <a href="{{ route('workouts.show', $latestWorkout->id) }}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-pill glass-2 font-headline text-xs font-semibold text-primary hover:bg-surface-container-high transition-[transform,colors] duration-150 ease-out">
                                                     <span>Lihat detail</span>
                                                     <x-icon name="chevron_right" class="w-4 h-4" />
                                                 </a>
@@ -206,18 +206,18 @@
                                             <div class="flex items-center justify-between gap-3 pt-1">
                                                 <form method="POST" action="{{ route('scheduled-workouts.skip', $sched->id) }}">
                                                     @csrf
-                                                    <button type="submit" class="px-4 py-2.5 rounded-pill text-xs font-headline font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all">
+                                                    <button type="submit" class="px-4 py-2.5 rounded-pill text-xs font-headline font-semibold text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-[transform,colors] duration-150 ease-out">
                                                         Lewati
                                                     </button>
                                                 </form>
 
                                                 @if($isGym)
-                                                    <a href="{{ route('workouts.create', ['scheduled' => $sched->id]) }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-pill bg-primary text-on-primary font-headline text-xs sm:text-sm font-semibold shadow-md active:scale-95 transition-all">
+                                                    <a href="{{ route('workouts.create', ['scheduled' => $sched->id]) }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-pill bg-primary text-on-primary font-headline text-xs sm:text-sm font-semibold shadow-md active:scale-[0.97] transition-[transform,colors] duration-150 ease-out">
                                                         <span>Mulai Latihan</span>
                                                         <x-icon name="arrow_forward" class="w-4 h-4" />
                                                     </a>
                                                 @else
-                                                    <a href="{{ route('workouts.create', ['type' => 'run', 'scheduled' => $sched->id]) }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-pill bg-secondary text-white font-headline text-xs sm:text-sm font-semibold shadow-md active:scale-95 transition-all">
+                                                    <a href="{{ route('workouts.create', ['type' => 'run', 'scheduled' => $sched->id]) }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-pill bg-secondary text-white font-headline text-xs sm:text-sm font-semibold shadow-md active:scale-[0.97] transition-[transform,colors] duration-150 ease-out">
                                                         <span>Catat Lari</span>
                                                         <x-icon name="arrow_forward" class="w-4 h-4" />
                                                     </a>
@@ -500,7 +500,7 @@
                     if (!this.$refs.miniCanvas) return;
 
                     const ctx = this.$refs.miniCanvas.getContext('2d');
-                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const isFxLite = document.documentElement.classList.contains('fx-lite') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
                     this.chartInstance = new window.Chart(ctx, {
                         type: 'line',
@@ -534,7 +534,7 @@
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
-                            animation: prefersReducedMotion ? false : { duration: 400 },
+                            animation: isFxLite ? false : { duration: 400 },
                             plugins: {
                                 legend: { display: false },
                                 tooltip: {
@@ -601,7 +601,7 @@
                     if (!this.$refs.canvas) return;
 
                     const ctx = this.$refs.canvas.getContext('2d');
-                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const isFxLite = document.documentElement.classList.contains('fx-lite') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     const labels = data.weeks.map(w => w.label);
                     const targets = data.weeks.map(w => w.target_km);
                     const actuals = data.weeks.map(w => w.actual_km);
@@ -647,7 +647,7 @@
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
-                            animation: prefersReducedMotion ? false : { duration: 500 },
+                            animation: isFxLite ? false : { duration: 450 },
                             plugins: {
                                 legend: { display: false },
                                 tooltip: {

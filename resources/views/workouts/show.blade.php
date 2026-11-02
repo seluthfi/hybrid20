@@ -15,7 +15,7 @@
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <a href="{{ route('workouts.index') }}" 
-                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full glass-2 flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-all"
+                   class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full glass-2 flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-[transform,colors] duration-150 ease-out"
                    aria-label="Kembali ke Riwayat"
                 >
                     <x-icon name="arrow_back" class="w-5 h-5" />
@@ -31,7 +31,7 @@
             <!-- Tombol Ubah & Hapus -->
             <div class="flex items-center gap-2">
                 <a href="{{ route('workouts.edit', $workout->id) }}" 
-                   class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-pill glass-2 border border-outline-variant/40 font-headline text-xs sm:text-sm font-semibold text-on-surface hover:bg-surface-container-high active:scale-95 transition-all shadow-xs"
+                   class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-pill glass-2 border border-outline-variant/40 font-headline text-xs sm:text-sm font-semibold text-on-surface hover:bg-surface-container-high active:scale-[0.97] transition-[transform,colors] duration-150 ease-out shadow-xs"
                 >
                     <x-icon name="edit" class="w-4 h-4" />
                     <span>Ubah</span>
@@ -40,7 +40,7 @@
                 <button 
                     type="button" 
                     @click="deleteModalOpen = true"
-                    class="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full flex items-center justify-center text-error hover:bg-error-container/40 active:scale-95 transition-all"
+                    class="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full flex items-center justify-center text-error hover:bg-error-container/40 active:scale-[0.97] transition-[transform,colors] duration-150 ease-out"
                     aria-label="Hapus sesi"
                 >
                     <x-icon name="delete" class="w-5 h-5" />
@@ -245,7 +245,7 @@
 
         <!-- MODAL KONFIRMASI HAPUS SESI (D23) -->
         <div x-show="deleteModalOpen" x-cloak class="fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true">
-            <div class="fixed inset-0 bg-on-background/25 backdrop-blur-md" @click="deleteModalOpen = false"></div>
+            <div class="fixed inset-0 bg-on-background/40" @click="deleteModalOpen = false"></div>
             <div class="fixed inset-0 flex items-center justify-center p-4 pointer-events-none">
                 <div class="w-full max-w-md glass-3 rounded-card p-6 shadow-2xl border border-white/80 pointer-events-auto flex flex-col gap-4">
                     <div class="flex items-center gap-3 text-error">

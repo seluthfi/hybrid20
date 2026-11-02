@@ -53,7 +53,7 @@
             <button 
                 type="button" 
                 @if($actionClick) @click="{{ $actionClick }}" @endif
-                class="min-h-[44px] px-4 rounded-pill glass-3 text-xs font-headline font-semibold text-on-surface hover:bg-surface-container-lowest active:scale-95 transition-all shadow-xs"
+                class="min-h-[44px] px-4 rounded-pill glass-3 text-xs font-headline font-semibold text-on-surface hover:bg-surface-container-lowest active:scale-[0.97] transition-[transform,colors] duration-150 ease-out shadow-xs"
             >
                 {{ $actionText }}
             </button>

@@ -53,7 +53,7 @@
                             placeholder="nama@email.com"
                             required 
                             autofocus
-                            class="w-full min-h-[48px] pl-11 pr-4 rounded-field glass-2 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary border border-outline-variant/40 shadow-xs transition-all"
+                            class="w-full min-h-[48px] pl-11 pr-4 rounded-field glass-2 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary border border-outline-variant/40 shadow-xs transition-colors duration-150 ease-out"
                         />
                     </div>
                 </x-field>
@@ -71,7 +71,7 @@
                                 id="password" 
                                 placeholder="Masukkan kata sandi"
                                 required 
-                                class="w-full min-h-[48px] pl-11 pr-12 rounded-field glass-2 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary border border-outline-variant/40 shadow-xs transition-all"
+                                class="w-full min-h-[48px] pl-11 pr-12 rounded-field glass-2 font-sans text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:ring-2 focus:ring-primary border border-outline-variant/40 shadow-xs transition-colors duration-150 ease-out"
                             />
                             <button 
                                 type="button" 
@@ -94,7 +94,7 @@
                 <div class="flex items-center justify-between pt-1">
                     <label class="flex items-center gap-2 cursor-pointer select-none">
                         <input type="checkbox" name="remember" id="remember" class="sr-only peer" />
-                        <div class="w-5 h-5 rounded-md border border-outline/50 flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary text-transparent peer-checked:text-white transition-all shadow-xs">
+                        <div class="w-5 h-5 rounded-md border border-outline/50 flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary text-transparent peer-checked:text-white transition-colors duration-150 ease-out shadow-xs">
                             <x-icon name="check" class="w-3.5 h-3.5" />
                         </div>
                         <span class="font-sans text-xs text-on-surface-variant font-medium">Ingat sesi</span>

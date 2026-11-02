@@ -23,8 +23,8 @@
 
 <div {{ $attributes->merge(['class' => "w-full bg-surface-container-highest/60 rounded-pill overflow-hidden $height p-0.5 border border-outline-variant/30"]) }}>
     <div 
-        class="h-full rounded-pill transition-all duration-300 {{ $colorClasses }}"
-        style="width: {{ $clampedPercentage }}%;"
+        class="h-full w-full rounded-pill origin-left transition-transform duration-200 ease-out {{ $colorClasses }}"
+        style="transform: scaleX({{ $clampedPercentage / 100 }});"
         role="progressbar"
         aria-valuenow="{{ $value }}"
         aria-valuemin="0"

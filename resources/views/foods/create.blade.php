@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-6 w-full max-w-2xl mx-auto pb-12">
 
         <div class="flex items-center gap-2">
-            <a href="{{ route('foods.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-95 transition-all">
+            <a href="{{ route('foods.index') }}" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-[0.97] transition-[transform,colors] duration-150 ease-out">
                 <x-icon name="arrow_back" class="w-5 h-5" />
             </a>
             <h1 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Tambah Makanan Baru</h1>

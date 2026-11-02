@@ -15,17 +15,17 @@
     aria-modal="true"
     @if($title) aria-labelledby="{{ $id }}-title" @endif
 >
-    <!-- Frosted Backdrop Overlay -->
+    <!-- Semi-transparent Backdrop Overlay (tanpa blur layar penuh) -->
     <div 
         x-show="open"
-        x-transition:enter="ease-out duration-300"
+        x-transition:enter="ease-out duration-200"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
-        x-transition:leave="ease-in duration-200"
+        x-transition:leave="ease-in duration-150"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
         @click="open = false"
-        class="fixed inset-0 bg-on-background/25 backdrop-blur-md transition-opacity"
+        class="fixed inset-0 bg-on-background/40 transition-opacity"
         aria-hidden="true"
     ></div>
 
@@ -33,10 +33,10 @@
     <div class="fixed inset-x-0 bottom-0 sm:inset-0 sm:flex sm:items-center sm:justify-center p-0 sm:p-4 pointer-events-none">
         <div 
             x-show="open"
-            x-transition:enter="ease-out duration-300"
+            x-transition:enter="ease-out duration-250"
             x-transition:enter-start="translate-y-full sm:translate-y-0 sm:scale-95 sm:opacity-0"
             x-transition:enter-end="translate-y-0 sm:scale-100 sm:opacity-100"
-            x-transition:leave="ease-in duration-200"
+            x-transition:leave="ease-in duration-180"
             x-transition:leave-start="translate-y-0 sm:scale-100 sm:opacity-100"
             x-transition:leave-end="translate-y-full sm:translate-y-0 sm:scale-95 sm:opacity-0"
             class="w-full sm:max-w-lg glass-3 rounded-t-sheet sm:rounded-card p-5 sm:p-6 shadow-2xl border border-white/80 pointer-events-auto max-h-[90vh] flex flex-col gap-4 overflow-y-auto"
@@ -59,7 +59,7 @@
                 <button 
                     type="button" 
                     @click="open = false"
-                    class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 active:scale-95 transition-all"
+                    class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 active:scale-[0.97] transition-[transform,colors] duration-150 ease-out"
                     aria-label="Tutup dialog"
                 >
                     <x-icon name="close" class="w-5 h-5" />

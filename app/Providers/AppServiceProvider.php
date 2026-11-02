@@ -20,5 +20,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         \Illuminate\Support\Carbon::setLocale('id');
+        \Illuminate\Support\Facades\View::composer('components.app-shell', \App\Http\View\Composers\AppShellComposer::class);
     }
 }
