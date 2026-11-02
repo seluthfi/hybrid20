@@ -16,6 +16,14 @@
 
     <title>{{ $title }} — HYBRID 20</title>
 
+    <meta name="theme-color" content="#613dde">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HYBRID 20">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="/icons/icon-192.png">
+
     <style>[x-cloak]{display:none!important}</style>
 
     <!-- Preload Variable Fonts to eliminate FOUT / font flicker -->
@@ -33,6 +41,30 @@
           freeWorkoutModalOpen: false 
       }"
       @pagehide.window="quickActionOpen = false; weightModalOpen = false; stepsModalOpen = false; freeWorkoutModalOpen = false">
+
+    <!-- Offline Banner (PLAN.md §10.12, §12) -->
+    <div 
+        x-data="{ isOffline: !navigator.onLine }"
+        x-show="isOffline"
+        x-cloak
+        @online.window="isOffline = false"
+        @offline.window="isOffline = true"
+        class="bg-tertiary-fixed text-on-tertiary-fixed-variant border-b border-tertiary/20 px-4 py-2.5 text-xs font-headline font-semibold flex items-center justify-between gap-3 shadow-xs sticky top-0 z-50 transition-[transform,opacity] duration-200"
+        role="status"
+        aria-live="polite"
+    >
+        <div class="flex items-center gap-2">
+            <x-icon name="sync_problem" class="w-4 h-4 text-tertiary shrink-0" />
+            <span>Kamu offline. Menyimpan butuh koneksi.</span>
+        </div>
+        <button 
+            type="button" 
+            @click="window.location.reload()" 
+            class="px-2.5 py-1 rounded-pill bg-tertiary text-on-tertiary text-[11px] font-bold hover:opacity-90 active:scale-95 transition-transform"
+        >
+            Coba lagi
+        </button>
+    </div>
 
     <!-- DESKTOP LAYOUT (Hidden on mobile < 1024px) -->
     <div class="hidden lg:flex min-h-screen">

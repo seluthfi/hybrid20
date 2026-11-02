@@ -66,4 +66,27 @@ try {
     });
 } catch (_) {}
 
+// Service Worker Registration (PLAN.md §12 Fase 7 PWA)
+if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then((registration) => {
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    if (newWorker) {
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.info('HYBRID 20: Pembaruan aplikasi tersedia.');
+                            }
+                        });
+                    }
+                });
+            })
+            .catch((err) => {
+                console.warn('HYBRID 20 SW registration failed:', err);
+            });
+    });
+}
+
 Alpine.start();
+
