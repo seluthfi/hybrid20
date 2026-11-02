@@ -107,7 +107,7 @@
                 <div class="p-6 text-center text-xs font-sans text-outline">Memuat daftar makanan...</div>
             </template>
 
-            <div x-show="!loading" class="flex flex-col gap-2">
+            <div x-show="!loading" x-cloak class="flex flex-col gap-2">
                 <template x-for="item in foods" :key="item.id">
                     <div 
                         @click="selectFood(item)" 

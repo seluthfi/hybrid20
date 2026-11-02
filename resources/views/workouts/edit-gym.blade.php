@@ -121,7 +121,7 @@
                             </div>
 
                             <!-- Accordion Body -->
-                            <div x-show="ex.is_open" class="p-4 flex flex-col gap-3 border-t border-outline-variant/20">
+                            <div x-show="ex.is_open" x-cloak class="p-4 flex flex-col gap-3 border-t border-outline-variant/20">
                                 <input type="hidden" :name="'exercises[' + exIdx + '][exercise_id]'" :value="ex.exercise_id">
                                 <input type="hidden" :name="'exercises[' + exIdx + '][exercise_name]'" :value="ex.exercise_name">
 
@@ -134,7 +134,7 @@
                                             <div class="flex items-center justify-between">
                                                 <div class="flex items-center gap-2">
                                                     <span class="font-headline text-xs font-bold text-on-surface uppercase tracking-wider" x-text="'Set ' + (sIdx + 1)"></span>
-                                                    <button type="button" x-show="ex.sets.length > 1" @click="removeSet(exIdx, sIdx)" class="text-[11px] font-sans text-error hover:underline" aria-label="Hapus set">Hapus</button>
+                                                    <button type="button" x-show="ex.sets.length > 1" x-cloak @click="removeSet(exIdx, sIdx)" class="text-[11px] font-sans text-error hover:underline" aria-label="Hapus set">Hapus</button>
                                                 </div>
 
                                                 <div class="flex items-center gap-2">

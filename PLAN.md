@@ -484,6 +484,27 @@ Skeleton Laravel sudah ada. Fase ini hanya merapikan; jangan membuat project bar
 - Tes: tren dengan data kurang → "Belum cukup data"; rata-rata 7 hari; grafik hanya data nyata; tidak ada nilai karangan saat DB kosong.
 - **DoD:** dashboard hanya menampilkan data aktual; empty state jelas.
 
+### Fase 6B: Animasi dan kehalusan antarmuka
+Tujuan: antarmuka terasa halus tanpa membebani HP. Anggaran kinerja lebih penting daripada efek.
+Aturan:
+- Hanya animasikan `transform` dan `opacity`. Dilarang menganimasikan `width`, `height`, `top`, `left`, `backdrop-filter`/radius blur, `box-shadow`, atau memakai `transition: all`.
+- Durasi 120–280 ms, easing keluar (ease-out); tidak ada animasi tak berujung yang dekoratif (R1: tanpa konfeti, tanpa perayaan, tanpa efek "streak").
+- Semua animasi mati atau menjadi fade singkat saat `prefers-reduced-motion: reduce` (R13). Tambahkan kelas `fx-lite` (blur ≤ 12 px, tanpa stagger, tanpa animasi grafik) bila `navigator.deviceMemory <= 4`, `Save-Data` aktif, atau `prefers-reduced-motion`.
+- Maksimal satu elemen beranimasi dengan blur tinggi pada satu waktu; header dan tab bar tidak ikut bertransisi saat pindah halaman.
+Isi:
+- Perbaiki akar kedipan: semua `x-show` punya `x-cloak`; tidak ada elemen overlay yang tampil sebelum JavaScript siap.
+- Transisi antarhalaman memakai CSS View Transitions lintas dokumen (`@view-transition { navigation: auto; }`) untuk area konten saja, dengan `view-transition-name` tetap pada header dan tab bar; durasi ≤ 200 ms; browser yang tidak mendukung tetap berjalan tanpa transisi. Tidak memakai library SPA/Livewire.
+- Sheet dan modal: geser naik (transform) + latar memudar (opacity); toast masuk dan keluar.
+- Daftar dan kartu muncul dengan fade + naik 8 px, jeda antar item 30–40 ms, hanya untuk 8 item pertama dan hanya saat halaman dimuat pertama kali (bukan saat filter).
+- Progress bar memakai `transform: scaleX` (bukan `width`). Indikator tab aktif bergeser dengan `translateX`. Tombol tertekan memakai `scale(0.97)` 100 ms. Badge status berubah dengan "pop" kecil 180 ms.
+- Accordion form gym: transisi `grid-template-rows` 0fr→1fr.
+- Skeleton shimmer memakai pseudo-element `transform`, bukan animasi `background-position`.
+- Chart.js: animasi 400–500 ms, dimatikan pada `fx-lite`.
+- Perubahan status di Rencana, pencatatan makanan/langkah/berat dikirim lewat `fetch` (Alpine), hanya bagian yang berubah yang diperbarui, posisi scroll tidak berubah, dan toast "Tersimpan" muncul. Tanpa JavaScript, form tetap bekerja lewat pengiriman biasa (progressive enhancement) dengan pemulihan scroll.
+Pengukuran: uji di Chrome DevTools dengan CPU 4× throttle dan emulasi HP; tidak ada long task > 50 ms saat transisi, CLS 0, INP < 200 ms, FPS stabil mendekati 60 saat scroll dan buka sheet.
+Tes: tes fitur untuk endpoint yang diubah ke fetch (respons JSON/partial + fallback form biasa); pemeriksaan otomatis (grep) bahwa CSS tidak memuat `transition: all` dan tidak menganimasikan properti terlarang; blok `prefers-reduced-motion` ada.
+DoD: tidak ada kedipan overlay; scroll tidak melompat setelah menyimpan; semua animasi ≤ anggaran; fx-lite bekerja; semua tes hijau.
+
 ### Fase 7: PWA
 - Manifest, ikon, `sw.js`, `offline.html`, banner offline, pengujian install/update, pengujian layar/browsers.
 - Tes/pemeriksaan: halaman privat tidak masuk cache; foto tidak di-cache; update SW berjalan.

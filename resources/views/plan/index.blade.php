@@ -112,7 +112,7 @@
                     </span>
                 </div>
 
-                <div class="flex overflow-x-auto gap-2 pb-1 pt-0.5 no-scrollbar scroll-smooth">
+                <div id="plan-week-selector" data-scroll-keep class="flex overflow-x-auto gap-2 pb-1 pt-0.5 no-scrollbar scroll-smooth">
                     @foreach($allWeeks as $w)
                         @php
                             $isSelected = $w->calendar_position === $currentWeek->calendar_position;
@@ -325,6 +325,7 @@
             <!-- Overlay -->
             <div 
                 x-show="detailOpen"
+                x-cloak
                 x-transition:enter="ease-out duration-300"
                 x-transition:enter-start="opacity-0"
                 x-transition:enter-end="opacity-100"
@@ -339,6 +340,7 @@
             <div class="fixed inset-x-0 bottom-0 lg:inset-0 lg:flex lg:items-center lg:justify-center p-0 lg:p-4 pointer-events-none">
                 <div 
                     x-show="detailOpen"
+                    x-cloak
                     x-transition:enter="ease-out duration-300"
                     x-transition:enter-start="translate-y-full lg:translate-y-0 lg:scale-95 lg:opacity-0"
                     x-transition:enter-end="translate-y-0 lg:scale-100 lg:opacity-100"
@@ -445,7 +447,7 @@
                         </div>
 
                         <!-- Datepicker Rescheduled To (Hanya muncul jika Ditunda) -->
-                        <div x-show="statusVal === 'rescheduled'" class="flex flex-col gap-1.5 p-3 rounded-xl bg-tertiary-fixed/20 border border-tertiary/20">
+                        <div x-show="statusVal === 'rescheduled'" x-cloak class="flex flex-col gap-1.5 p-3 rounded-xl bg-tertiary-fixed/20 border border-tertiary/20">
                             <label for="rescheduled_to" class="font-headline text-xs font-bold text-tertiary">
                                 Pindahkan ke Tanggal:
                             </label>

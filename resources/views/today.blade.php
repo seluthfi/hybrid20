@@ -331,10 +331,10 @@
 
                         <!-- Mini Chart Tren (Desktop) -->
                         <div class="hidden sm:block pt-1">
-                            <div x-show="!isEmpty" class="h-24 w-full relative">
+                            <div x-show="!isEmpty" x-cloak class="h-24 w-full relative">
                                 <canvas x-ref="miniCanvas"></canvas>
                             </div>
-                            <div x-show="isEmpty" class="py-3 text-center text-xs font-sans text-outline">
+                            <div x-show="isEmpty" x-cloak class="py-3 text-center text-xs font-sans text-outline">
                                 Belum cukup data untuk grafik tren
                             </div>
                         </div>
@@ -421,12 +421,12 @@
                     </div>
 
                     <!-- Canvas Area -->
-                    <div x-show="!isEmpty" class="relative w-full h-64 sm:h-72">
+                    <div x-show="!isEmpty" x-cloak class="relative w-full h-64 sm:h-72">
                         <canvas x-ref="canvas"></canvas>
                     </div>
 
                     <!-- Empty State -->
-                    <div x-show="isEmpty" class="py-10 flex flex-col items-center justify-center text-center">
+                    <div x-show="isEmpty" x-cloak class="py-10 flex flex-col items-center justify-center text-center">
                         <x-icon name="directions_run" class="w-10 h-10 text-outline mb-2" />
                         <span class="font-headline text-sm font-semibold text-on-surface">Belum Ada Program Aktif</span>
                         <span class="font-sans text-xs text-on-surface-variant max-w-sm mt-0.5">
